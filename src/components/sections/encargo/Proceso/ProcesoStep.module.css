@@ -31,9 +31,43 @@
 .trail path {
   fill: none;
   stroke: var(--color-accent-display);
-  stroke-width: var(--space-1);
   stroke-linecap: round;
-  stroke-dasharray: var(--space-1) var(--space-3);
+}
+
+/* Seven strokes on one curve: wide and faint outside, thin and solid in the middle, like a brush ribbon. */
+.layer0 {
+  stroke-width: var(--space-12);
+  opacity: 0.06;
+}
+
+.layer1 {
+  stroke-width: var(--space-10);
+  opacity: 0.08;
+}
+
+.layer2 {
+  stroke-width: var(--space-8);
+  opacity: 0.1;
+}
+
+.layer3 {
+  stroke-width: var(--space-6);
+  opacity: 0.14;
+}
+
+.layer4 {
+  stroke-width: var(--space-4);
+  opacity: 0.2;
+}
+
+.layer5 {
+  stroke-width: var(--space-2);
+  opacity: 0.4;
+}
+
+.layer6 {
+  stroke-width: var(--space-1);
+  opacity: 0.95;
 }
 
 /* Phone/tablet: a soft wave inside the narrow rail. Desktop swaps it for the zigzag curve. */

@@ -25,16 +25,27 @@ type Props = {
   phone: string;
 };
 
+/** Soft brush ribbon: stacked strokes, widest and faintest first, so the edges feather out to a darker core. */
+function Ribbon({ className, d }: { className: string; d: string }) {
+  return (
+    <g className={className}>
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <path key={i} className={styles[`layer${i}`]} d={d} vectorEffect="non-scaling-stroke" />
+      ))}
+    </g>
+  );
+}
+
 /** One step: badge and trail on the rail, a photo (or a tinted block with the icon), then title, text and links. */
 export function ProcesoStep({ step, index, isLast, stepLabel, phone }: Props) {
   return (
     <li className={styles.step}>
-      {/* Level-map trail (like a game map): a round badge per step, a dashed wave to the next one. */}
+      {/* Level-map trail (like a game map): a round badge per step, a soft ribbon to the next one. */}
       <div className={styles.rail}>
         {!isLast && (
           <svg className={styles.trail} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path className={styles.wave} d="M50 0 C 100 25, 0 75, 50 100" vectorEffect="non-scaling-stroke" />
-            <path className={styles.zigzag} d="M0 0 C 0 50, 100 50, 100 100" vectorEffect="non-scaling-stroke" />
+            <Ribbon className={styles.wave} d="M50 0 C 100 25, 0 75, 50 100" />
+            <Ribbon className={styles.zigzag} d="M0 0 C 0 50, 100 50, 100 100" />
           </svg>
         )}
         <Reveal className={styles.badge}>
