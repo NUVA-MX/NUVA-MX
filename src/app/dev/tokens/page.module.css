@@ -1,0 +1,86 @@
+.page {
+  padding: var(--space-10) var(--container-pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-size: var(--display-xl);
+  margin: 0;
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-size: var(--display-sm);
+  margin: var(--space-4) 0;
+}
+
+.theme {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-sm), 1fr));
+  gap: var(--space-4);
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.chip {
+  display: block;
+  height: var(--space-12);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--swatch);
+}
+
+.display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size);
+  line-height: var(--leading-title);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--size);
+}
+
+.spaceRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+}
+
+.bar {
+  display: block;
+  height: var(--space-3);
+  width: var(--w);
+  background: var(--color-action);
+}
+
+.radius {
+  display: block;
+  height: var(--space-14);
+  background: var(--color-surface-inverse);
+  border-radius: var(--r);
+}

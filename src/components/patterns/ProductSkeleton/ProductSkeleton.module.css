@@ -1,0 +1,60 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.media {
+  aspect-ratio: 4 / 5;
+  background: var(--color-placeholder);
+  animation: pulse var(--duration-slow) var(--ease-out) infinite alternate;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding: var(--space-5) var(--space-5) var(--space-5-5);
+}
+
+.lineWide,
+.lineShort,
+.lineButton {
+  display: block;
+  height: var(--space-3-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-placeholder);
+}
+
+.lineWide {
+  width: 70%;
+}
+
+.lineShort {
+  width: 45%;
+}
+
+.lineButton {
+  align-self: flex-end;
+  width: 30%;
+  height: var(--control-sm);
+  margin-top: var(--space-2-5);
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media {
+    animation: none;
+  }
+}

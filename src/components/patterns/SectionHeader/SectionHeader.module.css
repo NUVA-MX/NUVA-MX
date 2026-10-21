@@ -1,0 +1,47 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-6);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Scoped under .main so it beats the primitive's margin: 0 whatever the CSS chunk order. */
+.main .title {
+  margin-top: var(--space-2);
+}
+
+.main .lead {
+  margin-top: var(--space-3-5);
+}
+
+.aside {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-subtle);
+}
+
+.center {
+  justify-content: center;
+  text-align: center;
+  max-width: var(--container-text);
+  margin-inline: auto;
+}
+
+.center .main {
+  align-items: center;
+}
+
+.center .title {
+  margin-top: var(--space-3);
+}
+
+.center .lead {
+  margin-top: var(--space-4);
+}

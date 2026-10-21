@@ -1,0 +1,150 @@
+.root {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  background: var(--color-nav-bg);
+  backdrop-filter: blur(var(--blur-nav));
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.default {
+  --nav-h: var(--nav-height);
+}
+
+.store {
+  --nav-h: var(--nav-height-store);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-rows: var(--nav-h) var(--nav-row-mobile);
+  grid-template-areas:
+    'brand . action menu'
+    'switch switch switch switch';
+  align-items: center;
+  column-gap: var(--space-3);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.brand {
+  grid-area: brand;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-xs);
+  letter-spacing: var(--tracking-logo);
+  line-height: var(--leading-none);
+  color: var(--color-text);
+}
+
+.brand:hover {
+  color: var(--color-text);
+}
+
+.switch {
+  grid-area: switch;
+  justify-self: start;
+  align-self: start;
+}
+
+.desktopNav {
+  grid-area: links;
+  display: none;
+}
+
+.links {
+  display: flex;
+  gap: var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-nav);
+  white-space: nowrap;
+}
+
+.action {
+  grid-area: action;
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  grid-area: menu;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-sm);
+  height: var(--control-sm);
+  padding: 0;
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-text);
+}
+
+.panel {
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panelLinks {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-2) var(--container-pad) var(--space-4);
+  list-style: none;
+}
+
+.panelLinks .link {
+  display: block;
+  padding-block: var(--space-3);
+  font-size: var(--text-lg);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .bar {
+    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-rows: var(--nav-h);
+    grid-template-areas: 'brand switch . action menu';
+    column-gap: var(--space-6);
+  }
+
+  .switch {
+    align-self: center;
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 900px) {
+  .bar {
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-areas: 'brand switch links action';
+    column-gap: var(--space-8);
+  }
+
+  .desktopNav {
+    display: block;
+    justify-self: end;
+  }
+
+  .menuButton,
+  .panel {
+    display: none;
+  }
+
+  .panel[hidden],
+  .panelOpen {
+    display: none;
+  }
+}

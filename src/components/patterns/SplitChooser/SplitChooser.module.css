@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--viewport-full);
+}
+
+/* Phone: the two panels share the viewport equally. */
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .root {
+    height: var(--viewport-full);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .root {
+    flex-direction: row;
+  }
+}

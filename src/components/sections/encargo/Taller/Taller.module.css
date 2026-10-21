@@ -1,0 +1,99 @@
+.root {
+  padding-block: var(--section-gap-taller);
+  scroll-margin-top: var(--nav-offset);
+}
+
+/* Phone/tablet: stacked, photo first. */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'photo'
+    'copy';
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.photo {
+  grid-area: photo;
+  width: 100%;
+  max-width: var(--container-crosslink);
+  margin-inline: auto;
+}
+
+.copy {
+  grid-area: copy;
+}
+
+/* Scoped under .copy so they beat the primitives' own rules whatever the CSS chunk order. */
+.copy .title {
+  margin-top: var(--space-3);
+  line-height: var(--leading-title);
+}
+
+.copy .paragraph {
+  margin-top: var(--space-5);
+}
+
+/* Without a photo the copy takes the whole width of its column. */
+.noPhoto {
+  grid-template-areas: 'copy';
+}
+
+/* One column per figure. */
+.stats {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: var(--border-width) solid var(--color-border-strong);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.value {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-lg);
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+}
+
+.label {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-text-subtle);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .value {
+    font-size: var(--display-md);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'copy photo';
+    gap: var(--space-17);
+  }
+
+  .photo {
+    max-width: none;
+  }
+
+  .noPhoto {
+    grid-template-columns: minmax(0, var(--container-text));
+    grid-template-areas: 'copy';
+  }
+}

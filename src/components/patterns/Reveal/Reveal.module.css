@@ -1,0 +1,27 @@
+.root {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Without JavaScript nothing would reveal the content, so show it. */
+@media (scripting: none) {
+  .root {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    opacity: 1;
+    transform: none;
+  }
+}

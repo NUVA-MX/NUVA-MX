@@ -1,0 +1,63 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  background: var(--color-overlay);
+  backdrop-filter: blur(var(--blur-modal));
+  animation: fade var(--duration-fast) var(--ease-out);
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.box {
+  position: relative;
+  width: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  outline: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.center .box {
+  max-width: var(--modal-max);
+  max-height: var(--modal-max-height);
+  border-radius: var(--radius-lg);
+}
+
+.side {
+  justify-content: flex-end;
+}
+
+.side .box {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--cart-panel-width);
+  height: 100%;
+  box-shadow: var(--shadow-panel);
+  animation: slide var(--duration-base) var(--ease-out);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .center {
+    padding: var(--space-8);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(var(--panel-offset));
+  }
+}

@@ -1,0 +1,54 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-half);
+  padding: var(--space-half);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.option {
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-button);
+  line-height: var(--leading-body);
+  white-space: nowrap;
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.option:hover {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-text) 7%, transparent);
+}
+
+.current,
+.current:hover {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}
+
+/* Shape marker on the current option (circle on encargo, square on existencia): a cue besides color. */
+.current::before {
+  content: '';
+  display: inline-block;
+  width: var(--marker-size);
+  height: var(--marker-size);
+  margin-inline-end: var(--space-2);
+  border-radius: var(--radius-side-marker);
+  background: currentColor;
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .option {
+    padding-inline: var(--space-3-5);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-switch);
+  }
+}

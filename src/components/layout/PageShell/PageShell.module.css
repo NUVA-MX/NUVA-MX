@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--viewport-full);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  overflow-x: clip;
+}
+
+.main {
+  flex: 1;
+  outline: none;
+}
+
+.skip {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: var(--z-modal);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  transform: translateY(calc(-100% - var(--space-4)));
+}
+
+.skip:focus {
+  transform: none;
+  color: var(--color-action-text);
+}

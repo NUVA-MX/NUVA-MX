@@ -1,0 +1,143 @@
+.root {
+  position: relative;
+  display: block;
+  flex: 1 1 var(--split-even);
+  min-height: var(--split-min-height);
+  overflow: hidden;
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  transition:
+    flex-basis var(--duration-slow) var(--ease-split),
+    filter var(--duration-slow) var(--ease-split);
+}
+
+.root:hover {
+  color: var(--color-text-inverse);
+}
+
+.root:focus-visible {
+  outline-offset: calc(var(--focus-width) * -2);
+  outline-color: var(--color-text-inverse);
+}
+
+.photo {
+  position: absolute;
+  inset: 0 0 var(--split-media-bottom) 0;
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--veil-0) 0%,
+    var(--veil-42) 42%,
+    var(--veil-68) 68%,
+    var(--veil-100) 100%
+  );
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-4);
+  min-height: var(--split-min-height);
+  height: 100%;
+  padding: var(--split-pad);
+}
+
+.body {
+  margin: 0;
+  max-width: var(--measure-split);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+  color: var(--color-split-body);
+  /* Three lines in both panels, so the titles and buttons line up side by side. */
+  min-height: calc(3 * var(--text-lg) * var(--leading-body));
+}
+
+.preview {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body);
+  color: var(--color-text-inverse);
+}
+
+/* Button look on a plain span: the panel is the link. Panel color on lemon text: 8.9:1. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  padding-inline: var(--control-pad-xl);
+  border-radius: var(--radius-button);
+  background: var(--color-text-inverse);
+  color: var(--color-surface-inverse);
+  font-family: var(--font-button);
+  font-weight: var(--weight-button);
+  font-size: var(--text-lg);
+  transition: background var(--duration-base) var(--ease-out);
+}
+
+.active .button,
+.root:focus-visible .button {
+  background: var(--color-button-light-bg);
+  color: var(--color-button-light-text);
+}
+
+/* Store side: same layout in wine, so the two panels are two colors of one palette. */
+.root.wine {
+  --veil-0: var(--veil-wine-0);
+  --veil-42: var(--veil-wine-42);
+  --veil-68: var(--veil-wine-68);
+  --veil-68-active: var(--veil-wine-68-active);
+  --veil-100: var(--veil-wine-100);
+  --color-surface-inverse: var(--wine-700);
+  --color-placeholder-inverse: var(--wine-600);
+}
+
+/* Phone: two panels at 50/50, same block (eyebrow, title, preview, button) in each; the long body is for wider screens. */
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .root {
+    min-height: 0;
+  }
+
+  .content {
+    min-height: 0;
+    gap: var(--space-3);
+    padding: var(--space-6) var(--container-pad);
+  }
+
+  .body {
+    display: none;
+  }
+}
+
+/* Grow/dim only on devices with a real hover pointer. */
+@media (hover: hover) and (pointer: fine) {
+  .active {
+    flex-basis: var(--split-grow);
+  }
+
+  .active .veil {
+    background: linear-gradient(
+      to top,
+      var(--veil-0) 0%,
+      var(--veil-42) 42%,
+      var(--veil-68-active) 68%,
+      var(--veil-100) 100%
+    );
+  }
+
+  .dimmed {
+    flex-basis: var(--split-shrink);
+    filter: var(--split-dim);
+  }
+}

@@ -1,0 +1,75 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.mediaBox {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: var(--badge-offset);
+  left: var(--badge-offset);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding: var(--space-5) var(--space-5) var(--space-5-5);
+}
+
+.meta {
+  margin: 0;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-meta);
+  color: var(--color-text-subtle);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  margin-top: auto;
+  padding-top: var(--space-2-5);
+}
+
+.price {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-xs);
+  line-height: var(--leading-none);
+}
+
+.noPrice {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-meta);
+  color: var(--color-text-subtle);
+}
+
+.action {
+  margin-left: auto;
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .footer {
+    flex-wrap: wrap;
+  }
+
+  .action {
+    flex: 1 0 100%;
+    margin-left: 0;
+  }
+
+  .action > * {
+    width: 100%;
+  }
+}

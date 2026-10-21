@@ -1,0 +1,13 @@
+.root {
+  padding: var(--space-16) 0 var(--space-6);
+  scroll-margin-top: var(--nav-offset);
+}
+
+.body {
+  margin-top: var(--space-7);
+}
+
+/* Programmatic focus target after "retry"; not a control, so no ring. */
+.root:focus {
+  outline: none;
+}

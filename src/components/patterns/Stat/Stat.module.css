@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-lg);
+  line-height: var(--leading-manifesto);
+  color: var(--color-text);
+}
+
+.label {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-cue);
+  color: var(--color-text-subtle);
+}

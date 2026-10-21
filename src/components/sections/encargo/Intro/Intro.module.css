@@ -1,0 +1,29 @@
+.root {
+  padding-block: var(--section-gap-taller);
+}
+
+.text {
+  max-width: var(--container-manifesto);
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-md);
+  line-height: var(--leading-quote);
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--color-text);
+}
+
+/* Bold sans inside the serif: distinguishable by typeface and weight, not by color alone. */
+.strong {
+  font-family: var(--font-body);
+  font-weight: var(--weight-strong);
+  color: var(--color-link);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .text {
+    font-size: var(--display-lg);
+  }
+}

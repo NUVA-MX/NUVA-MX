@@ -1,0 +1,18 @@
+.root {
+  margin-top: var(--space-10);
+  padding: var(--space-14) 0;
+  background: var(--color-bg-alt);
+  scroll-margin-top: var(--nav-offset);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-md), 100%), 1fr));
+  gap: var(--space-7);
+}
+
+.text {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-md);
+  line-height: var(--leading-lead);
+}

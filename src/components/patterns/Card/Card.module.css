@@ -1,0 +1,24 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.interactive {
+  cursor: pointer;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.interactive:hover,
+.interactive:focus-within {
+  transform: scale(var(--scale-card-hover));
+  box-shadow: var(--shadow-card-hover);
+  z-index: var(--z-card-hover);
+}

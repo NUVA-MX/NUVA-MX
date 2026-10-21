@@ -1,0 +1,205 @@
+.step {
+  display: grid;
+  grid-template-columns: var(--rail-width) minmax(0, 1fr);
+  grid-template-areas:
+    'rail photo'
+    'rail copy';
+  column-gap: var(--space-4);
+  row-gap: var(--space-6);
+  align-items: center;
+}
+
+.rail {
+  grid-area: rail;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+}
+
+/* From this badge's center to the next one's: the rail is as tall as the step, plus the gap between steps. */
+.trail {
+  position: absolute;
+  top: calc(var(--badge-size) / 2);
+  left: 0;
+  width: 100%;
+  height: calc(100% + var(--steps-gap));
+  overflow: visible;
+  pointer-events: none;
+}
+
+.trail path {
+  fill: none;
+  stroke: var(--color-accent-display);
+  stroke-width: var(--space-1);
+  stroke-linecap: round;
+  stroke-dasharray: var(--space-1) var(--space-3);
+}
+
+/* Phone/tablet: a soft wave inside the narrow rail. Desktop swaps it for the zigzag curve. */
+.trail .zigzag {
+  display: none;
+}
+
+/* Game-map node: round, with a solid lower edge that reads as a pressable 3D button. */
+.badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--badge-size);
+  height: var(--badge-size);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-display);
+  box-shadow: 0 var(--space-1) 0 var(--color-text);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-md);
+  line-height: var(--leading-none);
+  color: var(--color-chip-text);
+}
+
+.photo {
+  grid-area: photo;
+  position: relative;
+  width: 100%;
+}
+
+.copy {
+  grid-area: copy;
+}
+
+/* Empty photo slot: a tinted block (olive, then wine) with the step's brand icon enlarged inside. */
+.icon {
+  width: auto;
+  height: 56%;
+  max-width: 56%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* The word "Paso" is only for screen readers; sighted users read the big number. */
+.numberLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-md);
+  line-height: var(--leading-title);
+  color: var(--color-text);
+}
+
+.body {
+  max-width: var(--measure-lead);
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+}
+
+
+/* The three techniques of step 5, under the text: name and one fact each. */
+.techniques {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--space-24), 1fr));
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.technique {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+}
+
+.techniqueName {
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.techniqueFact {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+}
+
+/* Text link to WhatsApp under a step; 44px tall for thumbs. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  margin-top: var(--space-2);
+  font-weight: var(--weight-medium);
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+.link:hover {
+  color: var(--color-link-hover);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  /* Desktop: photo | trail | text, alternating sides; the trail runs down the middle and swings side to side. */
+  .step {
+    grid-template-columns: minmax(0, 1fr) var(--rail-width) minmax(0, 1fr);
+    grid-template-areas: 'photo rail copy';
+    column-gap: var(--space-8);
+  }
+
+  .step:nth-child(even) {
+    grid-template-areas: 'copy rail photo';
+  }
+
+  /* Badge centered on the row; photos share one ratio, so every row is as tall and the trail meets the next badge. */
+  .rail {
+    align-items: center;
+  }
+
+  /* Zigzag like a game map: odd badges sit left of center, even ones right; the trail curves between them. */
+  .badge {
+    transform: translateX(calc(var(--zigzag) * -1));
+    font-size: var(--display-lg);
+  }
+
+  .step:nth-child(even) .badge {
+    transform: translateX(var(--zigzag));
+  }
+
+  .trail {
+    top: 50%;
+    left: calc(50% - var(--zigzag));
+    width: calc(var(--zigzag) * 2);
+  }
+
+  .step:nth-child(even) .trail {
+    transform: scaleX(-1);
+  }
+
+  .trail .wave {
+    display: none;
+  }
+
+  .trail .zigzag {
+    display: inline;
+  }
+
+  .stepTitle {
+    font-size: var(--display-lg);
+  }
+
+  .body {
+    font-size: var(--text-xl);
+  }
+}

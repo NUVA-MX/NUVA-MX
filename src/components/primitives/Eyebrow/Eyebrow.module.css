@@ -1,0 +1,67 @@
+.root {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body);
+  text-transform: uppercase;
+}
+
+.size-2xs {
+  font-size: var(--text-2xs);
+}
+
+.size-xs {
+  font-size: var(--text-xs);
+}
+
+.size-sm {
+  font-size: var(--text-sm);
+}
+
+.tone-default {
+  color: var(--color-eyebrow);
+}
+
+.tone-inverse {
+  color: var(--color-eyebrow-inverse);
+}
+
+.tone-subtle {
+  color: var(--color-text-subtle);
+}
+
+.tone-current {
+  color: currentColor;
+}
+
+.tracking-eyebrow {
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+.tracking-tagline {
+  letter-spacing: var(--tracking-tagline);
+}
+
+.tracking-entry {
+  letter-spacing: var(--tracking-entry);
+}
+
+.tracking-label {
+  letter-spacing: var(--tracking-label);
+}
+
+.tracking-info {
+  letter-spacing: var(--tracking-info);
+}
+
+.tracking-step {
+  letter-spacing: var(--tracking-step);
+}
+
+.tracking-meta {
+  letter-spacing: var(--tracking-meta);
+}
+
+.tracking-cue {
+  letter-spacing: var(--tracking-cue);
+}

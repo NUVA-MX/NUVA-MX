@@ -1,0 +1,49 @@
+.root {
+  padding-block: var(--section-gap-taller);
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+  overflow: clip;
+}
+
+.root :focus-visible {
+  outline-color: var(--color-text-inverse);
+}
+
+.root .eyebrow {
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--container-text);
+  margin: var(--space-10) auto 0;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-2xl);
+  line-height: var(--leading-title);
+  color: var(--color-text-inverse);
+  text-wrap: balance;
+}
+
+.line {
+  font-size: var(--text-xl);
+  line-height: var(--leading-lead);
+  color: var(--color-text-inverse-muted);
+}
+
+.block .cta {
+  margin-top: var(--space-8);
+}
+
+/* No photos yet: the block sits right under the eyebrow. */
+.block.alone {
+  margin-top: 0;
+}

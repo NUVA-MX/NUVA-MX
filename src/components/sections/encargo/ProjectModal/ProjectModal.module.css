@@ -1,0 +1,122 @@
+/*
+ * Selectors use [data-theme] / double classes so they beat Modal's own rules
+ * whatever the CSS chunk order.
+ */
+.backdrop[data-theme] {
+  font-family: var(--font-body);
+}
+
+.backdrop[data-theme] .box {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Height 0 and sticky: the close button stays at the top-right while the box scrolls. */
+.closeBar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-card-hover);
+  display: flex;
+  justify-content: flex-end;
+  height: 0;
+}
+
+.close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  margin: var(--space-3);
+  padding: 0;
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.close:hover {
+  background: var(--color-bg);
+}
+
+/* Tablet and desktop: photo | content. */
+.root {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.media {
+  position: relative;
+  min-height: var(--modal-media-min);
+  background: var(--color-placeholder);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-12) var(--space-10) var(--space-10);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-xl);
+  line-height: var(--leading-title);
+  color: var(--color-text);
+}
+
+.description {
+  font-size: var(--text-xl);
+  line-height: var(--leading-lead);
+  color: var(--color-text-muted);
+}
+
+/* InfoGrid labels at 13px, sentence case (content already is). */
+.facts dt {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-none);
+  text-transform: none;
+}
+
+.facts dd {
+  font-size: var(--text-lg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .backdrop[data-theme] {
+    padding: var(--space-2);
+  }
+
+  .backdrop[data-theme] .box {
+    max-height: 100%;
+    height: 100%;
+  }
+
+  .root {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .media {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .content {
+    padding: var(--space-6) var(--space-5) var(--space-8);
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

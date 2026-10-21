@@ -1,0 +1,21 @@
+.root {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.default {
+  max-width: var(--container-max);
+}
+
+.narrow {
+  max-width: var(--container-narrow);
+}
+
+.text {
+  max-width: var(--container-text);
+}
+
+.full {
+  max-width: none;
+}

@@ -1,0 +1,76 @@
+.root {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tone-default {
+  background: var(--color-placeholder);
+}
+
+.tone-inverse {
+  background: var(--color-placeholder-inverse);
+}
+
+.ratio-4-5 {
+  aspect-ratio: 4 / 5;
+}
+
+.ratio-16-10 {
+  aspect-ratio: 16 / 10;
+}
+
+.ratio-1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+.ratio-16-7 {
+  aspect-ratio: 16 / 7;
+}
+
+.ratio-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.ratio-fill {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.radius-none {
+  border-radius: var(--radius-none);
+}
+
+.radius-lg {
+  border-radius: var(--radius-lg);
+}
+
+.radius-card {
+  border-radius: var(--radius-card);
+}
+
+.radius-block {
+  border-radius: var(--radius-block);
+}
+
+.tint-olive {
+  background: var(--color-tint-olive);
+}
+
+.tint-wine {
+  background: var(--color-tint-wine);
+}
+
+/* Empty slot: decorative content (an icon) centered in the block. */
+.slot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  object-fit: cover;
+}

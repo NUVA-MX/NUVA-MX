@@ -1,0 +1,120 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  flex-shrink: 0;
+  border-radius: var(--radius-button);
+  border: var(--border-width) solid transparent;
+  font-family: var(--font-button);
+  font-weight: var(--weight-button);
+  line-height: var(--leading-none);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.root:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sm {
+  height: var(--control-sm);
+  padding-inline: var(--control-pad-sm);
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-button);
+}
+
+.md {
+  height: var(--control-md);
+  padding-inline: var(--control-pad-md);
+  font-size: var(--text-button);
+}
+
+.lg {
+  height: var(--control-lg);
+  padding-inline: var(--control-pad-lg);
+  font-size: var(--text-lg);
+}
+
+.xl {
+  height: var(--control-xl);
+  padding-inline: var(--control-pad-xl);
+  font-size: var(--text-lg);
+}
+
+.iconOnly {
+  padding-inline: 0;
+  aspect-ratio: 1;
+}
+
+.block {
+  width: 100%;
+}
+
+.primary {
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: var(--color-action-text);
+}
+
+.primary:hover {
+  background: var(--color-action-hover);
+  border-color: var(--color-action-hover);
+  color: var(--color-action-text);
+}
+
+.primary:active {
+  background: var(--color-action-active);
+  border-color: var(--color-action-active);
+}
+
+.secondary {
+  background: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.secondary:hover {
+  background: color-mix(in srgb, var(--color-text) 7%, transparent);
+  color: var(--color-text);
+}
+
+.secondary:active {
+  background: color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+
+.ghost-inverse {
+  background: transparent;
+  border-color: var(--color-border-ghost-inverse);
+  color: var(--color-text-inverse);
+}
+
+.ghost-inverse:hover {
+  background: color-mix(in srgb, var(--color-text-inverse) 12%, transparent);
+  color: var(--color-text-inverse);
+}
+
+/* Light/highlight fill (tokens --color-button-light-*): for dark bands and the photo hero. */
+.light {
+  background: var(--color-button-light-bg);
+  border-color: var(--color-button-light-bg);
+  color: var(--color-button-light-text);
+}
+
+.light:hover {
+  background: var(--color-button-light-hover);
+  border-color: var(--color-button-light-hover);
+  color: var(--color-button-light-text);
+}
+
+.light:focus-visible {
+  outline-color: var(--color-text-inverse);
+}

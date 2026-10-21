@@ -1,0 +1,546 @@
+/*
+ * NUVA — design tokens.
+ * The only file with raw values (colors, px). Everything else uses var(--…).
+ * Layers: primitives -> semantic -> themes ([data-theme]).
+ * Breakpoints: see src/styles/breakpoints.ts (640 / 900 / 1180).
+ */
+
+/* 1.1 Color primitives */
+:root {
+  --ink-900: #1d1f20;
+  --ink-700: #4b5157;
+  --ink-600: #5a5f64;
+  --ink-500: #6b7076;
+  --ink-400: #9aa3ab;
+  --ink-300: #b9c4cd; /* secondary text on the Entry strip */
+
+  --paper-100: #ffffff;
+  --paper-200: #f2f2f3;
+  --paper-300: #e9eaec;
+  --paper-400: #e7e9ec;
+  --paper-500: #dcdfe3;
+
+  --blue-950: #12181d;
+  --blue-900: #1b2a38;
+  --blue-850: #243646;
+  --blue-700: #3f5c78;
+  --blue-600: #5980a6;
+  --blue-650: #4b6c8d; /* NUVA blue darkened for AA contrast with light text / on light */
+  --blue-500: #749dc4;
+  --blue-300: #8fb0cf;
+  --blue-200: #c9d3dc;
+  --blue-100: #dfe5ea;
+
+  --sand-950: #2a2420;
+  --sand-850: #3a322b;
+  --sand-700: #7a6647;
+  --sand-500: #a0603a;
+  --sand-300: #c8b79a;
+  --sand-200: #e0d9cf;
+  --sand-150: #e8e2d8;
+  --sand-100: #ece7e0;
+  --sand-50: #f4f1ec;
+
+  --white: #ffffff;
+}
+
+/* 1.2 Semantic (base theme = Made to order) */
+:root {
+  --color-bg: var(--paper-200);
+  --color-bg-alt: var(--paper-300);
+  --color-surface: var(--paper-100);
+  --color-surface-inverse: var(--blue-900);
+  --color-placeholder: var(--paper-400);
+  --color-placeholder-inverse: var(--blue-850);
+
+  --color-text: var(--ink-900);
+  --color-text-muted: var(--ink-700);
+  --color-text-subtle: var(--ink-600); /* AA: --ink-500 gave 4.4:1 on --paper-200 / --sand-50 */
+  --color-text-inverse: var(--paper-200);
+  --color-text-inverse-muted: var(--blue-200);
+
+  --color-eyebrow: var(--blue-650); /* AA: --blue-600 gave 3.7:1 on --paper-200 */
+  --color-eyebrow-inverse: var(--blue-300);
+
+  --color-link: var(--blue-700);
+  --color-link-hover: var(--ink-900);
+
+  --color-action: var(--blue-650); /* AA: --blue-600 with --paper-200 text gave 3.7:1 */
+  --color-action-hover: var(--blue-700);
+  --color-action-active: #416180;
+  --color-action-text: var(--paper-200);
+
+  --color-border: rgba(29, 31, 32, 0.12);
+  --color-border-strong: rgba(29, 31, 32, 0.2);
+  --color-border-inverse: rgba(242, 242, 243, 0.25);
+  --color-border-ghost-inverse: rgba(255, 255, 255, 0.45);
+
+  --color-overlay: rgba(15, 20, 25, 0.55);
+  --color-nav-bg: rgba(242, 242, 243, 0.82);
+  --color-chip-dark: rgba(29, 31, 32, 0.55);
+  --color-chip-text: var(--white);
+
+  --color-status-ok: var(--white);
+  --color-status-low: var(--sand-500);
+  --color-status-out: rgba(29, 31, 32, 0.75);
+
+  /* Stock badges (background / text) */
+  --color-badge-ok-bg: rgba(255, 255, 255, 0.9);
+  --color-badge-ok-text: var(--sand-950);
+  --color-badge-low-bg: rgba(143, 85, 48, 0.94); /* AA: rgba(160,96,58,.9) gave 4.2:1 with white */
+  --color-badge-low-text: var(--white);
+  --color-badge-out-bg: rgba(29, 31, 32, 0.75);
+  --color-badge-out-text: var(--sand-50);
+
+  --color-danger: #9b2c2c;
+  --color-success: #2f6b3a;
+
+  --color-selection: rgba(89, 128, 166, 0.2);
+
+  /* Entry: veil on each panel (bottom-to-top gradient) */
+  --veil-encargo-0: rgba(18, 26, 34, 0.97);
+  --veil-encargo-42: rgba(18, 26, 34, 0.94);
+  --veil-encargo-68: rgba(18, 26, 34, 0.68);
+  --veil-encargo-68-active: rgba(18, 26, 34, 0.52);
+  --veil-encargo-100: rgba(18, 26, 34, 0.2);
+  --veil-existencia-0: rgba(34, 26, 20, 0.97);
+  --veil-existencia-42: rgba(34, 26, 20, 0.94);
+  --veil-existencia-68: rgba(34, 26, 20, 0.68);
+  --veil-existencia-68-active: rgba(34, 26, 20, 0.52);
+  --veil-existencia-100: rgba(34, 26, 20, 0.2);
+  --color-entry-rule: rgba(242, 242, 243, 0.12);
+}
+
+/* 1.3 Themes */
+[data-theme='encargo'] {
+  --veil-0: var(--veil-encargo-0);
+  --veil-42: var(--veil-encargo-42);
+  --veil-68: var(--veil-encargo-68);
+  --veil-68-active: var(--veil-encargo-68-active);
+  --veil-100: var(--veil-encargo-100);
+  --color-split-body: var(--blue-100);
+}
+
+[data-theme='existencia'] {
+  --nav-offset: var(--nav-height-store);
+  --color-bg: var(--sand-50);
+  --color-bg-alt: var(--sand-150);
+  --color-surface-inverse: var(--sand-950);
+  --color-placeholder: var(--sand-100);
+  --color-placeholder-inverse: var(--sand-850);
+  --color-text-inverse: var(--sand-50);
+  --color-text-inverse-muted: var(--sand-200);
+  --color-eyebrow: var(--sand-700);
+  --color-eyebrow-inverse: var(--sand-300);
+  --color-link: var(--sand-700);
+  --color-action: var(--sand-950);
+  --color-action-hover: #3a322b;
+  --color-action-active: #1f1a17;
+  --color-action-text: var(--sand-50);
+  --color-nav-bg: rgba(244, 241, 236, 0.84);
+  --color-selection: rgba(200, 183, 154, 0.4);
+
+  --veil-0: var(--veil-existencia-0);
+  --veil-42: var(--veil-existencia-42);
+  --veil-68: var(--veil-existencia-68);
+  --veil-68-active: var(--veil-existencia-68-active);
+  --veil-100: var(--veil-existencia-100);
+  --color-split-body: var(--sand-150);
+}
+
+[data-theme='entrada'] {
+  --color-bg: var(--blue-950);
+  --color-text: var(--paper-200);
+  --color-text-muted: var(--ink-300);
+  --color-eyebrow: var(--blue-300);
+  --color-link: var(--blue-300);
+  --color-link-hover: var(--white);
+  --color-border: var(--color-entry-rule);
+}
+
+/* 1.4 Typography */
+:root {
+  --font-display: var(--font-darker-grotesque), 'Darker Grotesque', system-ui, sans-serif;
+  --font-body: var(--font-acumin), 'Acumin Variable Concept', system-ui, sans-serif;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-display: 600;
+
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-button: 14px;
+  --text-md: 15px;
+  --text-lg: 16px;
+  --text-xl: 17px;
+  --display-xs: 22px;
+  --display-product: 23px;
+  --display-sm: 26px;
+  --display-step: 30px;
+  --display-md: 32px;
+  --display-lg: 40px;
+  --display-modal: 44px;
+  --display-xl: clamp(40px, 5vw, 56px);
+  --display-2xl: clamp(44px, 5.5vw, 64px);
+  --display-hero: clamp(64px, 9vw, 104px);
+  --display-split: clamp(44px, 6vw, 86px);
+
+  --leading-none: 1;
+  --leading-tight: 0.9;
+  --leading-split: 0.94;
+  --leading-snug: 1.02;
+  --leading-title: 1.08;
+  --leading-manifesto: 1.15;
+  --leading-quote: 1.25;
+  --leading-body: 1.6;
+  --leading-lead: 1.65;
+  --leading-relaxed: 1.7;
+
+  --tracking-none: 0;
+  --tracking-display: 0.02em;
+  --tracking-split: 0.04em;
+  --tracking-logo: 0.22em;
+  --tracking-hero: 0.12em;
+  --tracking-nav: 0.04em;
+  --tracking-button: 0.06em;
+  --tracking-note: 0.08em;
+  --tracking-switch: 0.1em;
+  --tracking-meta: 0.12em;
+  --tracking-cue: 0.14em;
+  --tracking-label: 0.16em;
+  --tracking-info: 0.18em;
+  --tracking-step: 0.2em;
+  --tracking-eyebrow: 0.24em;
+  --tracking-entry: 0.28em;
+  --tracking-tagline: 0.42em;
+
+  --measure-body: 52ch;
+  --measure-lead: 46ch;
+  --measure-split: 40ch;
+  --measure-quote: 24ch;
+}
+
+/* 1.5 Spacing and layout */
+:root {
+  --space-0: 0;
+  --space-px: 1px;
+  --space-half: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-4-5: 18px;
+  --space-5: 20px;
+  --space-5-5: 22px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 56px;
+  --space-14: 64px;
+  --space-16: 72px;
+  --space-17: 80px;
+  --space-17-5: 84px;
+  --space-18: 88px;
+  --space-20: 96px;
+  --space-24: 110px;
+
+  --container-max: 1180px;
+  --container-pad: var(--space-7);
+  --container-narrow: 760px;
+  --container-text: 700px;
+  --container-crosslink: 640px;
+  --container-manifesto: 900px;
+  --container-admin: 1000px;
+  --container-form: 420px;
+
+  --nav-height: 56px;
+  --nav-height-store: 60px;
+  --nav-row-mobile: 48px; /* second nav row on mobile (switch) */
+  --nav-offset: var(--nav-height); /* offsets the fixed nav for anchors (scroll-margin-top) */
+  --hero-media-min-mobile: 320px;
+  --hero-min-height: 560px;
+  --hero-min-height-store: 440px;
+  --card-project-width: 340px;
+  --card-project-width-mobile: 85vw;
+  --card-project-min-height: 520px;
+  --card-project-media-min: 280px;
+  --modal-max: 980px;
+  --modal-max-height: 88vh;
+  --modal-media-min: 380px;
+  --crosslink-media-min: 360px;
+  --cart-panel-width: 420px;
+  --admin-thumb: 56px;
+  --admin-preview: 160px;
+
+  --grid-min-sm: 180px;
+  --grid-min-md: 280px;
+  --grid-min-lg: 320px;
+
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 46px;
+  --control-pad-sm: 16px;
+  --control-pad-md: 20px;
+  --control-pad-lg: 26px;
+
+  --icon-sm: 16px;
+  --icon-md: 20px;
+
+  --chip-size: 34px;
+  --chip-offset: 18px;
+  --badge-offset: 14px;
+  --cue-line: 34px;
+  --cue-line-long: 38px;
+
+  --rail-pad-top: 22px;
+  --rail-pad-bottom: 34px;
+  --rail-gap: 24px;
+
+  --split-grow: 56%;
+  --split-shrink: 44%;
+  --split-even: 50%;
+  --split-min-height: min(100vh, 620px);
+  --split-pad: clamp(32px, 6vw, 80px);
+  --split-media-bottom: 46%;
+  --split-dim: saturate(0.75) brightness(0.82);
+  --cue-dim: 0.55;
+
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --border-width: 1px;
+  --border-width-strong: 2px;
+
+  --viewport-full: 100vh;
+}
+
+/* On mobile the nav has two rows (see src/styles/breakpoints.ts: sm = 640) */
+@media (max-width: 640px) {
+  :root,
+  [data-theme='encargo'] {
+    --nav-offset: calc(var(--nav-height) + var(--nav-row-mobile));
+  }
+  [data-theme='existencia'] {
+    --nav-offset: calc(var(--nav-height-store) + var(--nav-row-mobile));
+  }
+}
+
+/* 1.6 Radii, shadows, blur, motion, layers */
+:root {
+  --radius-none: 0;
+  --radius-xs: 8px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 10px 30px rgba(29, 31, 32, 0.07);
+  --shadow-card-hover: 0 22px 48px rgba(29, 31, 32, 0.16);
+  --shadow-panel: -12px 0 40px rgba(15, 20, 25, 0.2);
+
+  --blur-nav: 18px;
+  --blur-chip: 6px;
+  --blur-modal: 6px;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --ease-split: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 700ms;
+
+  --scale-card-hover: 1.045;
+  --reveal-distance: 22px;
+  --panel-offset: 100%;
+
+  --z-base: 0;
+  --z-raised: 1;
+  --z-card-hover: 2;
+  --z-nav: 50;
+  --z-entry-bar: 60;
+  --z-modal: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --scale-card-hover: 1;
+    --reveal-distance: 0px;
+  }
+}
+
+/*
+ * 2. "taller" theme (/encargo v2, "Hecho a tu medida").
+ * Leak rule: new primitives are inert (nothing outside the theme uses them) and new shape
+ * tokens have the same value in :root as today. Every visual change lives in
+ * [data-theme='taller']. Breakpoints: see src/styles/breakpoints.ts (640 / 1024).
+ */
+
+/* 2.1 taller theme primitives (client palette, 2026-09-29) */
+:root {
+  --stone-100: #e9eae7; /* light surface (tint of #d6d7d3); black 17.4:1 */
+  --stone-300: #d6d7d3; /* page background */
+  --stone-400: #c9cac5; /* empty image fill (dark tint of #d6d7d3) */
+  --ash-800: #2f312c; /* secondary text: 9.1:1 on #d6d7d3 */
+  --ash-600: #4a4d46; /* supporting text: 6.0:1 on #d6d7d3, 5.2:1 on #c9cac5 */
+  --black: #000000; /* primary text: 14.5:1 on #d6d7d3 */
+  --olive-900: #363b22; /* green: bands, dark buttons, footer, hero veil */
+  --olive-800: #4a4f38; /* olive-900 hover and image placeholder on dark (derived) */
+  --wine-700: #5d2638; /* accent: labels, links, numbers, chips (8.1:1 on #d6d7d3) */
+  --orange-500: #c56742; /* background only, with black text (5.4:1); never orange text */
+  --lemon-200: #e2e5ad; /* primary text on green */
+  --sky-300: #a4bbcc; /* secondary text on green */
+  --wine-600: #6a3748; /* image fill on a wine panel (wine-700 lightened, derived); lemon 7.4:1 */
+}
+
+/* 2.2 Shape tokens defaulting to the current value (no visual change outside the theme) */
+:root {
+  --radius-button: var(--radius-pill);
+  --font-button: var(--font-display);
+  --weight-button: var(--weight-display);
+  --radius-card: var(--radius-lg);
+
+  /* Inert: only the taller theme uses them */
+  --radius-block: 30px;
+  --radius-control: 16px;
+  --control-xl: 54px;
+  --control-pad-xl: 28px;
+  --nav-height-taller: 72px;
+  --nav-row-taller: 52px;
+  --announce-height: 36px;
+  --hero-taller-height: clamp(560px, 86vh, 820px);
+  --duration-marquee: 38s;
+  --duration-carousel: 700ms;
+  --card-taller-width: 360px;
+  --target-min: 44px;
+  --carousel-arrow-sm: 40px;
+  --dot-size: 8px;
+  --dot-active-width: 24px;
+  --stack-offset: 8%;
+  --stack-small-width: 42%;
+  --tecnica-single-max: 50%;
+  --veil-hero: linear-gradient(to top, rgba(18, 26, 34, 0.62), rgba(18, 26, 34, 0) 55%); /* the theme's only gradient */
+  --color-menu-bg: var(--color-bg);
+  --color-button-light-bg: var(--color-text-inverse);
+  --color-button-light-text: var(--color-action);
+  --color-button-light-hover: var(--color-bg);
+  --color-marquee-bg: var(--color-surface-inverse);
+  --color-marquee-text: var(--color-text-inverse);
+}
+
+[data-theme='taller'] {
+  --radius-side-marker: 50%;
+  --marker-size: 8px;
+  --font-display: var(--font-dm-serif, 'DM Serif Display'), Georgia, serif; /* fallback: the modal is portaled outside the layout */
+  --font-body: var(--font-dm-sans, 'DM Sans'), system-ui, sans-serif;
+  --weight-display: 400;
+  --weight-strong: 700;
+  --tracking-display: 0;
+  --tracking-logo: 0;
+  --font-button: var(--font-body);
+  --weight-button: var(--weight-medium);
+  --radius-button: var(--radius-control);
+  --radius-card: var(--radius-lg); /* 24 */
+
+  --color-bg: var(--stone-300);
+  --color-bg-alt: var(--stone-100);
+  --color-surface: var(--stone-100);
+  --color-surface-inverse: var(--olive-900);
+  --color-placeholder-inverse: var(--olive-800);
+  --color-text: var(--black);
+  --color-text-muted: var(--ash-800);
+  --color-text-subtle: var(--ash-600);
+  --color-text-inverse: var(--lemon-200);
+  --color-text-inverse-muted: var(--sky-300);
+  --color-eyebrow: var(--wine-700);
+  --color-eyebrow-inverse: var(--sky-300);
+  --color-accent-display: var(--wine-700);
+  --color-action: var(--olive-900);
+  --color-action-hover: var(--olive-800);
+  --color-action-active: var(--black);
+  --color-action-text: var(--stone-300);
+  --color-link: var(--wine-700);
+  --color-link-hover: var(--black);
+  --color-nav-bg: rgba(214, 215, 211, 0.85);
+  --color-selection: rgba(93, 38, 56, 0.2);
+  --color-chip-dark: var(--wine-700);
+  --color-chip-text: var(--lemon-200);
+  --color-menu-bg: var(--stone-300);
+  /* Highlight: orange always as background, with black text */
+  --color-button-light-bg: var(--orange-500);
+  --color-button-light-text: var(--black);
+  --color-button-light-hover: var(--lemon-200);
+  --color-marquee-bg: var(--orange-500);
+  /* Entry screen panel: olive veil over the photo, sky text under the title */
+  --veil-0: rgba(54, 59, 34, 0.97);
+  --veil-42: rgba(54, 59, 34, 0.94);
+  --veil-68: rgba(54, 59, 34, 0.68);
+  --veil-68-active: rgba(54, 59, 34, 0.52);
+  --veil-100: rgba(54, 59, 34, 0.2);
+  /* Entry screen, store panel: same veil in wine, so the two sides read as two colors of one palette */
+  --veil-wine-0: rgba(93, 38, 56, 0.97);
+  --veil-wine-42: rgba(93, 38, 56, 0.94);
+  --veil-wine-68: rgba(93, 38, 56, 0.68);
+  --veil-wine-68-active: rgba(93, 38, 56, 0.52);
+  --veil-wine-100: rgba(93, 38, 56, 0.2);
+  /* Empty image slot: a deliberate tint of the brand colors, never a flat grey */
+  --color-placeholder: color-mix(in srgb, var(--olive-900) 16%, var(--stone-300));
+  --color-tint-olive: color-mix(in srgb, var(--olive-900) 16%, var(--stone-300));
+  --color-tint-wine: color-mix(in srgb, var(--wine-700) 14%, var(--stone-300));
+  --color-split-body: var(--sky-300);
+  --tracking-split: var(--tracking-none);
+  --color-marquee-text: var(--black); /* black on orange 5.4:1 (lemon was 3.0:1) */
+  --color-cta-wash: rgba(255, 255, 255, 0.15); /* over the orange gradient: darkest spot from 4.0:1 to 5.2:1 with black text */
+  --veil-hero: linear-gradient(to top, rgba(54, 59, 34, 0.72), rgba(54, 59, 34, 0) 55%);
+  --shadow-card: none; /* spec: no hard shadows */
+  --shadow-card-hover: none;
+
+  --container-max: 1240px;
+  --container-pad: 20px; /* phone */
+  --display-hero: clamp(52px, 9vw, 112px);
+  --display-2xl: clamp(40px, 5vw, 64px);
+  --display-xl: clamp(34px, 4vw, 48px);
+  --text-body-taller: 17px;
+  /* 13px minimum text in the theme: smaller sizes are raised to --text-sm */
+  --text-2xs: var(--text-sm);
+  --text-xs: var(--text-sm);
+  --section-gap-taller: clamp(var(--space-14), 9vw, var(--space-24));
+  --card-project-width: var(--card-taller-width);
+  --card-project-width-mobile: 82vw;
+  --nav-offset: calc(var(--nav-height-taller) + var(--nav-row-taller)); /* phone/tablet: 2 rows */
+}
+
+/* Per-side identity: /existencia swaps the dark surface to wine (lemon text 7.4:1) and the marker to a square. */
+[data-theme='taller'][data-side='existencia'] {
+  --color-surface-inverse: var(--wine-700);
+  --color-placeholder-inverse: var(--wine-600);
+  --color-chip-dark: var(--olive-900);
+  --radius-side-marker: 0;
+}
+
+/* see src/styles/breakpoints.ts (sm = 640) */
+@media (min-width: 641px) {
+  [data-theme='taller'] {
+    --container-pad: 32px;
+  }
+}
+
+/* see src/styles/breakpoints.ts (tablet = 1024) */
+@media (min-width: 1024px) {
+  [data-theme='taller'] {
+    --container-pad: 40px;
+    --nav-offset: var(--nav-height-taller);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-carousel: 0ms;
+  }
+}

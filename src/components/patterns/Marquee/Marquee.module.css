@@ -1,0 +1,56 @@
+.root {
+  overflow: hidden;
+  padding-block: var(--space-4);
+  background: var(--color-marquee-bg);
+  color: var(--color-marquee-text);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--duration-marquee) linear infinite;
+}
+
+.half {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.item {
+  padding-inline-end: var(--space-10);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-xs);
+  line-height: var(--leading-title);
+  white-space: nowrap;
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .item {
+    font-size: var(--text-xl);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .root {
+    padding-block: var(--space-5);
+  }
+
+  .item {
+    font-size: var(--display-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}

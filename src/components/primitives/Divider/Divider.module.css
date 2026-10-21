@@ -1,0 +1,18 @@
+.root {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: var(--border-width) solid;
+}
+
+.default {
+  border-color: var(--color-border);
+}
+
+.strong {
+  border-color: var(--color-border-strong);
+}
+
+.inverse {
+  border-color: var(--color-border-inverse);
+}

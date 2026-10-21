@@ -1,0 +1,62 @@
+{
+  "name": "nuva",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "npm run check:env",
+    "build": "next build",
+    "check:env": "tsx --conditions=react-server scripts/check-env.ts",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run check:tokens && npm run check:copy && npm run check:server-boundary && npm run audit:deps",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx scripts/db-migrate.ts",
+    "db:seed": "tsx scripts/db-seed.ts",
+    "admin:create": "tsx scripts/admin-create.ts",
+    "check:server-boundary": "node scripts/check-server-boundary.mjs",
+    "audit:deps": "npm audit --omit=dev --audit-level=high",
+    "check:full": "npm run check && npm run build && npm run check:bundle"
+  },
+  "dependencies": {
+    "@sentry/nextjs": "^11.1.0",
+    "@upstash/ratelimit": "^2.2.0",
+    "@upstash/redis": "^1.39.0",
+    "@vercel/blob": "^2.8.0",
+    "bcryptjs": "^3.0.3",
+    "drizzle-orm": "^0.45.3",
+    "next": "^16.3.6",
+    "pg": "^8.23.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "@types/node": "^22.20.4",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "dotenv": "^18.0.4",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.18.20": true
+  }
+}

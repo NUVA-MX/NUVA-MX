@@ -1,0 +1,39 @@
+/* Phone widths only; hidden by default and out of the tab order (inert) until it shows. */
+.root {
+  position: fixed;
+  right: var(--space-4);
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  z-index: var(--z-nav);
+  opacity: 0;
+  transform: translateY(var(--space-4));
+  visibility: hidden;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    visibility 0s linear var(--duration-base);
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.button {
+  min-height: var(--target-min);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .root {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,52 @@
+.root {
+  padding-block: var(--section-gap-taller);
+  scroll-margin-top: var(--nav-offset);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--container-manifesto);
+  margin-inline: auto;
+  padding: var(--space-16) var(--space-8);
+  border-radius: var(--radius-block);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-2xl);
+  line-height: var(--leading-title);
+  color: var(--color-text);
+}
+
+.body {
+  max-width: var(--measure-lead);
+  margin-top: var(--space-4);
+  font-size: var(--text-xl);
+  line-height: var(--leading-lead);
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .block {
+    padding: var(--space-12) var(--space-5);
+  }
+
+  .actions {
+    flex-direction: column;
+    align-self: stretch;
+  }
+}

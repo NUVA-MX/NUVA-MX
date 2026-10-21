@@ -1,0 +1,36 @@
+.root {
+  padding-block: var(--section-gap-taller);
+  scroll-margin-top: var(--nav-offset);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.main {
+  min-width: 0;
+}
+
+/* Scoped under .main so they beat the primitives' own rules whatever the CSS chunk order. */
+.main .title {
+  margin-top: var(--space-3);
+  line-height: var(--leading-title);
+}
+
+.main .lead {
+  margin-top: var(--space-4);
+}
+
+.aside {
+  font-size: var(--text-md); /* 15px; ash-600 on stone 6.0:1 */
+  font-weight: var(--weight-medium);
+  color: var(--color-text-subtle);
+}
+
+.root .rail {
+  margin-top: var(--space-6);
+}

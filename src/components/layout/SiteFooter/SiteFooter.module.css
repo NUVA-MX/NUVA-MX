@@ -1,0 +1,59 @@
+.root {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse-muted);
+  padding: var(--space-11) 0;
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.brand,
+.brand:hover {
+  /* 44px-tall hit area; the negative margin cancels the padding so the layout does not move. */
+  padding-block: calc((var(--target-min) - var(--display-xs)) / 2);
+  margin-block: calc((var(--target-min) - var(--display-xs)) / -2);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-xs);
+  letter-spacing: var(--tracking-logo);
+  line-height: var(--leading-none);
+  color: var(--color-text-inverse);
+}
+
+.text,
+.copy {
+  font-size: var(--text-sm);
+}
+
+.links {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  font-size: var(--text-sm);
+  color: var(--color-text-inverse);
+}
+
+.link:hover {
+  color: var(--color-eyebrow-inverse);
+}
+
+.copy {
+  margin-left: auto;
+}
+
+/* The footer is a dark band: the focus ring uses the inverse text color, not --color-action. */
+.root :focus-visible {
+  outline-color: var(--color-text-inverse);
+}

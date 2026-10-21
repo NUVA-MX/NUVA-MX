@@ -1,0 +1,36 @@
+.root {
+  position: absolute; /* scrolls away: over the stone footer its light text would not be readable */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-entry-bar);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4-5);
+  padding: var(--space-5-5) var(--container-pad);
+  pointer-events: none;
+  color: var(--color-text-inverse);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-xs);
+  letter-spacing: var(--tracking-logo);
+  line-height: var(--leading-none);
+}
+
+.note {
+  margin: 0 0 0 auto;
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-inverse);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .root {
+    padding-inline: var(--space-8);
+  }
+}

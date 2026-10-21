@@ -1,0 +1,21 @@
+.root {
+  padding-block: 0 var(--section-gap-taller);
+}
+
+/* Rounded block; the serif display font of the taller theme needs no extra tracking. */
+.root .block {
+  --tracking-split: var(--tracking-none);
+  --tracking-cue: var(--tracking-nav);
+  border-radius: var(--radius-block);
+  overflow: hidden;
+}
+
+/* The cue text already ends in an arrow: hide CrossLink's decorative line here. */
+.root .block span[aria-hidden='true'] {
+  display: none;
+}
+
+/* When the (tall) link gets keyboard focus, keep its top below the sticky nav. */
+.root a {
+  scroll-margin-top: var(--nav-offset);
+}

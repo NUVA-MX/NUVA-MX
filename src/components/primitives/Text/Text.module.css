@@ -1,0 +1,96 @@
+.root {
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.size-xs {
+  font-size: var(--text-xs);
+}
+
+.size-sm {
+  font-size: var(--text-sm);
+}
+
+.size-md {
+  font-size: var(--text-md);
+}
+
+.size-lg {
+  font-size: var(--text-lg);
+}
+
+.size-xl {
+  font-size: var(--text-xl);
+}
+
+.tone-default {
+  color: var(--color-text);
+}
+
+.tone-muted {
+  color: var(--color-text-muted);
+}
+
+.tone-subtle {
+  color: var(--color-text-subtle);
+}
+
+.tone-inverse {
+  color: var(--color-text-inverse);
+}
+
+.tone-inverse-muted {
+  color: var(--color-text-inverse-muted);
+}
+
+.tone-eyebrow {
+  color: var(--color-eyebrow);
+}
+
+.tone-link {
+  color: var(--color-link);
+}
+
+.measure-body {
+  max-width: var(--measure-body);
+}
+
+.measure-lead {
+  max-width: var(--measure-lead);
+}
+
+.measure-split {
+  max-width: var(--measure-split);
+}
+
+.measure-none {
+  max-width: none;
+}
+
+.leading-body {
+  line-height: var(--leading-body);
+}
+
+.leading-lead {
+  line-height: var(--leading-lead);
+}
+
+.leading-relaxed {
+  line-height: var(--leading-relaxed);
+}
+
+.weight-regular {
+  font-weight: var(--weight-regular);
+}
+
+.weight-medium {
+  font-weight: var(--weight-medium);
+}
+
+.align-start {
+  text-align: start;
+}
+
+.align-center {
+  text-align: center;
+}

@@ -1,0 +1,99 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: var(--hero-taller-height);
+  background: var(--color-placeholder-inverse);
+  color: var(--color-text-inverse);
+  overflow: hidden;
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  background: var(--veil-hero);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding-block-end: var(--space-10);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.note {
+  margin: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-hero);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text-inverse);
+  text-wrap: balance;
+}
+
+/* Outline CTA: border matches the hero text instead of the faint ghost border. */
+.outline {
+  border-width: var(--border-width-strong);
+  border-color: var(--color-text-inverse);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  /* Wrap the content instead of a tall empty block: title, note and buttons all fit the first screen. */
+  .root {
+    height: auto;
+    min-height: 0;
+    padding-block-start: var(--space-16);
+  }
+
+  .inner {
+    align-items: stretch;
+    padding-block-end: var(--space-8);
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr); /* the WhatsApp label needs the full width at 320px */
+  }
+
+  .actions .button {
+    min-width: 0;
+    padding-inline: var(--space-3);
+    font-size: var(--text-md);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .inner {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: var(--space-10);
+    padding-block-end: var(--space-14);
+  }
+
+  .actions {
+    flex-wrap: nowrap;
+    padding-block-end: var(--space-2);
+  }
+}

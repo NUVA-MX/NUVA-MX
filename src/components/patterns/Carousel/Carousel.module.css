@@ -1,0 +1,123 @@
+.root {
+  position: relative;
+}
+
+/* Frame: 16/7 on tablet/desktop, 4/3 on phone. The track is clipped here. */
+.viewport {
+  position: relative;
+  aspect-ratio: 16 / 7;
+  border-radius: var(--radius-block);
+  overflow: hidden;
+  background: var(--color-placeholder-inverse);
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  transform: translateX(calc(var(--carousel-index) * -100%));
+  transition: transform var(--duration-carousel) var(--ease-out);
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: var(--z-raised);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-xl);
+  height: var(--control-xl);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transform: translateY(-50%);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.arrow:hover {
+  background: var(--color-bg);
+}
+
+.arrow:focus-visible {
+  outline-color: var(--color-text-inverse);
+}
+
+.prev {
+  left: var(--space-5);
+}
+
+.next {
+  right: var(--space-5);
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-3);
+}
+
+/* 44x44 hit area; the visible dot is the ::before. */
+.dot {
+  position: relative;
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: var(--radius-pill);
+  background: var(--color-text-inverse-muted);
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-fast) var(--ease-out);
+}
+
+.dot[aria-current='true']::before {
+  width: var(--dot-active-width);
+  background: var(--color-text-inverse);
+}
+
+.dot:focus-visible {
+  outline-color: var(--color-text-inverse);
+  outline-offset: calc(var(--focus-width) * -2);
+  border-radius: var(--radius-pill);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .viewport {
+    aspect-ratio: 4 / 3;
+  }
+
+  .arrow {
+    width: var(--target-min);
+    height: var(--target-min);
+  }
+
+  .prev {
+    left: var(--space-2);
+  }
+
+  .next {
+    right: var(--space-2);
+  }
+}

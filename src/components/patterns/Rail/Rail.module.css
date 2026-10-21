@@ -1,0 +1,48 @@
+.root {
+  --rail-inset: max(var(--container-pad), calc((100% - var(--container-max)) / 2 + var(--container-pad)));
+  display: flex;
+  gap: var(--rail-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: var(--rail-inset);
+  padding-block: var(--rail-pad-top) var(--rail-pad-bottom);
+  padding-inline: var(--rail-inset) var(--container-pad);
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.root::-webkit-scrollbar {
+  display: none;
+}
+
+.root[data-dragging='true'] {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.root[data-dragging='true'] * {
+  pointer-events: none;
+}
+
+.item {
+  display: flex;
+  flex: 0 0 var(--rail-item-width);
+  scroll-snap-align: start;
+}
+
+.item > * {
+  flex: 1;
+}
+
+.project {
+  --rail-item-width: var(--card-project-width-mobile);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .project {
+    --rail-item-width: var(--card-project-width);
+  }
+}

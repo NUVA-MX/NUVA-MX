@@ -1,0 +1,50 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.link,
+.danger {
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+  cursor: pointer;
+}
+
+.link {
+  color: var(--color-link);
+}
+
+.danger {
+  color: var(--color-danger);
+}
+
+.solid {
+  min-height: var(--control-md);
+  padding-inline: var(--control-pad-md);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.link:disabled,
+.danger:disabled,
+.solid:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 0;
+  max-width: var(--measure-body);
+  font-size: var(--text-xs);
+  color: var(--color-danger);
+  white-space: normal;
+}

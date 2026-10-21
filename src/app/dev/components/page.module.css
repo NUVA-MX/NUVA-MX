@@ -1,0 +1,63 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding-block: var(--space-10);
+}
+
+.h1 {
+  margin: 0;
+  padding-inline: var(--container-pad);
+  font-family: var(--font-display);
+  font-size: var(--display-xl);
+}
+
+.theme {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-10);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.themeTitle {
+  margin: 0;
+  padding-inline: var(--container-pad);
+  font-family: var(--font-display);
+  font-size: var(--display-md);
+}
+
+.inverse {
+  padding-block: var(--space-8);
+  background: var(--color-surface-inverse);
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--color-text);
+}
+
+.fillBox {
+  position: relative;
+  min-height: var(--card-project-media-min);
+}
+
+.demoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--display-sm);
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin: 0;
+}

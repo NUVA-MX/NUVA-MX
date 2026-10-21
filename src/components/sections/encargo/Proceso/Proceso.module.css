@@ -1,0 +1,43 @@
+.root {
+  padding-block: var(--section-gap-taller);
+  scroll-margin-top: var(--nav-offset);
+}
+
+.head {
+  max-width: var(--container-text);
+}
+
+.head .title {
+  margin-top: var(--space-3);
+  line-height: var(--leading-title);
+}
+
+.lead {
+  margin-top: var(--space-4);
+  font-size: var(--text-xl);
+  line-height: var(--leading-lead);
+  color: var(--color-text-muted);
+}
+
+/* Phone/tablet: a rail on the left carries the badges and the trail; photo then text on the right. */
+.steps {
+  --steps-gap: var(--space-14);
+  --badge-size: var(--space-14);
+  --rail-width: var(--space-14);
+  display: flex;
+  flex-direction: column;
+  gap: var(--steps-gap);
+  margin-top: var(--space-12);
+  padding: 0;
+  list-style: none;
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .steps {
+    --steps-gap: var(--space-20);
+    --badge-size: var(--space-17);
+    --rail-width: var(--space-24);
+    --zigzag: var(--space-8); /* how far each badge sits off the center line */
+  }
+}
