@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { entrada } from '@/content/entrada';
 import styles from './EntryBar.module.css';
 
@@ -5,8 +6,10 @@ import styles from './EntryBar.module.css';
 export function EntryBar() {
   return (
     <header className={styles.root}>
-      <h1 className={styles.brand}>{entrada.bar.brand}</h1>
-      <p className={styles.note}>{entrada.bar.note}</p>
+      <h1 className={styles.brand}>
+        <Image src="/brand/logo-nuva-gris.png" alt={entrada.bar.brand} width={800} height={244} priority className={styles.logo} />
+      </h1>
+      {/* TODO: tagline hidden for now ({entrada.bar.note}). */}
     </header>
   );
 }

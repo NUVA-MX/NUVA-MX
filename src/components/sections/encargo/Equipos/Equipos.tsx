@@ -1,45 +1,21 @@
-import { cx } from '@/lib/cx';
 import { Button } from '@/components/primitives/Button';
 import { Container } from '@/components/primitives/Container';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
-import { Media } from '@/components/primitives/Media';
-import { Carousel } from '@/components/patterns/Carousel';
 import { Reveal } from '@/components/patterns/Reveal';
 import { site } from '@/content/site';
-import { ui } from '@/content/ui';
 import type { EncargoContent } from '@/lib/content/encargo-merge';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import styles from './Equipos.module.css';
 
-/** Dark band: large photo carousel, then a centered title, two lines and a highlight button. */
+/** Dark band: centered eyebrow, title, two lines and a highlight button. */
 export function Equipos({ content: e }: { content: EncargoContent['equipos'] }) {
-  // Slot-only until the client supplies photos: the carousel is left out instead of showing empty frames.
-  const slides = e.slides.filter((s) => s.image);
   return (
     <section className={styles.root} aria-labelledby="equipos-title" data-hide-sticky>
       <Container>
-        <Reveal>
+        <Reveal className={styles.block}>
           <Eyebrow size="sm" tracking="label" tone="inverse" className={styles.eyebrow}>
             {e.eyebrow}
           </Eyebrow>
-          {slides.length > 0 && (
-            <Carousel
-              label={e.carouselLabel}
-              labels={{
-                carousel: ui.carousel,
-                slideRole: ui.slideRole,
-                slide: ui.slide,
-                goToSlide: ui.goToSlide,
-                previous: ui.previous,
-                next: ui.next,
-              }}
-              slides={slides.map((s) => (
-                <Media key={s.image} src={s.image} alt={s.imageAlt} ratio="fill" tone="inverse" sizes="equipos" />
-              ))}
-            />
-          )}
-        </Reveal>
-        <Reveal className={cx(styles.block, slides.length === 0 && styles.alone)}>
           <h2 id="equipos-title" className={styles.title}>
             {e.title}
           </h2>

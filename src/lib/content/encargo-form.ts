@@ -28,7 +28,7 @@ export const SECTION_FIELD_NAMES: Record<SectionKey, readonly string[]> = {
   tecnicas: [
     'eyebrow',
     'title',
-    ...range(3).flatMap((i) => [`items.${i}.name`, `items.${i}.fact`, ...imageNames(`items.${i}.image`)]),
+    ...range(4).flatMap((i) => [`items.${i}.name`, `items.${i}.fact`, ...imageNames(`items.${i}.image`)]),
   ],
   projectsIntro: ['eyebrow', 'title', 'lead'],
   equipos: ['eyebrow', 'title', 'lines.0', 'lines.1', ...range(4).flatMap((i) => imageNames(`slides.${i}`))],
@@ -111,7 +111,7 @@ export function buildSectionCandidate(section: SectionKey, raw: Record<string, s
       return strip({
         eyebrow: t('eyebrow'),
         title: t('title'),
-        items: slots(3, (i) =>
+        items: slots(4, (i) =>
           compactObj({
             name: t(`items.${i}.name`),
             fact: t(`items.${i}.fact`),

@@ -1,4 +1,7 @@
 .root {
+  /* Titles keep the theme's lemon; everything else on the panel is white. */
+  --color-eyebrow-inverse: #fff;
+  --display-split: clamp(40px, 4.6vw, 64px);
   position: relative;
   display: block;
   flex: 1 1 var(--split-even);
@@ -23,19 +26,24 @@
 
 .photo {
   position: absolute;
-  inset: 0 0 var(--split-media-bottom) 0;
+  inset: 0;
 }
 
+/* Products sit in the lower half of the photos; keep them in frame when the panel crops. */
+.photo img {
+  object-position: 50% 100%;
+}
+
+/* Soft tint of the panel color from the top, only enough for the text to read over the photo. */
 .veil {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: linear-gradient(
-    to top,
-    var(--veil-0) 0%,
-    var(--veil-42) 42%,
-    var(--veil-68) 68%,
-    var(--veil-100) 100%
+    to bottom,
+    color-mix(in srgb, var(--color-surface-inverse) 62%, transparent) 0%,
+    color-mix(in srgb, var(--color-surface-inverse) 28%, transparent) 38%,
+    transparent 62%
   );
 }
 
@@ -43,11 +51,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-4);
+  justify-content: flex-start;
+  gap: var(--space-3);
   min-height: var(--split-min-height);
   height: 100%;
-  padding: var(--split-pad);
+  padding: clamp(88px, 12vh, 120px) var(--split-pad) var(--split-pad);
+  text-transform: uppercase;
 }
 
 .body {
@@ -55,7 +64,8 @@
   max-width: var(--measure-split);
   font-size: var(--text-lg);
   line-height: var(--leading-body);
-  color: var(--color-split-body);
+  text-transform: none;
+  color: #fff;
   /* Three lines in both panels, so the titles and buttons line up side by side. */
   min-height: calc(3 * var(--text-lg) * var(--leading-body));
 }
@@ -68,27 +78,18 @@
   color: var(--color-text-inverse);
 }
 
-/* Button look on a plain span: the panel is the link. Panel color on lemon text: 8.9:1. */
+/* Plain text link look: the panel is the link. */
 .button {
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  gap: var(--space-2);
+  gap: var(--space-3);
   min-height: var(--target-min);
-  padding-inline: var(--control-pad-xl);
-  border-radius: var(--radius-button);
-  background: var(--color-text-inverse);
-  color: var(--color-surface-inverse);
   font-family: var(--font-button);
   font-weight: var(--weight-button);
   font-size: var(--text-lg);
-  transition: background var(--duration-base) var(--ease-out);
-}
-
-.active .button,
-.root:focus-visible .button {
-  background: var(--color-button-light-bg);
-  color: var(--color-button-light-text);
+  text-transform: none;
+  color: #fff;
 }
 
 /* Store side: same layout in wine, so the two panels are two colors of one palette. */
@@ -112,8 +113,9 @@
   .content {
     min-height: 0;
     gap: var(--space-3);
-    padding: var(--space-6) var(--container-pad);
+    padding: 72px var(--container-pad) var(--space-6);
   }
+
 
   .body {
     display: none;
@@ -124,16 +126,6 @@
 @media (hover: hover) and (pointer: fine) {
   .active {
     flex-basis: var(--split-grow);
-  }
-
-  .active .veil {
-    background: linear-gradient(
-      to top,
-      var(--veil-0) 0%,
-      var(--veil-42) 42%,
-      var(--veil-68-active) 68%,
-      var(--veil-100) 100%
-    );
   }
 
   .dimmed {

@@ -105,34 +105,6 @@
 }
 
 
-/* The three techniques of step 5, under the text: name and one fact each. */
-.techniques {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--space-24), 1fr));
-  gap: var(--space-3);
-  margin: var(--space-5) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.technique {
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-control);
-  background: var(--color-surface);
-}
-
-.techniqueName {
-  font-weight: var(--weight-strong);
-  color: var(--color-text);
-}
-
-.techniqueFact {
-  margin-top: var(--space-1);
-  font-size: var(--text-sm);
-  line-height: var(--leading-body);
-  color: var(--color-text-muted);
-}
-
 /* Text link to WhatsApp under a step; 44px tall for thumbs. */
 .link {
   display: inline-flex;

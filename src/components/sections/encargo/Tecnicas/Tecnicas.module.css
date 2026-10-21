@@ -1,0 +1,56 @@
+.root {
+  padding-block: var(--section-gap-taller);
+}
+
+.head {
+  max-width: var(--container-text);
+}
+
+.head .title {
+  margin-top: var(--space-3);
+  line-height: var(--leading-title);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-10);
+  margin: var(--space-12) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--display-sm);
+  line-height: var(--leading-title);
+  color: var(--color-text);
+}
+
+.fact {
+  max-width: 28ch;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+}

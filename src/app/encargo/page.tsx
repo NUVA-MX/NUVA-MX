@@ -9,9 +9,11 @@ import { Hero } from '@/components/sections/encargo/Hero';
 import { Intro } from '@/components/sections/encargo/Intro';
 import { Proceso } from '@/components/sections/encargo/Proceso';
 import { Projects } from '@/components/sections/encargo/Projects';
+import { QueHacemos } from '@/components/sections/encargo/QueHacemos';
 import { StickyWhatsapp } from '@/components/sections/encargo/StickyWhatsapp';
 import { StoreLink } from '@/components/sections/encargo/StoreLink';
 import { Taller } from '@/components/sections/encargo/Taller';
+import { Tecnicas } from '@/components/sections/encargo/Tecnicas';
 import { TallerNav } from '@/components/sections/shared/TallerNav';
 import { encargo } from '@/content/encargo';
 import { site } from '@/content/site';
@@ -60,7 +62,9 @@ export default async function EncargoPage() {
       />
       <PromoMarquee defaultText={marquee.defaultText} serverText={marquee.text} promo={marquee.promo} />
       <Intro />
-      <Proceso tecnicas={content.tecnicas.items} />
+      <Proceso />
+      <QueHacemos content={content.queHacemos} />
+      <Tecnicas content={content.tecnicas} />
       {projects.length > 0 && <Projects content={content.projects} projects={projects} />}
       <Equipos content={content.equipos} />
       <Taller content={content.taller} />

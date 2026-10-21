@@ -1,0 +1,75 @@
+.root {
+  padding-block: var(--section-gap-taller);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+/* Collage: tile0 is the square base, tile1 and tile2 overlap its top-left and bottom-right corners. */
+.collage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.tile0,
+.tile1,
+.tile2 {
+  position: absolute;
+  overflow: hidden;
+  border: var(--space-2) solid var(--color-bg);
+  border-radius: var(--radius-lg);
+  background: var(--color-placeholder);
+}
+
+.tile0 {
+  inset: 14% 8% 8% 16%;
+}
+
+.tile1 {
+  top: 0;
+  left: 0;
+  width: 34%;
+  height: 40%;
+}
+
+.tile2 {
+  right: 0;
+  bottom: 0;
+  width: 38%;
+  height: 46%;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.title {
+  line-height: var(--leading-title);
+  text-wrap: balance;
+}
+
+.body {
+  max-width: var(--container-text);
+  font-size: var(--text-xl);
+  line-height: var(--leading-lead);
+  color: var(--color-text-muted);
+}
+
+.cta {
+  margin-top: var(--space-5);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+  }
+}

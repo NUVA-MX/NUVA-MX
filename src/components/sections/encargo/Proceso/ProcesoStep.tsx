@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { Media } from '@/components/primitives/Media';
 import { Reveal } from '@/components/patterns/Reveal';
 import type { ProcesoIcon, ProcesoStep as StepData } from '@/content/encargo-proceso';
-import type { EncargoContent } from '@/lib/content/encargo-merge';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import styles from './ProcesoStep.module.css';
 
@@ -24,11 +23,10 @@ type Props = {
   isLast: boolean;
   stepLabel: string;
   phone: string;
-  tecnicas: EncargoContent['tecnicas']['items'];
 };
 
 /** One step: badge and trail on the rail, a photo (or a tinted block with the icon), then title, text and links. */
-export function ProcesoStep({ step, index, isLast, stepLabel, phone, tecnicas }: Props) {
+export function ProcesoStep({ step, index, isLast, stepLabel, phone }: Props) {
   return (
     <li className={styles.step}>
       {/* Level-map trail (like a game map): a round badge per step, a dashed wave to the next one. */}
@@ -52,16 +50,6 @@ export function ProcesoStep({ step, index, isLast, stepLabel, phone, tecnicas }:
       <Reveal className={styles.copy}>
         <h3 className={styles.stepTitle}>{step.title}</h3>
         <p className={styles.body}>{step.body}</p>
-        {step.showTecnicas && tecnicas.length > 0 && (
-          <ul className={styles.techniques}>
-            {tecnicas.map((t) => (
-              <li key={t.id} className={styles.technique}>
-                <p className={styles.techniqueName}>{t.name}</p>
-                <p className={styles.techniqueFact}>{t.fact}</p>
-              </li>
-            ))}
-          </ul>
-        )}
         {step.link && (
           <a
             className={styles.link}

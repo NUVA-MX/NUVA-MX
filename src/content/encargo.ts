@@ -38,20 +38,19 @@ export const encargo = {
   // TODO(confirm): intro copy (draft using facts already on the site).
   intro: {
     parts: [
-      { text: 'No vendemos catálogo cerrado. Eliges la pieza, mandas tu arte y la producimos, sean ' },
-      { text: 'una o doscientas', strong: true },
-      { text: '. Antes de producir te mandamos un mockup para que veas ' },
-      { text: 'cómo va a quedar', strong: true },
+      { text: 'Cada proyecto es diferente, por eso nos adaptamos a tus ideas. ' },
+      { text: 'Tú eliges el producto ', strong: true },
+      { text: ' y nosotros nos encargamos de personalizarlo para ti' },
       { text: '.' },
     ] as { text: string; strong?: boolean }[],
   },
   queHacemos: {
-    eyebrow: 'Lo que hacemos',
+    eyebrow: 'Made by us',
     // TODO(confirm): title.
-    title: 'Piezas con tu diseño, hechas aquí',
+    title: 'From brand To product',
     // TODO(confirm): paragraph about products and techniques.
-    body: 'Gorras, playeras, sudaderas, totes y parches. Bordado para lo que tiene que durar, estampado DTF para el color completo y serigrafía para lotes.',
-    cta: { label: 'Ver proyectos', href: '#proyectos' },
+    body: 'Desde merch personalizado hasta regalos corporativos, creamos productos que reflejan la esencia de cada marca. Cada proyecto es diferente y cuidamos los detalles para lograr un resultado único.',
+    cta: { label: 'Get inspired', href: '#proyectos' },
     // TODO(client): three photos for the composition (one square, two portrait).
     images: [
       { image: null as string | null, imageAlt: 'Composición de gorras NUVA', label: 'Composición: gorras' },
@@ -62,13 +61,13 @@ export const encargo = {
   tecnicas: {
     eyebrow: 'Técnicas',
     // TODO(confirm): title.
-    title: 'Tres formas de llevar tu diseño',
+    title: 'Cuatro formas de llevar tu diseño',
     // TODO(client): one portrait (4:5) photo per technique.
     items: [
       {
         id: 'bordado',
         name: 'Bordado',
-        fact: 'Hasta 8 cm, también en 3D',
+        fact: 'Textura y acabados de calidad que destacan cada detalle',
         image: null as string | null,
         imageAlt: 'Detalle de un bordado',
         label: 'Foto: bordado de cerca',
@@ -76,7 +75,7 @@ export const encargo = {
       {
         id: 'estampado',
         name: 'Estampado',
-        fact: 'DTF a todo color',
+        fact: 'Diseños a todo color con gran definición',
         image: null as string | null,
         imageAlt: 'Prenda con estampado DTF a todo color',
         label: 'Foto: estampado DTF terminado',
@@ -84,17 +83,25 @@ export const encargo = {
       {
         id: 'serigrafia',
         name: 'Serigrafía',
-        fact: 'Desde 20 piezas',
+        fact: 'Ideal para personalizar grandes cantidades',
         image: null as string | null,
         imageAlt: 'Lote de piezas con serigrafía',
         label: 'Foto: lote en serigrafía',
       },
+      {
+        id: 'vinil',
+        name: 'Vinil textil',
+        fact: 'Ideal para diseños sencillos y colores sólidos',
+        image: null as string | null,
+        imageAlt: 'Prenda con diseño en vinil textil',
+        label: 'Foto: prenda con vinil textil',
+      },
     ],
   },
   projects: {
-    eyebrow: 'Muestra de trabajo',
-    title: 'Proyectos hechos',
-    lead: 'Una muestra de trabajos reales, no una tienda: para pedir algo parecido, escríbenos por WhatsApp.',
+    eyebrow: 'Made by us',
+    title: 'Creaciones con identidad',
+    lead: 'Una selección de proyectos que hemos creado para diferentes marcas. Descubre las técnicas, los acabados y las posibilidades de personalización que ofrecemos.',
     aside: 'Desliza para ver más →',
     railLabel: 'Lista de proyectos, desliza para ver más',
     modal: {
@@ -126,7 +133,7 @@ export const encargo = {
     ],
     // TODO(confirm): title and phrases (facts taken from the previous contact block).
     title: 'Para tu equipo, marca o evento',
-    lines: ['Desde 20 piezas hay descuento por volumen.', 'Te mandamos un mockup del lote antes de producir.'],
+    lines: ['Personalizamos desde pocas piezas hasta grandes cantidades, con precios especiales por volumen.'],
     cta: 'Cotiza tu proyecto',
     // TODO(confirm): WhatsApp message to quote a team order (asks for piece, technique, quantity and date).
     ctaMessage: whatsappMessages.equipo,
@@ -134,11 +141,11 @@ export const encargo = {
   proceso,
   whatsapp: { messages: whatsappMessages, sticky: stickyWhatsapp },
   taller: {
-    eyebrow: 'El taller',
-    title: 'Piezas que se hacen, no que se revenden',
+    eyebrow: 'Sobre nosotros',
+    title: 'El equipo detrás de tus ideas',
     // TODO(confirm): paragraph about the workshop (draft using facts already on the site).
     paragraph:
-      'Cada pieza se borda o se estampa en nuestro taller en México, desde una sola hasta lotes grandes. No revendemos catálogo: producimos lo que nos pides.',
+      'Nuva nació de nuestra pasión por crear y personalizar. Lo que comenzó con una idea se convirtió en un espacio donde ayudamos a otras marcas a dar vida a las suyas. Nos encanta ser parte de cada proyecto, transformar diseños en productos reales y ver la emoción de nuestros clientes al recibir algo que antes solo imaginaban. Cada proyecto es diferente, y eso es lo que más nos gusta de lo que hacemos.',
     // TODO(client): portrait photo of the workshop or the team.
     image: null as string | null,
     imageAlt: 'El taller de NUVA',
@@ -152,15 +159,15 @@ export const encargo = {
   },
   contacto: {
     title: '¿Tienes una idea?',
-    body: 'Los pedidos se hacen por mensaje: manda el diseño o la referencia y te contestamos el mismo día con técnica, tiempos y precio.',
-    whatsapp: 'Escribir por WhatsApp',
+    body: 'Cuéntanos qué tienes en mente y te ayudamos a encontrar las mejores opciones de productos y personalización para tu proyecto.',
+    whatsapp: 'Escríbenos por WhatsApp →',
     email: 'Mandar correo',
   },
   crossLink: {
-    eyebrow: 'El otro lado de NUVA',
-    title: '¿No quieres esperar?',
-    body: 'Tenemos piezas en existencia, con precio a la vista y envío el mismo día. Mismo taller, sin tiempo de producción.',
-    cue: 'Ver lo disponible →',
+    eyebrow: 'Promocionales',
+    title: 'Tu marca en todas partes.',
+    body: 'Descubre nuestra variedad de artículos promocionales y regalos corporativos. Personalizamos cada producto para adaptarlo a tu marca, equipo o evento.',
+    cue: 'Explora los promocionales →',
     href: '/existencia',
     // TODO(client): photo of an in-stock product.
     image: null as string | null,

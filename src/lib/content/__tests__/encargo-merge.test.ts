@@ -24,7 +24,7 @@ describe('resolveEncargo', () => {
       hero: { image: { url: url('h'), alt: 'Hero alt' } },
       queHacemos: { title: 'Nuevo', images: [null, { url: url('q1'), alt: 'Detalle' }] },
       tecnicas: { items: [null, { name: 'DTF' }, { image: { url: url('t2'), alt: 'Lote' } }] },
-      equipos: { lines: [null, 'Segunda'], slides: [null, null, { url: url('e2'), alt: 'Slide' }] },
+      equipos: { lines: ['Primera'], slides: [null, null, { url: url('e2'), alt: 'Slide' }] },
       taller: { stats: [{ value: '500' }, null, { label: 'Semanas' }] },
       projectsIntro: { lead: 'Lead nuevo' },
       whatsapp: { projectOrder: 'P {name}', bulkQuote: 'B {name}', teamQuote: 'T' },
@@ -37,9 +37,9 @@ describe('resolveEncargo', () => {
     expect(c.queHacemos.eyebrow).toBe(encargo.queHacemos.eyebrow);
     expect(c.queHacemos.images[0].image).toBe(null);
     expect(c.queHacemos.images[1]).toMatchObject({ image: url('q1'), imageAlt: 'Detalle', label: encargo.queHacemos.images[1].label });
-    expect(c.tecnicas.items[1]).toMatchObject({ id: 'estampado', name: 'DTF', fact: 'DTF a todo color' });
+    expect(c.tecnicas.items[1]).toMatchObject({ id: 'estampado', name: 'DTF', fact: encargo.tecnicas.items[1].fact });
     expect(c.tecnicas.items[2].image).toBe(url('t2'));
-    expect(c.equipos.lines).toEqual([encargo.equipos.lines[0], 'Segunda']);
+    expect(c.equipos.lines).toEqual(['Primera']);
     expect(c.equipos.slides[2].image).toBe(url('e2'));
     expect(c.equipos.slides).toHaveLength(4);
     // Two default stats: an override at index 2 is beyond the fixed length and is ignored.
@@ -56,7 +56,7 @@ describe('resolveEncargo', () => {
   it('ignores indexes beyond the fixed length', () => {
     const { overrides } = sanitizeOverrides({ equipos: { lines: ['a', 'b'] } }, HOST);
     const c = resolveEncargo(encargo, { ...overrides, taller: { stats: [null, null, null] } });
-    expect(c.equipos.lines).toHaveLength(2);
+    expect(c.equipos.lines).toHaveLength(encargo.equipos.lines.length);
     expect(c.taller.stats).toHaveLength(encargo.taller.stats.length);
   });
   it('overrideDefaults mirrors the override shape', () => {

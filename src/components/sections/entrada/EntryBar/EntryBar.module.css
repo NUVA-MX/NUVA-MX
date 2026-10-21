@@ -14,23 +14,32 @@
 
 .brand {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: var(--display-xs);
-  letter-spacing: var(--tracking-logo);
   line-height: var(--leading-none);
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: 40px;
 }
 
 .note {
   margin: 0 0 0 auto;
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-label);
-  color: var(--color-text-inverse);
+  color: #fff;
 }
 
 /* see src/styles/breakpoints.ts */
 @media (min-width: 640px) {
   .root {
     padding-inline: var(--space-8);
+  }
+}
+
+/* Phone: no room beside the logo for the tagline. */
+@media (max-width: 640px) {
+  .note {
+    display: none;
   }
 }

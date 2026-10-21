@@ -110,7 +110,7 @@ export function sectionSchemas(host?: string | null) {
           fact: text(TEXT_LIMITS.fact).optional(),
           image: image.optional(),
         }),
-        3,
+        4,
       ).optional(),
     }),
     projectsIntro: z.strictObject({
@@ -224,7 +224,7 @@ export const RESTORE_PATHS: Record<SectionKey, readonly string[]> = {
   tecnicas: [
     'eyebrow',
     'title',
-    ...[0, 1, 2].flatMap((i) => [`items.${i}`, `items.${i}.name`, `items.${i}.fact`, `items.${i}.image`]),
+    ...[0, 1, 2, 3].flatMap((i) => [`items.${i}`, `items.${i}.name`, `items.${i}.fact`, `items.${i}.image`]),
   ],
   projectsIntro: ['eyebrow', 'title', 'lead'],
   equipos: ['eyebrow', 'title', 'lines.0', 'lines.1', 'slides.0', 'slides.1', 'slides.2', 'slides.3'],
