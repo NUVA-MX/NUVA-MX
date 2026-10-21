@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { marqueeAt, type PromoWindow } from '@/lib/content/encargo-merge';
-import { Marquee } from '../Marquee';
+import { Marquee, type MarqueeImage } from '../Marquee';
 
 export type PromoMarqueeProps = {
   defaultText: string;
@@ -10,6 +10,8 @@ export type PromoMarqueeProps = {
   serverText: string;
   /** Promo window as ISO strings; only sent when active or starting within 10 minutes. */
   promo: { text: string; startsAt: string | null; endsAt: string | null } | null;
+  /** Brand ribbon shown while the default text is showing; an active promo still shows its own text. */
+  ribbon?: MarqueeImage;
 };
 
 /** Longest delay setTimeout accepts (2^31 - 1 ms). Longer waits re-check in steps. */
@@ -27,7 +29,7 @@ function toWindow(promo: NonNullable<PromoMarqueeProps['promo']>): PromoWindow {
  * Marquee with a client-side guard around the promo window. The page is cached (ISR, 5 min), so a promo that
  * starts or ends between revalidations is switched here, at the exact boundary, without a reload.
  */
-export function PromoMarquee({ defaultText, serverText, promo }: PromoMarqueeProps) {
+export function PromoMarquee({ defaultText, serverText, promo, ribbon }: PromoMarqueeProps) {
   const [text, setText] = useState(serverText);
 
   useEffect(() => {
@@ -47,5 +49,5 @@ export function PromoMarquee({ defaultText, serverText, promo }: PromoMarqueePro
     return () => clearTimeout(timer);
   }, [defaultText, promo]);
 
-  return <Marquee text={text} />;
+  return <Marquee text={text} image={text === defaultText ? ribbon : undefined} />;
 }

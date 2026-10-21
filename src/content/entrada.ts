@@ -29,6 +29,7 @@ export const entrada = {
       cue: '',
       image: '/photos/entrada-existencia.jpg' as string | null,
       imageAlt: 'Libreta de espiral y botella térmica en tono vino',
+      ribbon: '/brand/cinta-from-brand.png',
     },
   ],
   footer: {

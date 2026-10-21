@@ -25,8 +25,25 @@
   white-space: nowrap;
 }
 
+/* The ribbon image keeps its proportions; its height drives the band. */
+.ribbon {
+  display: block;
+  flex-shrink: 0;
+  padding-inline-end: var(--space-10);
+}
+
+.img {
+  display: block;
+  width: auto;
+  height: var(--space-10);
+}
+
 /* see src/styles/breakpoints.ts */
 @media (max-width: 640px) {
+  .img {
+    height: var(--space-8);
+  }
+
   .item {
     font-size: var(--text-xl);
   }
@@ -40,6 +57,10 @@
 
   .item {
     font-size: var(--display-sm);
+  }
+
+  .img {
+    height: var(--space-11);
   }
 }
 

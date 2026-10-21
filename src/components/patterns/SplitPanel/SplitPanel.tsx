@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
@@ -22,6 +23,8 @@ export type SplitPanelData = {
   cue: string;
   image: string | null;
   imageAlt: string;
+  /** Decorative brand ribbon (PNG, 1406x144) in the top right corner of the panel. */
+  ribbon?: string;
 };
 
 type Props = {
@@ -47,6 +50,9 @@ export function SplitPanel({ panel, active = false, dimmed = false, onHoverChang
         <Media src={panel.image} alt={panel.imageAlt} ratio="fill" tone="inverse" sizes="half" priority />
       </div>
       <div className={styles.veil} aria-hidden="true" />
+      {panel.ribbon && (
+        <Image src={panel.ribbon} alt="" width={1406} height={144} className={styles.ribbon} aria-hidden="true" />
+      )}
       <div className={styles.content}>
         <Eyebrow tone="inverse" tracking="label">
           {panel.eyebrow}

@@ -29,9 +29,10 @@
   inset: 0;
 }
 
-/* Products sit in the lower half of the photos; keep them in frame when the panel crops. */
+/* The photos are portrait, so a wide panel crops them. Anchoring above the bottom shows more of the top and sits
+   the products lower, without a gap; the lowest part of the picture is what gets cropped. */
 .photo img {
-  object-position: 50% 100%;
+  object-position: 50% 25%;
 }
 
 /* Soft tint of the panel color from the top, only enough for the text to read over the photo. */
@@ -45,6 +46,15 @@
     color-mix(in srgb, var(--color-surface-inverse) 28%, transparent) 38%,
     transparent 62%
   );
+}
+
+.ribbon {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--split-pad);
+  width: clamp(140px, 18vw, 260px);
+  height: auto;
+  pointer-events: none;
 }
 
 .content {

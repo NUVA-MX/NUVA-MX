@@ -60,7 +60,12 @@ export default async function EncargoPage() {
         label={encargo.whatsapp.sticky.label}
         ariaLabel={encargo.whatsapp.sticky.ariaLabel}
       />
-      <PromoMarquee defaultText={marquee.defaultText} serverText={marquee.text} promo={marquee.promo} />
+      <PromoMarquee
+        defaultText={marquee.defaultText}
+        serverText={marquee.text}
+        promo={marquee.promo}
+        ribbon={{ src: '/brand/cinta-from-brand.png', width: 1406, height: 144 }}
+      />
       <Intro />
       <Proceso />
       <QueHacemos content={content.queHacemos} />
