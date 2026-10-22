@@ -437,11 +437,7 @@
 [data-theme='taller'] {
   --radius-side-marker: 50%;
   --marker-size: 8px;
-  --font-display: var(--font-dm-serif, 'DM Serif Display'), Georgia, serif; /* fallback: the modal is portaled outside the layout */
-  --font-body: var(--font-dm-sans, 'DM Sans'), system-ui, sans-serif;
-  --weight-display: 400;
   --weight-strong: 700;
-  --tracking-display: 0;
   --tracking-logo: 0;
   --font-button: var(--font-body);
   --weight-button: var(--weight-medium);

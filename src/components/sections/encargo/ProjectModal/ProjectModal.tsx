@@ -20,8 +20,7 @@ const TITLE_ID = 'project-modal-title';
 
 /**
  * Project detail in the taller theme. The Modal is portaled outside the PageShell, so it gets
- * data-theme="taller" itself. Its fonts resolve through the family names in the theme's font stack
- * ('DM Serif Display', 'DM Sans'), which the /encargo layout loads. Phone: photo on top, almost full screen,
+ * data-theme="taller" itself. Its fonts are the brand fonts, which the root layout loads. Phone: photo on top, almost full screen,
  * scrollable, with a sticky 44px close button.
  */
 export function ProjectModal({ project, content: t, onClose }: Props) {

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { PageShell } from '@/components/layout/PageShell';
-import { TallerFonts } from '@/components/layout/TallerFonts';
 import { SplitChooser } from '@/components/patterns/SplitChooser';
 import { EntryBar } from '@/components/sections/entrada/EntryBar';
 import { EntryFooter } from '@/components/sections/entrada/EntryFooter';
@@ -13,11 +12,8 @@ export const metadata: Metadata = {
 
 export default function EntradaPage() {
   return (
-    // The "por encargo" panel uses the taller theme, so the page carries its DM fonts.
-    <TallerFonts>
-      <PageShell theme="taller" nav={<EntryBar />} footer={<EntryFooter />}>
-        <SplitChooser panels={entrada.panels} />
-      </PageShell>
-    </TallerFonts>
+    <PageShell theme="taller" nav={<EntryBar />} footer={<EntryFooter />}>
+      <SplitChooser panels={entrada.panels} />
+    </PageShell>
   );
 }
