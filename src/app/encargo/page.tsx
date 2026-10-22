@@ -36,7 +36,13 @@ export default async function EncargoPage() {
       theme="taller"
       side="encargo"
       skipLabel={ui.skipToContent}
-      nav={<TallerNav current="encargo" links={encargo.nav.links} />}
+      nav={
+        <TallerNav
+          current="encargo"
+          links={encargo.nav.links}
+          whatsappMessage={encargo.whatsapp.messages.general}
+        />
+      }
       footer={
         <SiteFooter
           brand={encargo.chrome.wordmark}

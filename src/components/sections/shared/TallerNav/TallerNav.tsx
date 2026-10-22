@@ -27,6 +27,8 @@ type Props = {
   links: readonly NavLink[];
   /** Extra control (e.g. the cart). Desktop: inner edge of the links column, so the switch and WhatsApp never move between pages. Phone/tablet: top-left cell. */
   action?: ReactNode;
+  /** Pre-filled WhatsApp text for the nav button (menu button included). Defaults to the site-wide message. */
+  whatsappMessage?: string;
 };
 
 /**
@@ -34,12 +36,12 @@ type Props = {
  * Desktop: links + action | wordmark | switch + WhatsApp. Phone/tablet: wordmark + menu button, the switch
  * on its own full-width row, and a full-screen menu dialog (focus trap, Escape, scroll lock).
  */
-export function TallerNav({ current, links, action }: Props) {
+export function TallerNav({ current, links, action, whatsappMessage = site.whatsapp.defaultMessage }: Props) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
-  const whatsapp = buildWhatsAppLink({ phone: site.whatsapp.phone, message: site.whatsapp.defaultMessage });
+  const whatsapp = buildWhatsAppLink({ phone: site.whatsapp.phone, message: whatsappMessage });
 
   useLockBodyScroll(open);
   useFocusTrap(menuRef, open, close);
