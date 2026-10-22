@@ -18,6 +18,6 @@ export const whatsappMessages = {
 /** Floating button on phones (only /encargo). */
 export const stickyWhatsapp = {
   // TODO(confirm)
-  label: 'Pedir por WhatsApp',
+  label: 'Hagámoslo realidad',
   ariaLabel: 'Escribir por WhatsApp para pedir una pieza personalizada',
 } as const;

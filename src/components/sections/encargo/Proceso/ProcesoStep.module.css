@@ -30,7 +30,7 @@
 
 .trail path {
   fill: none;
-  stroke: var(--color-accent-display);
+  stroke: var(--olive-900);
   stroke-linecap: round;
 }
 
@@ -84,13 +84,13 @@
   width: var(--badge-size);
   height: var(--badge-size);
   border-radius: var(--radius-pill);
-  background: var(--color-accent-display);
+  background: var(--lemon-200);
   box-shadow: 0 var(--space-1) 0 var(--color-text);
   font-family: var(--font-display);
   font-weight: var(--weight-display);
   font-size: var(--display-md);
   line-height: var(--leading-none);
-  color: var(--color-chip-text);
+  color: var(--olive-900);
 }
 
 .photo {
@@ -103,13 +103,34 @@
   grid-area: copy;
 }
 
-/* Empty photo slot: a tinted block (olive, then wine) with the step's brand icon enlarged inside. */
+/* Brand icon as a sticker on one corner of the photo card, half outside it. The card stays free for a real photo. */
 .icon {
-  width: auto;
-  height: 56%;
-  max-width: 56%;
-  object-fit: contain;
+  --icon-size: clamp(52px, 6.5vw, 84px);
+  position: absolute;
+  z-index: 1;
+  width: var(--icon-size);
+  height: auto;
   pointer-events: none;
+}
+
+.topLeft {
+  top: calc(var(--icon-size) * -0.3);
+  left: calc(var(--icon-size) * -0.2);
+}
+
+.topRight {
+  top: calc(var(--icon-size) * -0.3);
+  right: calc(var(--icon-size) * -0.2);
+}
+
+.bottomLeft {
+  bottom: calc(var(--icon-size) * -0.3);
+  left: calc(var(--icon-size) * -0.2);
+}
+
+.bottomRight {
+  bottom: calc(var(--icon-size) * -0.3);
+  right: calc(var(--icon-size) * -0.2);
 }
 
 /* The word "Paso" is only for screen readers; sighted users read the big number. */

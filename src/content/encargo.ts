@@ -25,9 +25,9 @@ export const encargo = {
     title: 'Merch con identidad.',
     // TODO(confirm): says up front that there is no cart here.
     note: 'Aquí no hay carrito: cuéntanos tu idea por WhatsApp y te mandamos mockup y precio.',
-    primary: { label: 'Pedir por WhatsApp', href: '#contacto' },
+    primary: { label: 'Hagámoslo realidad', href: '#contacto' },
     // The story is now "how we make it": the secondary action scrolls to the walkthrough.
-    secondary: { label: 'Cómo lo hacemos', href: '#proceso' },
+    secondary: { label: 'Descubre el Proceso', href: '#proceso' },
     // TODO(client): full-width main photo (a person wearing a NUVA cap or garment).
     image: null as string | null,
     imageAlt: 'Persona usando una gorra NUVA',
@@ -111,7 +111,7 @@ export const encargo = {
         colors: 'Colores',
         delivery: 'Entrega',
       },
-      order: 'Pedir por WhatsApp',
+      order: 'Hagámoslo realidad',
       quote: 'Cotizar por lote',
     },
     // TODO(confirm)

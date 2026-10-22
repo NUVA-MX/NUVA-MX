@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Media } from '@/components/primitives/Media';
+import { cx } from '@/lib/cx';
 import { Reveal } from '@/components/patterns/Reveal';
 import type { ProcesoIcon, ProcesoStep as StepData } from '@/content/encargo-proceso';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
@@ -16,6 +17,9 @@ const ICONS: Record<ProcesoIcon, string> = {
 };
 
 const ICON_SIZE = 240;
+
+/** Corner of the photo card each step's icon sits on, in turn. */
+const CORNERS = ['topLeft', 'bottomRight', 'topRight', 'bottomLeft'] as const;
 
 type Props = {
   step: StepData;
@@ -54,9 +58,15 @@ export function ProcesoStep({ step, index, isLast, stepLabel, phone }: Props) {
         </Reveal>
       </div>
       <Reveal className={styles.photo}>
-        <Media src={step.image} alt={step.imageAlt} ratio="4/3" radius="card" tint={index % 2 ? 'wine' : 'olive'}>
-          <Image src={ICONS[step.icon]} alt="" width={ICON_SIZE} height={ICON_SIZE} className={styles.icon} />
-        </Media>
+        <Media src={step.image} alt={step.imageAlt} ratio="4/3" radius="card" tint={index % 2 ? 'wine' : 'olive'} />
+        {/* A sticker on a corner of the card (a different corner per step), so a real photo can fill the card. */}
+        <Image
+          src={ICONS[step.icon]}
+          alt=""
+          width={ICON_SIZE}
+          height={ICON_SIZE}
+          className={cx(styles.icon, styles[CORNERS[index % CORNERS.length]!])}
+        />
       </Reveal>
       <Reveal className={styles.copy}>
         <h3 className={styles.stepTitle}>{step.title}</h3>
