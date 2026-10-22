@@ -394,6 +394,7 @@
   --olive-800: #4a4f38; /* olive-900 hover and image placeholder on dark (derived) */
   --wine-700: #5d2638; /* accent: labels, links, numbers, chips (8.1:1 on #d6d7d3) */
   --orange-500: #c56742; /* background only, with black text (5.4:1); never orange text */
+  --orange-600: #b85a38; /* the orange allowed for large text on the page background: 3.2:1 on #d6d7d3 */
   --lemon-200: #e2e5ad; /* primary text on green */
   --sky-300: #a4bbcc; /* secondary text on green */
   --wine-600: #6a3748; /* image fill on a wine panel (wine-700 lightened, derived); lemon 7.4:1 */
@@ -468,11 +469,11 @@
   --color-chip-dark: var(--wine-700);
   --color-chip-text: var(--lemon-200);
   --color-menu-bg: var(--stone-300);
-  /* Highlight: orange always as background, with black text */
-  --color-button-light-bg: var(--orange-500);
+  /* Highlight: lemon with black text (black on lemon 15:1) */
+  --color-button-light-bg: var(--lemon-200);
   --color-button-light-text: var(--black);
-  --color-button-light-hover: var(--lemon-200);
-  --color-marquee-bg: var(--orange-500);
+  --color-button-light-hover: var(--white);
+  --color-marquee-bg: var(--lemon-200);
   /* Entry screen panel: olive veil over the photo, sky text under the title */
   --veil-0: rgba(54, 59, 34, 0.97);
   --veil-42: rgba(54, 59, 34, 0.94);
@@ -491,7 +492,7 @@
   --color-tint-wine: color-mix(in srgb, var(--wine-700) 14%, var(--stone-300));
   --color-split-body: var(--sky-300);
   --tracking-split: var(--tracking-none);
-  --color-marquee-text: var(--black); /* black on orange 5.4:1 (lemon was 3.0:1) */
+  --color-marquee-text: var(--black); /* black on lemon */
   --color-cta-wash: rgba(255, 255, 255, 0.15); /* over the orange gradient: darkest spot from 4.0:1 to 5.2:1 with black text */
   --veil-hero: linear-gradient(to top, rgba(54, 59, 34, 0.72), rgba(54, 59, 34, 0) 55%);
   --shadow-card: none; /* spec: no hard shadows */

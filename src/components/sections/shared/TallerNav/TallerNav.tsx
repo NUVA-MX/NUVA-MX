@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { type ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Button } from '@/components/primitives/Button';
@@ -14,6 +15,10 @@ import { useLockBodyScroll } from '@/lib/useLockBodyScroll';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import { breakpoints } from '@/styles/breakpoints';
 import styles from './TallerNav.module.css';
+
+/** Brand logotype with its descriptor, light for the black bar; the full-screen menu is light, so it gets the black one. */
+const LOGO = '/brand/logo-nuva-gris-descriptivo.png';
+const LOGO_MENU = '/brand/logo-nuva-negro.png';
 
 const DESKTOP_QUERY = `(min-width: ${breakpoints.tablet}px)`;
 
@@ -66,7 +71,7 @@ export function TallerNav({ current, links, action }: Props) {
             </ul>
           </nav>
           <Link href="/" className={styles.brand} aria-label={site.homeLabel}>
-            {encargo.chrome.wordmark}
+            <Image src={LOGO} alt="" width={800} height={277} priority className={styles.logo} />
           </Link>
           {action && <div className={styles.actionMobile}>{action}</div>}
           {action && <div className={styles.actionDesktop}>{action}</div>}
@@ -105,7 +110,7 @@ export function TallerNav({ current, links, action }: Props) {
       >
         <div className={styles.menuTop}>
           <span className={styles.menuBrand} aria-hidden="true">
-            {encargo.chrome.wordmark}
+            <Image src={LOGO_MENU} alt="" width={800} height={211} className={styles.menuLogo} />
           </span>
           <button type="button" className={styles.menuClose} aria-label={ui.closeMenu} onClick={close}>
             <Icon name="close" size="md" />

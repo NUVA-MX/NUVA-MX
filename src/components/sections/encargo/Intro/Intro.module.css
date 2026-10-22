@@ -18,7 +18,7 @@
 .strong {
   font-family: var(--font-body);
   font-weight: var(--weight-strong);
-  color: var(--color-link);
+  color: var(--orange-600);
 }
 
 /* see src/styles/breakpoints.ts */

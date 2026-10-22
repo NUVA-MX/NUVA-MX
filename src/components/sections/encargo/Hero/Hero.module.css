@@ -3,9 +3,34 @@
   display: flex;
   align-items: flex-end;
   height: var(--hero-taller-height);
-  background: var(--color-placeholder-inverse);
+  /* No photo yet: solid olive for the top 60%, then an eased fade (no hard start) into the strip's lemon at the bottom
+     edge. The grain is the ::after below. */
+  background: linear-gradient(
+    to bottom,
+    var(--olive-900) 0%,
+    color-mix(in srgb, var(--lemon-200) 0%, var(--olive-900)) 60%,
+    color-mix(in srgb, var(--lemon-200) 4.3%, var(--olive-900)) 65%,
+    color-mix(in srgb, var(--lemon-200) 15.6%, var(--olive-900)) 70%,
+    color-mix(in srgb, var(--lemon-200) 31.6%, var(--olive-900)) 75%,
+    color-mix(in srgb, var(--lemon-200) 50%, var(--olive-900)) 80%,
+    color-mix(in srgb, var(--lemon-200) 68.4%, var(--olive-900)) 85%,
+    color-mix(in srgb, var(--lemon-200) 84.4%, var(--olive-900)) 90%,
+    color-mix(in srgb, var(--lemon-200) 95.7%, var(--olive-900)) 95%,
+    color-mix(in srgb, var(--lemon-200) 100%, var(--olive-900)) 100%
+  );
   color: var(--color-text-inverse);
   overflow: hidden;
+}
+
+/* Grain: SVG noise, drawn once, blended over the gradient. Decorative. */
+.root::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.55  0 0 0 0 0.4  0 0 0 1.6 -0.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+  opacity: 1;
+  pointer-events: none;
 }
 
 .veil {
@@ -17,6 +42,7 @@
 
 .inner {
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -37,10 +63,11 @@
 .title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: var(--weight-display);
+  font-weight: 800;
   font-size: var(--display-hero);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
   color: var(--color-text-inverse);
   text-wrap: balance;
 }
@@ -68,7 +95,7 @@
 
   .inner {
     align-items: stretch;
-    padding-block-end: var(--space-8);
+    padding-block-end: var(--space-24);
   }
 
   .actions {
@@ -89,7 +116,8 @@
     flex-direction: row;
     align-items: flex-end;
     gap: var(--space-10);
-    padding-block-end: var(--space-14);
+    /* Keeps the text over the olive part; the bottom 40% is the fade into the strip. */
+    padding-block-end: calc(var(--hero-taller-height) * 0.3);
   }
 
   .actions {

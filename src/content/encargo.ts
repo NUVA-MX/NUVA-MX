@@ -22,7 +22,7 @@ export const encargo = {
     whatsapp: 'WhatsApp',
   },
   hero: {
-    title: 'Hecho a tu medida.',
+    title: 'Merch con identidad.',
     // TODO(confirm): says up front that there is no cart here.
     note: 'Aquí no hay carrito: cuéntanos tu idea por WhatsApp y te mandamos mockup y precio.',
     primary: { label: 'Pedir por WhatsApp', href: '#contacto' },

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { PageShell } from '@/components/layout/PageShell';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { PromoMarquee } from '@/components/patterns/PromoMarquee';
-import { AnnouncementBar } from '@/components/sections/shared/AnnouncementBar';
 import { Contacto } from '@/components/sections/encargo/Contacto';
 import { Equipos } from '@/components/sections/encargo/Equipos';
 import { Hero } from '@/components/sections/encargo/Hero';
@@ -37,12 +36,7 @@ export default async function EncargoPage() {
       theme="taller"
       side="encargo"
       skipLabel={ui.skipToContent}
-      nav={
-        <>
-          <AnnouncementBar text={content.announcement} tag={site.sideTag.encargo} />
-          <TallerNav current="encargo" links={encargo.nav.links} />
-        </>
-      }
+      nav={<TallerNav current="encargo" links={encargo.nav.links} />}
       footer={
         <SiteFooter
           brand={encargo.chrome.wordmark}
@@ -64,7 +58,7 @@ export default async function EncargoPage() {
         defaultText={marquee.defaultText}
         serverText={marquee.text}
         promo={marquee.promo}
-        ribbon={{ src: '/brand/cinta-from-brand.png', width: 1406, height: 144 }}
+        ribbon={{ src: '/brand/cinta-from-brand-negro.png', width: 1406, height: 144 }}
       />
       <Intro />
       <Proceso />

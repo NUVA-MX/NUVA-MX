@@ -6,7 +6,6 @@ import { CartButton } from '@/components/sections/existencia/CartButton';
 import { Envios } from '@/components/sections/existencia/Envios';
 import { Hero } from '@/components/sections/existencia/Hero';
 import { Products } from '@/components/sections/existencia/Products';
-import { AnnouncementBar } from '@/components/sections/shared/AnnouncementBar';
 import { TallerNav } from '@/components/sections/shared/TallerNav';
 import { encargo } from '@/content/encargo';
 import { existencia } from '@/content/existencia';
@@ -27,12 +26,7 @@ export default function ExistenciaPage() {
         theme="taller"
         side="existencia"
         skipLabel={ui.skipToContent}
-        nav={
-          <>
-            <AnnouncementBar text={existencia.announcement} tag={site.sideTag.existencia} />
-            <TallerNav current="existencia" links={existencia.nav.links} action={<CartButton />} />
-          </>
-        }
+        nav={<TallerNav current="existencia" links={existencia.nav.links} action={<CartButton />} />}
         footer={
           <SiteFooter
             brand={encargo.chrome.wordmark}

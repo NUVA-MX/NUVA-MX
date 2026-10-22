@@ -6,12 +6,16 @@ import { cx } from '@/lib/cx';
 import type { EncargoContent } from '@/lib/content/encargo-merge';
 import styles from './Hero.module.css';
 
-/** Full-bleed photo hero; the title and an orange button and an outline button sit bottom-left on a dark veil. */
+/** Full-bleed photo hero (olive-to-lemon gradient until there is a photo); title and two buttons sit bottom-left. */
 export function Hero({ content: h }: { content: EncargoContent['hero'] }) {
   return (
     <section className={styles.root} aria-labelledby="hero-title">
-      <Media src={h.image} alt={h.imageAlt} ratio="fill" tone="inverse" sizes="full" priority />
-      <div className={styles.veil} aria-hidden="true" />
+      {h.image && (
+        <>
+          <Media src={h.image} alt={h.imageAlt} ratio="fill" tone="inverse" sizes="full" priority />
+          <div className={styles.veil} aria-hidden="true" />
+        </>
+      )}
       <Container className={styles.inner}>
         <div className={styles.copy}>
           <h1 id="hero-title" className={styles.title}>
