@@ -1,7 +1,7 @@
 /** Copy for the In stock page (reference: Nuva Tienda.dc.html). */
 export const existencia = {
   meta: {
-    title: 'En existencia · NUVA',
+    title: 'Promocionales · NUVA',
     description: 'Stock real, precio a la vista y salida el mismo día. Sin cotización ni espera de producción.',
   },
   // TODO(confirm): announcement copy (facts already on this page).
@@ -15,7 +15,7 @@ export const existencia = {
     cartAria: 'Abrir carrito, {count} piezas',
   },
   hero: {
-    eyebrow: 'En existencia',
+    eyebrow: 'Promocionales',
     titleLines: ['Listo para', 'enviar'],
     body: 'Stock real, precio a la vista y salida el mismo día. Sin cotización ni espera de producción.',
     // TODO(client): confirm the three short hero facts.
@@ -45,8 +45,8 @@ export const existencia = {
     // TODO(confirm): copy for the loading, empty and error states.
     loading: 'Cargando productos…',
     empty: {
-      title: 'Por ahora no hay piezas en existencia.',
-      body: 'Escríbenos y te decimos qué llega pronto o qué podemos hacer por encargo.',
+      title: 'Por ahora no hay promocionales disponibles.',
+      body: 'Escríbenos y te decimos qué llega pronto o qué podemos hacer en Merch.',
       cta: 'Preguntar por WhatsApp',
     },
     error: {
@@ -68,7 +68,7 @@ export const existencia = {
   crossLink: {
     eyebrow: '¿Quieres la tuya?',
     body: 'Si buscas una pieza con tu diseño, eso vive del otro lado.',
-    cue: 'Ir a Por encargo →',
+    cue: 'Ir a Merch →',
     href: '/encargo',
   },
   // TODO(confirm): all cart panel copy.

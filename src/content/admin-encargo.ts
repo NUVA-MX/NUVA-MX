@@ -1,7 +1,7 @@
-/** Admin copy for the "Por encargo" content editor and the projects manager. */
+/** Admin copy for the "Merch" content editor and the projects manager. */
 export const adminEncargo = {
   page: {
-    title: 'Página «Por encargo»',
+    title: 'Página «Merch»',
     intro:
       'Edita los textos y las fotos de la página. Al guardar se publica de inmediato. Si dejas un campo vacío o pulsas «Restaurar», se usa el contenido predeterminado.',
     viewPage: 'Ver página',

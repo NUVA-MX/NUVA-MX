@@ -2,7 +2,7 @@
 export const entrada = {
   meta: {
     title: 'NUVA · Dos formas de comprar',
-    description: 'Por encargo, con tu diseño, o en existencia, listo para enviar. Hecho en México.',
+    description: 'Merch con tu diseño o artículos promocionales listos para enviar. Hecho en México.',
   },
   bar: { brand: 'NUVA', note: 'FROM BRAND → TO PRODUCT' },
   panels: [
@@ -35,8 +35,8 @@ export const entrada = {
   footer: {
     quote: 'Dos negocios, una misma marca. Nada te obliga a elegir de entrada.',
     columns: [
-      { strong: 'Por encargo', text: ' es producción: tiempos de 7 a 10 días, mínimo de una pieza y cotización según el diseño.' },
-      { strong: 'En existencia', text: ' es tienda: stock real, precio a la vista y compra inmediata.' },
+      { strong: 'Merch:', text: ' producción con tu diseño, tiempos de 7 a 10 días, mínimo de una pieza y cotización según el diseño.' },
+      { strong: 'Promocionales:', text: ' tienda con stock real, precio a la vista y compra inmediata.' },
     ],
     note: 'Ambas comparten taller, envíos y contacto.',
   },

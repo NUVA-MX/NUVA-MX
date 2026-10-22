@@ -32,8 +32,8 @@ import styles from './page.module.css';
 
 // Test data for the dev page. Components never know these strings.
 const switchOptions = [
-  { key: 'encargo', label: 'POR ENCARGO', href: '/encargo' },
-  { key: 'existencia', label: 'EN EXISTENCIA', href: '/existencia' },
+  { key: 'encargo', label: 'Merch', href: '/encargo' },
+  { key: 'existencia', label: 'Promocionales', href: '/existencia' },
 ];
 const navLabels = { openMenu: 'Abrir menú', closeMenu: 'Cerrar menú', nav: 'Secciones', switch: 'Forma de comprar', home: 'Inicio' };
 const demoProjects = Array.from({ length: 6 }, (_, i) => ({
@@ -68,8 +68,8 @@ const cartLabels = {
   verifying: 'Revisando inventario…',
 };
 const panels = [
-  { key: 'a', href: '/encargo', theme: 'taller', tone: 'olive' as const, eyebrow: 'Por encargo', titleLines: ['Hecho a', 'tu medida.'], body: 'Texto demo del panel izquierdo.', preview: 'Vista previa demo', cue: 'Entrar', image: null, imageAlt: '' },
-  { key: 'b', href: '/existencia', theme: 'taller', tone: 'wine' as const, eyebrow: 'En existencia', titleLines: ['Listo para', 'enviar.'], body: 'Texto demo del panel derecho.', preview: 'Vista previa demo', cue: 'Entrar', image: null, imageAlt: '' },
+  { key: 'a', href: '/encargo', theme: 'taller', tone: 'olive' as const, eyebrow: 'Merch', titleLines: ['Hecho a', 'tu medida.'], body: 'Texto demo del panel izquierdo.', preview: 'Vista previa demo', cue: 'Entrar', image: null, imageAlt: '' },
+  { key: 'b', href: '/existencia', theme: 'taller', tone: 'wine' as const, eyebrow: 'Promocionales', titleLines: ['Listo para', 'enviar.'], body: 'Texto demo del panel derecho.', preview: 'Vista previa demo', cue: 'Entrar', image: null, imageAlt: '' },
 ];
 
 export function PatternsDemo({ theme }: { theme: string }) {

@@ -21,7 +21,7 @@ export const admin = {
   shell: {
     nav: [
       { label: 'Productos', href: '/admin' },
-      { label: 'Página por encargo', href: '/admin/encargo' },
+      { label: 'Página Merch', href: '/admin/encargo' },
       { label: 'Proyectos', href: '/admin/proyectos' },
       { label: 'Ver tienda', href: '/existencia' },
     ],

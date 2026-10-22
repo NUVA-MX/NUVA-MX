@@ -4,7 +4,7 @@ import { stickyWhatsapp, whatsappMessages } from './encargo-whatsapp';
 /** Copy for the Made to order page (reference: Nuva Sitio.dc.html). */
 export const encargo = {
   meta: {
-    title: 'Por encargo · NUVA',
+    title: 'Merch · NUVA',
     description:
       'Así hacemos tu pieza personalizada, paso a paso: del diseño al mockup, del taller a tu puerta. Pide por WhatsApp, desde una pieza.',
   },
@@ -15,9 +15,9 @@ export const encargo = {
   },
   nav: {
     links: [
-      { label: 'Cómo lo hacemos', href: '#proceso' },
-      { label: 'Proyectos', href: '#proyectos' },
-      { label: 'Taller', href: '#taller' },
+      { label: 'Descubre el proceso', href: '#proceso' },
+      { label: 'Made by us', href: '#proyectos' },
+      { label: 'Sobre nosotros', href: '#taller' },
     ],
     whatsapp: 'WhatsApp',
   },
@@ -171,7 +171,7 @@ export const encargo = {
     href: '/existencia',
     // TODO(client): photo of an in-stock product.
     image: null as string | null,
-    imageAlt: 'Foto de producto en existencia',
-    label: 'Foto: producto en existencia',
+    imageAlt: 'Foto de producto promocional',
+    label: 'Foto: producto promocional',
   },
 } as const;

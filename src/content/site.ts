@@ -2,7 +2,7 @@
 export const site = {
   brand: 'NUVA',
   tagline: 'Productos personalizables · Hecho en México',
-  storeTagline: 'Tienda en existencia · Hecho en México',
+  storeTagline: 'Tienda de promocionales · Hecho en México',
   copyright: '© 2026 Nuva',
   homeLabel: 'NUVA, ir a la entrada',
   // TODO(client): WhatsApp number with area code, e.g. '52 55 1234 5678'.
@@ -12,14 +12,14 @@ export const site = {
   // TODO(client): real social links, e.g. { label: 'Instagram', href: 'https://instagram.com/…' }.
   social: [] as { label: string; href: string }[],
   switch: [
-    { key: 'encargo', label: 'POR ENCARGO', href: '/encargo' },
-    { key: 'existencia', label: 'EN EXISTENCIA', href: '/existencia' },
+    { key: 'encargo', label: 'Merch', href: '/encargo' },
+    { key: 'existencia', label: 'Promocionales', href: '/existencia' },
   ],
   // Page-identity tag shown in the announcement bar of each side.
   sideTag: { encargo: 'Hecho a tu medida', existencia: 'Listo para enviar' },
   switchLabel: 'Forma de comprar',
   description:
-    'NUVA: gorras y prendas personalizadas por encargo y piezas en existencia listas para enviar. Hecho en México.',
+    'NUVA: merch personalizado y artículos promocionales listos para enviar. Hecho en México.',
 } as const;
 
 export type SwitchKey = (typeof site.switch)[number]['key'];
