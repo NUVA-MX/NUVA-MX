@@ -34,28 +34,6 @@
   color: var(--promo-ink-2);
 }
 
-/* White filter bar; sticky below the site nav from tablet up (on phones it would cover too much of the screen). */
-.filters {
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  background: var(--white);
-}
-
-/* Result count and the reset link; reserves its height so the grid does not jump. */
-.bar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3-5);
-  min-height: var(--target-min);
-  margin: var(--space-4-5) 0 var(--space-5-5);
-  font-size: var(--text-button);
-  color: var(--promo-ink-2);
-}
-
-.count {
-  margin: 0;
-}
-
 .clear {
   min-height: var(--target-min);
   padding: 0;
@@ -76,8 +54,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(var(--promo-card-min), 100%), 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--promo-card-min-sm), 100%), 1fr));
+  gap: var(--space-3);
   align-items: stretch;
 }
 
@@ -101,11 +79,52 @@
   outline: none;
 }
 
+/* Sidebar on desktop; sticky toolbar and filter sheet below it. */
+.layout {
+  display: block;
+}
+
+.side {
+  display: none;
+}
+
+.main {
+  min-width: 0;
+}
+
+.toolbar {
+  display: contents;
+}
+
+.showing {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+  text-align: center;
+  color: var(--promo-muted);
+}
+
 /* see src/styles/breakpoints.ts */
 @media (min-width: 640px) {
-  .filters {
-    position: sticky;
-    top: calc(var(--nav-offset) + var(--space-2));
-    z-index: var(--z-raised);
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--promo-card-min), 100%), 1fr));
+    gap: var(--space-4);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--promo-sidebar) minmax(0, 1fr);
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .side {
+    display: block;
+  }
+
+  .toolbar {
+    display: none;
   }
 }
