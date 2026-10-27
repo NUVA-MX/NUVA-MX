@@ -1,8 +1,28 @@
 .root {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--promo-filter-min), 100%), 1fr));
+  grid-template-areas:
+    'search search'
+    'chips chips'
+    'sub sort';
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: end;
   gap: var(--space-3);
+}
+
+.search {
+  grid-area: search;
+}
+
+.root > [role='group'] {
+  grid-area: chips;
+}
+
+.sub {
+  grid-area: sub;
+}
+
+.sort {
+  grid-area: sort;
 }
 
 .field {
@@ -77,7 +97,10 @@
 
 /* see src/styles/breakpoints.ts */
 @media (min-width: 1024px) {
-  .search {
-    grid-column: span 2;
+  .root {
+    grid-template-areas:
+      'search sub sort'
+      'chips chips chips';
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
   }
 }

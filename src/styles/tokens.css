@@ -554,6 +554,7 @@
   --promo-cream: #f3f0dc; /* page background */
   --promo-cream-card: #fbf9ec; /* cards, inputs */
   --promo-cream-dark: #e4e0bf; /* image placeholder */
+  --promo-page: #ebe7c9; /* page background, one step darker than the white cards (ink-2 on it 7:1) */
   --promo-ink: #23261a; /* body text */
   --promo-ink-2: #4a4e3a; /* secondary text, labels */
   --promo-muted: #6b6e58; /* meta text, counts */
@@ -576,4 +577,5 @@
   --promo-fab-height: 54px;
   --promo-counter: 24px;
   --promo-chevron: 8px;
+  --promo-mark: 32px; /* visible circle of the card toggle, inside a 44px hit area */
 }

@@ -5,7 +5,8 @@ import { fetchCatalogList } from '@/lib/api/catalog';
 import { parsePageParam } from '@/lib/catalog/pagination';
 import type { CatalogCard } from '@/lib/catalog/types';
 
-export type CatalogFilters = { q: string; category: string; subcategory: string };
+export type CatalogSort = 'name' | 'price_asc' | 'price_desc';
+export type CatalogFilters = { q: string; category: string; subcategory: string; sort: CatalogSort };
 export type CatalogStatus = 'loading' | 'success' | 'empty' | 'error';
 
 type State = {
@@ -25,7 +26,7 @@ const initial: State = { items: [], total: 0, enabled: true, updatedAt: null, st
 type Result = State & { page: number; totalPages: number; goTo: (page: number) => void; retry: () => void };
 
 function sameQuery(a: CatalogFilters, b: CatalogFilters): boolean {
-  return a.q === b.q && a.category === b.category && a.subcategory === b.subcategory;
+  return a.q === b.q && a.category === b.category && a.subcategory === b.subcategory && a.sort === b.sort;
 }
 
 const PAGE_EVENT = 'nuva:catalog-page';
@@ -66,14 +67,14 @@ export function useCatalog(filters: CatalogFilters): Result {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const next = { q: filters.q.trim(), category: filters.category, subcategory: filters.subcategory };
+      const next = { q: filters.q.trim(), category: filters.category, subcategory: filters.subcategory, sort: filters.sort };
       if (sameQuery(next, applied.current)) return;
       applied.current = next;
       setQuery(next);
       writePageParam(1, 'replace');
     }, DEBOUNCE_MS);
     return () => clearTimeout(timer);
-  }, [filters.q, filters.category, filters.subcategory]);
+  }, [filters.q, filters.category, filters.subcategory, filters.sort]);
 
   useEffect(() => {
     controller.current?.abort();

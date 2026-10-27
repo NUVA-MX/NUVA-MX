@@ -1,5 +1,6 @@
 import 'server-only';
 import { and, asc, count, desc, eq, sql, type SQL } from 'drizzle-orm';
+import type { CatalogSort } from '@/lib/catalog/types';
 import { getDb } from '@/lib/db/client';
 import { supplierProducts as t, supplierSyncRuns } from '@/lib/db/schema';
 import type { PublicCardRow, PublicDetailRow, PublicVariantRow } from './public';
@@ -18,7 +19,17 @@ const cardColumns = {
 };
 const detailColumns = { ...cardColumns, description: t.description, images: t.images, specs: t.specs };
 
-export type ListFilters = { q?: string; category?: string; subcategory?: string; page: number; pageSize: number };
+export type ListFilters = { q?: string; category?: string; subcategory?: string; sort?: CatalogSort; page: number; pageSize: number };
+
+/** Cost used for ordering only; rows without a positive cost sort last (they have no public price). */
+const sortCost = sql`(case when ${t.costCents} > 0 then ${t.costCents} end)`;
+
+export function orderFor(sort: CatalogSort | undefined): SQL[] {
+  const tail = [asc(t.category), asc(t.name), asc(t.code)];
+  if (sort === 'price_asc') return [sql`${sortCost} asc nulls last`, ...tail];
+  if (sort === 'price_desc') return [sql`${sortCost} desc nulls last`, ...tail];
+  return tail;
+}
 
 const isText = (v: unknown): v is string => typeof v === 'string';
 const textOrNull = (v: unknown): string | null => (isText(v) ? v : null);
@@ -64,7 +75,7 @@ export async function listProducts(f: ListFilters): Promise<{ rows: PublicCardRo
       .select(cardColumns)
       .from(t)
       .where(where)
-      .orderBy(asc(t.category), asc(t.name), asc(t.code))
+      .orderBy(...orderFor(f.sort))
       .limit(f.pageSize)
       .offset((f.page - 1) * f.pageSize),
     db.select({ n: count() }).from(t).where(where),

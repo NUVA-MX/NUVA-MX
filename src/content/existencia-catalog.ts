@@ -8,14 +8,17 @@ export const existenciaCatalog = {
     // TODO(client): filter labels.
     searchLabel: 'Buscar',
     searchPlaceholder: 'Nombre, código o categoría',
-    categoryLabel: 'Categoría',
+    chipsLabel: 'Categorías',
     subcategoryLabel: 'Subcategoría',
     allCategories: 'Todas',
     allSubcategories: 'Todas',
     clear: 'Limpiar filtros',
+    // TODO(client): sort labels (price options only show when prices are visible).
+    sortLabel: 'Ordenar',
+    sort: { name: 'Nombre', price_asc: 'Precio: menor a mayor', price_desc: 'Precio: mayor a menor' },
     groupLabel: 'Filtros del catálogo',
   },
-  count: { one: '{n} producto', other: '{n} productos', none: 'Sin resultados' },
+  count: { one: '{n} producto', other: '{n} productos', none: 'Sin resultados', note: 'No incluye personalización' },
   // TODO(client): loading, empty and error states.
   loading: 'Cargando catálogo…',
   empty: 'No encontramos productos con esos filtros.',
@@ -37,13 +40,11 @@ export const existenciaCatalog = {
   },
   card: {
     meta: '{code} · {subcategory}',
-    add: 'Agregar a mi lista',
-    inList: 'En mi lista ✓',
+    add: '+',
+    inList: '✓',
     addAria: 'Agregar {name} a mi lista',
     inListAria: 'Quitar {name} de mi lista',
     viewDetailAria: 'Ver detalle de {name}',
-    // TODO(client): note under the price.
-    priceNote: 'No incluye personalización',
   },
   envios: {
     designTitle: '¿Algo con tu diseño?',
@@ -80,10 +81,10 @@ export const existenciaCatalog = {
     // TODO(client): WhatsApp question about a catalog product.
     askTemplate: 'Hola Nuva, quiero información de "{name}" (código {code}).',
     notice: 'Precio y tiempo de entrega por confirmar',
-    // TODO(client): shown instead of `notice` when the price is visible.
-    noticeWithPrice: 'Tiempo de entrega por confirmar',
     // TODO(client): note under the price.
     priceNote: 'No incluye personalización',
+    // TODO(client): shown instead of `notice` when the price is visible.
+    noticeWithPrice: 'Tiempo de entrega por confirmar',
   },
   // Name of the line in "Mi lista" and in the WhatsApp message: "{name} · {tone} ({code})".
   listItemName: '{name} · {tone} ({code})',

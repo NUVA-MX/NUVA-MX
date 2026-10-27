@@ -4,7 +4,7 @@ import {
   parseDetail,
   parseListResponse,
 } from '@/lib/catalog/validate';
-import type { CatalogCategoriesResponse, CatalogDetail, CatalogListResponse } from '@/lib/catalog/types';
+import type { CatalogSort, CatalogCategoriesResponse, CatalogDetail, CatalogListResponse } from '@/lib/catalog/types';
 
 export class CatalogError extends Error {
   constructor(public status: number) {
@@ -12,7 +12,7 @@ export class CatalogError extends Error {
   }
 }
 
-export type CatalogQuery = { q: string; category: string; subcategory: string; page: number; pageSize: number };
+export type CatalogQuery = { q: string; category: string; subcategory: string; sort?: CatalogSort; page: number; pageSize: number };
 
 async function getJson(path: string, signal?: AbortSignal): Promise<unknown> {
   const res = await fetch(path, { cache: 'no-store', signal, headers: { Accept: 'application/json' } });
@@ -25,6 +25,7 @@ export async function fetchCatalogList(query: CatalogQuery, signal?: AbortSignal
   if (query.q) params.set('q', query.q);
   if (query.category) params.set('category', query.category);
   if (query.subcategory) params.set('subcategory', query.subcategory);
+  if (query.sort && query.sort !== 'name') params.set('sort', query.sort);
   const parsed = parseListResponse(await getJson(`/api/catalog?${params.toString()}`, signal));
   if (!parsed) throw new CatalogError(502);
   return parsed;
