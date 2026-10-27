@@ -293,6 +293,8 @@
   --icon-md: 20px;
 
   --chip-size: 34px;
+  --swatch-size: 26px; /* color picker dot (inside a 44px target) */
+  --swatch-dot: 16px; /* decorative dots on cards */
   --chip-offset: 18px;
   --badge-offset: 14px;
   --cue-line: 34px;
@@ -540,4 +542,38 @@
   :root {
     --duration-carousel: 0ms;
   }
+}
+
+/* 3. Promocionales catalog area (/existencia): palette and sizes from the client's design spec. */
+:root {
+  --promo-olive: #3b4029; /* headings, primary button, Envíos band */
+  --promo-olive-hover: color-mix(in srgb, var(--promo-olive) 82%, var(--promo-cream));
+  --promo-orange: #c4643b; /* badges, counter */
+  --promo-orange-deep: #ad4f2b; /* text links */
+  --promo-yellow: #e9e6a6; /* headings on olive */
+  --promo-cream: #f3f0dc; /* page background */
+  --promo-cream-card: #fbf9ec; /* cards, inputs */
+  --promo-cream-dark: #e4e0bf; /* image placeholder */
+  --promo-ink: #23261a; /* body text */
+  --promo-ink-2: #4a4e3a; /* secondary text, labels */
+  --promo-muted: #6b6e58; /* meta text, counts */
+  --promo-disabled: #9a9c86; /* disabled field text */
+  --promo-on-olive-2: #d9d6a8; /* body text on olive */
+  --promo-border: rgba(35, 38, 26, 0.16);
+  --promo-border-soft: rgba(35, 38, 26, 0.08);
+  --promo-shadow-fab: 0 12px 30px rgba(35, 38, 26, 0.25);
+
+  --promo-title: clamp(40px, 5.5vw, 60px);
+  --promo-pad-top: clamp(48px, 7vw, 72px);
+  --promo-pad-bottom: clamp(64px, 9vw, 100px);
+  --promo-field-height: 48px;
+  --promo-radius-field: 14px;
+  --promo-radius-button: 12px;
+  --promo-border-width: 1.5px;
+  --promo-filter-min: 220px;
+  --promo-card-min: 250px;
+  --promo-band-min: 240px;
+  --promo-fab-height: 54px;
+  --promo-counter: 24px;
+  --promo-chevron: 8px;
 }

@@ -1,0 +1,98 @@
+{
+ "colores": [
+  {
+   "Color": "AMARILLO",
+   "RGB": " #F9F50C",
+   "Tonos": [
+    {
+     "Nombre": "AMARILLO",
+     "RGB": "#F9F50C"
+    },
+    {
+     "Nombre": "AMARILLO MEDIO",
+     "RGB": "#F1C966"
+    }
+   ]
+  },
+  {
+   "Color": "AZUL",
+   "RGB": " #006CBA",
+   "Tonos": [
+    {
+     "Nombre": "AZUL",
+     "RGB": "#006CBA"
+    },
+    {
+     "Nombre": "AZUL ACERO",
+     "RGB": "#46677B"
+    },
+    {
+     "Nombre": "AZUL AQUA",
+     "RGB": "#15C9E0"
+    },
+    {
+     "Nombre": "AZUL CABALLERO",
+     "RGB": "#006CBA"
+    },
+    {
+     "Nombre": "AZUL CLARO",
+     "RGB": "#6CBDEA"
+    },
+    {
+     "Nombre": "AZUL CLARO CABALLERO",
+     "RGB": "#6CBDEA"
+    },
+    {
+     "Nombre": "AZUL CLARO DAMA",
+     "RGB": "#6CBDEA"
+    },
+    {
+     "Nombre": "AZUL DAMA",
+     "RGB": "#006CBA"
+    },
+    {
+     "Nombre": "AZUL MARINO",
+     "RGB": "#173294"
+    },
+    {
+     "Nombre": "AZUL OSCURO CABALLERO",
+     "RGB": "#173294"
+    },
+    {
+     "Nombre": "AZUL OSCURO DAMA",
+     "RGB": "#173294"
+    },
+    {
+     "Nombre": "AZUL PÁLIDO",
+     "RGB": "#F0FEFF"
+    },
+    {
+     "Nombre": "AZUL PASTEL",
+     "RGB": "#75C7D2"
+    },
+    {
+     "Nombre": "AZUL REY",
+     "RGB": "#0100D9"
+    },
+    {
+     "Nombre": "AZUL PALIDO",
+     "RGB": "#b1bcd0"
+    }
+   ]
+  }
+ ],
+ "respuesta_llave": {
+  "status": "success",
+  "response": {
+   "Activo": true,
+   "Correct_Datos": true,
+   "ProxLlegadas": false,
+   "Uso_minuto": 3,
+   "Limite_minuto": 60,
+   "Uso_hora": 3,
+   "Limite_hora": 1000,
+   "MostrarExistencias": false
+  }
+ },
+ "tiempo_respuesta_segundos": 0.57
+}

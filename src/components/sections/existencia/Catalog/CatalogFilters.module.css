@@ -1,0 +1,83 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--promo-filter-min), 100%), 1fr));
+  align-items: end;
+  gap: var(--space-3);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--text-sm);
+  color: var(--promo-ink-2);
+}
+
+.control {
+  width: 100%;
+  height: var(--promo-field-height);
+  padding: 0 var(--space-4);
+  border: var(--promo-border-width) solid var(--promo-border);
+  border-radius: var(--promo-radius-field);
+  background: var(--promo-cream-card);
+  color: var(--promo-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  appearance: none;
+}
+
+.control:focus,
+.control:focus-visible {
+  border-color: var(--promo-olive);
+  outline: var(--focus-width) solid var(--promo-olive);
+  outline-offset: var(--space-half);
+}
+
+/* Disabled until a category is picked. */
+.control:disabled {
+  border-style: dashed;
+  background: transparent;
+  color: var(--promo-disabled);
+  cursor: not-allowed;
+}
+
+.field:has(.control:disabled) .label {
+  color: var(--promo-disabled);
+}
+
+/* Custom chevron: a rotated corner, drawn with borders so it follows the text color. */
+.select {
+  position: relative;
+}
+
+.select .control {
+  padding-right: var(--space-10);
+}
+
+.select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--space-4-5);
+  width: var(--promo-chevron);
+  height: var(--promo-chevron);
+  border-right: var(--border-width-strong) solid var(--promo-ink-2);
+  border-bottom: var(--border-width-strong) solid var(--promo-ink-2);
+  transform: translateY(-75%) rotate(45deg);
+  pointer-events: none;
+}
+
+.select:has(.control:disabled)::after {
+  border-color: var(--promo-disabled);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .search {
+    grid-column: span 2;
+  }
+}

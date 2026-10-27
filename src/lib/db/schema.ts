@@ -189,3 +189,5 @@ export type NewProductRow = typeof products.$inferInsert;
 export type AdminUserRow = typeof adminUsers.$inferSelect;
 export type EncargoProjectRow = typeof encargoProjects.$inferSelect;
 export type NewEncargoProjectRow = typeof encargoProjects.$inferInsert;
+
+export * from './schema-catalog';

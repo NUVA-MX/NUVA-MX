@@ -13,6 +13,14 @@ export { verifyHmacSignature, computeSignature, MemoryWebhookEventStore, setWebh
 export type { CallOptions, HttpClient, IntegrationResult, ProviderDefinition, VerifiedEvent } from './core/types';
 export { createInboundHandler, MAX_WEBHOOK_BYTES } from './inbound';
 export { createExampleClient, type ExampleClient } from './providers/example/client';
+export { createInnovationClient } from './providers/innovation/client';
+export type {
+  InnovationClient,
+  InnovationColors,
+  InnovationProductsPage,
+  InnovationStockList,
+} from './providers/innovation/client';
+export type { InnovationProduct, InnovationStockProduct } from './providers/innovation/schemas';
 
 export const registry = createRegistry(providers);
 

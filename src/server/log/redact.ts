@@ -21,7 +21,7 @@ const PATTERNS: RegExp[] = [
 ];
 
 /** Secret-looking query parameters (?token=..., &sig=..., &access_key=...). */
-const QUERY_SECRET = /([?&][^=&\s#]*(?:token|sig|key|secret|pass|pwd|auth|access|credential|code)[^=&\s#]*=)[^&\s#]+/gi;
+const QUERY_SECRET = /([?&][^=&\s#]*(?:token|sig|key|secret|pass|pwd|auth|access|credential|code|user|clave)[^=&\s#]*=)[^&\s#]+/gi;
 
 export type RedactOptions = {
   /** Extra literal secret values to mask (defaults to live values of the vars in secrets.json). */

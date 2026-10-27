@@ -23,6 +23,10 @@ const HOUR = 60 * MIN;
 
 export const POLICIES = {
   products: [{ name: 'products.ip.min', limit: 60, windowMs: MIN, key: (i) => i.ip }],
+  // Public catalog reads (DB only).
+  catalog: [{ name: 'catalog.ip.min', limit: 120, windowMs: MIN, key: (i) => i.ip }],
+  // Cron route: checked before the bearer secret so anonymous callers cannot hammer it.
+  cron: [{ name: 'cron.ip.min', limit: 10, windowMs: MIN, key: knownIp }],
   login: [
     { name: 'login.ip.min', limit: 5, windowMs: MIN, key: knownIp },
     { name: 'login.ip.hour', limit: 20, windowMs: HOUR, key: knownIp },

@@ -18,7 +18,7 @@ describe('registry', () => {
     expect(registry.getProvider('example', disabled.env)).toBeNull();
     expect(registry.getProvider('unknown', enabled.env)).toBeNull();
     // Half-configured (forged env object): still refused.
-    const half = { ...enabled.env, integrations: { example: { ...enabled.env.integrations.example, apiKey: undefined } } };
+    const half = { ...enabled.env, integrations: { ...enabled.env.integrations, example: { ...enabled.env.integrations.example, apiKey: undefined } } };
     expect(registry.getProvider('example', half)).toBeNull();
   });
 });

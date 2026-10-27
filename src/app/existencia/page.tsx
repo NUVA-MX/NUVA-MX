@@ -3,7 +3,9 @@ import { PageShell } from '@/components/layout/PageShell';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { Cart } from '@/components/sections/existencia/Cart';
 import { CartButton } from '@/components/sections/existencia/CartButton';
+import { Catalog } from '@/components/sections/existencia/Catalog';
 import { Envios } from '@/components/sections/existencia/Envios';
+import { ListFab } from '@/components/sections/existencia/ListFab';
 import { Hero } from '@/components/sections/existencia/Hero';
 import { Products } from '@/components/sections/existencia/Products';
 import { TallerNav } from '@/components/sections/shared/TallerNav';
@@ -40,9 +42,11 @@ export default function ExistenciaPage() {
       >
         <Hero />
         <Products />
+        <Catalog />
         <Envios />
       </PageShell>
       <Cart />
+      <ListFab />
     </CartProvider>
   );
 }

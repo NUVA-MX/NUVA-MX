@@ -2,6 +2,7 @@ import 'server-only';
 
 export type IntegrationErrorKind =
   | 'config'
+  | 'auth'
   | 'allowlist'
   | 'timeout'
   | 'http'

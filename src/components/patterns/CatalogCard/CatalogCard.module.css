@@ -1,0 +1,80 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  background: var(--promo-cream-card);
+  border: var(--border-width) solid var(--promo-border-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--promo-cream-dark);
+  cursor: pointer;
+}
+
+.photo:focus-visible,
+.toggle:focus-visible {
+  outline: var(--focus-width) solid var(--promo-olive);
+  outline-offset: calc(var(--focus-offset) * -1);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding: var(--space-4-5) var(--space-5) var(--space-5);
+}
+
+.meta {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--promo-muted);
+  overflow-wrap: anywhere;
+}
+
+/* Two lines at most; the full name is in the detail. */
+.name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-quote);
+  color: var(--promo-ink);
+  /* with the gap: at least 14px above the button */
+  margin-bottom: var(--space-2);
+}
+
+.toggle {
+  width: 100%;
+  min-height: var(--target-min);
+  margin-top: auto;
+  padding: 0 var(--space-3);
+  border: var(--promo-border-width) solid var(--promo-olive);
+  border-radius: var(--promo-radius-button);
+  background: transparent;
+  color: var(--promo-olive);
+  font-family: var(--font-body);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.on {
+  background: var(--promo-olive);
+  color: var(--promo-cream);
+}

@@ -1,0 +1,196 @@
+{
+ "productos": [
+  {
+   "Nombre": "Pastillero redondo.",
+   "Descripcion": "Pastillero redondo de plástico con cortador de acero. Ideal para traer en el bolso.",
+   "Categoria": [
+    "Cuidado Personal"
+   ],
+   "ImagenP": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/principal.jpeg",
+   "Codigo": "BE-004",
+   "Medidas producto": "7 cm.",
+   "Medidas empaque": "7 cm.x0x0",
+   "Cantidad empaque": "500",
+   "Variantes": [
+    {
+     "Codigo Variante": "BE-004R",
+     "Tono": "ROJO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/variantes/BE-004R.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-004A",
+     "Tono": "AZUL MARINO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/variantes/BE-004A.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-004B",
+     "Tono": "BLANCO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/variantes/BE-004B.jpeg"
+    }
+   ],
+   "Precio": "13.45",
+   "SubCategorias": [
+    "Pastilleros"
+   ],
+   "ImagenesC": [
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/carrusel-0.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/carrusel-1.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/carrusel-2.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889557081x472482274986609540/carrusel-3.webp"
+   ],
+   "UniqueID": "1747889557081x472482274986609540",
+   "TecnicasImpresion": [
+    "Serigrafía"
+   ],
+   "AreaDeImpresion": "3 cm.",
+   "PesoProducto": "0.026  kg.",
+   "EmpaqueMaster": [
+    {
+     "Ancho": "7 cm.",
+     "Alto": "0",
+     "Largo": "0",
+     "Peso": "13  kg.",
+     "Piezas": "500"
+    }
+   ],
+   "Materiales": [
+    "Plástico"
+   ]
+  },
+  {
+   "Nombre": "Espejo redondo.",
+   "Descripcion": "Espejo redondo de plástico translucido, ideal para bolsillo.",
+   "Categoria": [
+    "Belleza"
+   ],
+   "ImagenP": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/principal.jpeg",
+   "Codigo": "BE-006",
+   "Medidas producto": "6.5x6 cm.",
+   "Medidas empaque": "36x27x18 ",
+   "Cantidad empaque": "500",
+   "Variantes": [
+    {
+     "Codigo Variante": "BE-006R",
+     "Tono": "ROJO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/variantes/BE-006R.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-006RS",
+     "Tono": "ROSA",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/variantes/BE-006RS.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-006A",
+     "Tono": "AZUL",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/variantes/BE-006A.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-006B",
+     "Tono": "BLANCO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/variantes/BE-006B.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-006M",
+     "Tono": "MORADO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/variantes/BE-006M.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-006O",
+     "Tono": "NARANJA",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/variantes/BE-006O.jpeg"
+    }
+   ],
+   "Precio": "5.35",
+   "SubCategorias": [
+    "Espejos"
+   ],
+   "ImagenesC": [
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/carrusel-0.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/carrusel-1.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889561516x204183130931554720/carrusel-2.png"
+   ],
+   "UniqueID": "1747889561516x204183130931554720",
+   "TecnicasImpresion": [
+    "Serigrafía"
+   ],
+   "AreaDeImpresion": "3x3 cm.",
+   "PesoProducto": "0.02  kg.",
+   "EmpaqueMaster": [
+    {
+     "Ancho": "36",
+     "Alto": "27",
+     "Largo": "18 ",
+     "Peso": "10  kg.",
+     "Piezas": "500"
+    }
+   ],
+   "Materiales": [
+    "Plástico"
+   ]
+  },
+  {
+   "Nombre": "Set de manicura Lhasa.",
+   "Descripcion": "Set de manicura en estuche ovalado de plástico transparente, con base de color, con 4 piezas (cortaúñas, empujador de cutículas, lima de metal y tijeras).",
+   "Categoria": [
+    "Belleza"
+   ],
+   "ImagenP": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/principal.jpg",
+   "Codigo": "BE-014",
+   "Medidas producto": "9.5x5 cm.",
+   "Medidas empaque": "56x36x24 ",
+   "Cantidad empaque": "200",
+   "Variantes": [
+    {
+     "Codigo Variante": "BE-014R",
+     "Tono": "ROJO",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/variantes/BE-014R.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-014V",
+     "Tono": "VERDE LIMON",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/variantes/BE-014V.jpeg"
+    },
+    {
+     "Codigo Variante": "BE-014O",
+     "Tono": "NARANJA",
+     "Imagen": "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/variantes/BE-014O.jpeg"
+    }
+   ],
+   "Precio": "14.15",
+   "SubCategorias": [
+    "Accesorios de Belleza"
+   ],
+   "ImagenesC": [
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-0.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-1.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-2.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-3.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-4.jpeg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-5.jpg",
+    "https://adbsslpenfkpasdnekfj.supabase.co/storage/v1/object/public/productos/1747889559307x775765092803350400/carrusel-6.jpg"
+   ],
+   "UniqueID": "1747889559307x775765092803350400",
+   "TecnicasImpresion": [
+    "Tampografía"
+   ],
+   "AreaDeImpresion": "3x2.5 cm.",
+   "PesoProducto": "0.075  kg.",
+   "EmpaqueMaster": [
+    {
+     "Ancho": "56",
+     "Alto": "36",
+     "Largo": "24 ",
+     "Peso": "15  kg.",
+     "Piezas": "200"
+    }
+   ],
+   "Materiales": [
+    "Plástico"
+   ]
+  }
+ ],
+ "paginas_totales": 73,
+ "page": 1,
+ "limit": 20,
+ "tiempo": 0.08
+}

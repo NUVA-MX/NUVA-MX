@@ -1,8 +1,10 @@
 import 'server-only';
 import secretNames from './secrets.json';
+import type { InnovationEnv } from './innovation';
 import { parseEnv, type Env, type EnvSource } from './schema';
 
 export type { Env, ProviderEnv, ProviderName } from './schema';
+export type { InnovationEnv } from './innovation';
 export { PROVIDER_HOSTS, parseEnv } from './schema';
 
 export class EnvError extends Error {
@@ -66,6 +68,15 @@ export function isBlobConfigured(): boolean {
 /** Raw ADMIN_EMAILS (comma separated), parsed by src/lib/auth/emails. */
 export function adminEmailsRaw(): string | undefined {
   return getEnv().adminEmails;
+}
+
+export function innovationEnv(): InnovationEnv {
+  return getEnv().integrations.innovation;
+}
+
+/** Bearer secret for cron routes, or undefined when not configured. */
+export function cronSecret(): string | undefined {
+  return getEnv().cronSecret;
 }
 
 export function sampleDataMode(): Env['sampleData'] {

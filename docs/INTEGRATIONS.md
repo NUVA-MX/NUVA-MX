@@ -53,3 +53,38 @@ Outbound calls use the primary key; your `client.ts` may fall back to `_NEXT` if
 - [ ] Generic 401 for every verification failure; no details leak.
 - [ ] Route is `POST /api/webhooks/<name>`: 256 KB cap, JSON only, 120 requests/min/IP.
 - [ ] Unknown or disabled providers return the same 404 as any missing route.
+
+## Innovation Line catalog (supplier, read-only)
+
+Pulls the supplier catalog into Postgres (`supplier_products`, `supplier_sync_runs`); visitors only ever read the
+stored copy (`/api/catalog*`), never the supplier. Prices are not shown: the cost is kept server-side
+(`cost_cents`) and `publicPrice()` in `src/server/catalog/public.ts` returns `null`.
+
+- **Variables**: `INTEGRATION_INNOVATION_ENABLED`, `_API_KEY` (header `auth-token`), `_API_KEY_NEXT`, `_USER`,
+  `_PASSWORD` (the supplier's Clave), `INTEGRATION_INNOVATION_CATALOG_PUBLIC`, `INTEGRATION_INNOVATION_IGNORE_WINDOW`
+  (non-production only), and `CRON_SECRET` (min 32 chars, required in production when enabled). All secrets are
+  Sensitive in Vercel and listed in `src/server/env/secrets.json` (redaction and bundle scan).
+- **Query windows**: the supplier only allows queries 09:00-10:00, 13:00-14:00 and 17:00-18:00 Mexico City time.
+  `vercel.json` runs one daily cron (`0 15 * * *` UTC = 09:00); on a Pro plan add `0 19 * * *` and `0 23 * * *`.
+  The admin "Sincronizar ahora" button is window-guarded too. Limits: 60 calls/minute and 1000/hour.
+- **Safety**: one run at a time (partial unique index; a run stuck for 10 minutes is recovered), a run that returns
+  less than 80% of the previous active products (or fewer than 100) changes nothing and fails, and any failure keeps
+  the previous snapshot. Rows are validated and sanitized one by one; images must come from the exact supplier host.
+- **Pacing**: at least 5 minutes between runs (`cooldown`), a 50 s budget per run (the run fails and frees the lock itself), and the run aborts if the window closes mid-run.
+- **Run time**: a full sync is about 17 calls: colors ~1 s, stock list ~7.6 s, 15 product pages ~2 s each, so ~39 s. Call starts are spaced at
+  least 1.1 s apart (60/min limit) measured from the previous start, the budget is 52 s (about 25% slack) and `maxDuration` is 60. If the
+  supplier gets slower, the run fails with `budget` (snapshot kept, lock released); the next step then is fetching the stock list and the
+  pages concurrently (2-3 at once is still within 60/min).
+- **Images and quota (known residual)**: stored and public image URLs have a single spelling (no query, fragment, percent-encoding or dot
+  segments). `remotePatterns` in Next 16.3.6 does not look at the fragment and matches the path without decoding, so someone calling
+  `/_next/image` directly with `#N` or encoded spellings can still create new optimizer cache keys for real supplier files (quota burn, not data
+  exposure). Options, none applied: Vercel Spend Management / usage limits and alerts, a long `images.minimumCacheTTL` (already 31 days),
+  or `images.unoptimized` (or a custom loader) which removes the optimizer but needs the supplier host added to CSP `img-src`.
+- **Kill switches**: `INTEGRATION_INNOVATION_ENABLED=false` stops syncing (the stored catalog keeps being served);
+  `INTEGRATION_INNOVATION_CATALOG_PUBLIC=false` hides the public section.
+- **Rotation**: set `_API_KEY_NEXT`; on an auth failure the sync retries once with it. Then swap and remove `_NEXT`.
+- **First sync**: run `npm run db:migrate`, set the variables, then call the cron route with
+  `Authorization: Bearer $CRON_SECRET` (inside a window) or use the admin page `/admin/catalogo`. For local tests
+  set `INTEGRATION_INNOVATION_IGNORE_WINDOW=true` (never in production).
+- The GetAllColores URL path is not in the supplier manual; confirm it before the first real sync
+  (`ENDPOINTS.colors` in `providers/innovation/constants.ts`).
