@@ -84,6 +84,7 @@ stored copy (`/api/catalog*`), never the supplier. Prices are not shown: the cos
   one price per product, rounded to cents. To show prices: in Vercel set `INTEGRATION_INNOVATION_SHOW_PRICES=true` on Production (optionally
   `INTEGRATION_INNOVATION_PRICE_FACTOR`, 1 to 3) and redeploy. Set it back to `false` (or remove it) and redeploy to hide them. The cost never
   appears in any response; cart lines and the WhatsApp message still say "precio por confirmar".
+- **API sort**: `GET /api/catalog?sort=name|price_asc|price_desc` (default `name`). Price sorts return 400 `bad_request` unless `INTEGRATION_INNOVATION_SHOW_PRICES` is on; they order by the supplier cost (same order as the derived price), rows without a price last, ties by category then name. The cost is never sent.
 - **Kill switches**: `INTEGRATION_INNOVATION_ENABLED=false` stops syncing (the stored catalog keeps being served);
   `INTEGRATION_INNOVATION_CATALOG_PUBLIC=false` hides the public section.
 - **Rotation**: set `_API_KEY_NEXT`; on an auth failure the sync retries once with it. Then swap and remove `_NEXT`.

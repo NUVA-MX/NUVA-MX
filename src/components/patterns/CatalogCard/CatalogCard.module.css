@@ -1,10 +1,10 @@
+/* White card on the darker page: the layers separate by color, so no border or shadow. */
 .root {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-width: 0;
-  background: var(--promo-cream-card);
-  border: var(--border-width) solid var(--promo-border-soft);
+  background: var(--white);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
@@ -14,7 +14,7 @@
   width: 100%;
   padding: 0;
   border: 0;
-  background: var(--promo-cream-dark);
+  background: var(--white);
   cursor: pointer;
 }
 
@@ -28,15 +28,8 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--space-1-5);
-  padding: var(--space-4-5) var(--space-5) var(--space-5);
-}
-
-.meta {
-  margin: 0;
-  font-size: var(--text-xs);
-  color: var(--promo-muted);
-  overflow-wrap: anywhere;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5) var(--space-4);
 }
 
 /* Two lines at most; the full name is in the detail. */
@@ -51,48 +44,72 @@
   font-weight: var(--weight-medium);
   line-height: var(--leading-quote);
   color: var(--promo-ink);
-  /* with the gap: at least 14px above the button */
-  margin-bottom: var(--space-2);
 }
 
-.price {
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+}
+
+.info {
   display: flex;
   flex-direction: column;
   gap: var(--space-half);
-  margin: 0 0 var(--space-2);
+  min-width: 0;
 }
 
-.amount {
-  font-size: var(--text-xl);
-  font-weight: var(--weight-medium);
+.price {
+  margin: 0;
+  font-size: var(--display-xs);
+  font-weight: var(--weight-strong);
+  line-height: var(--leading-quote);
   color: var(--promo-olive);
 }
 
-.priceNote {
+.meta {
+  margin: 0;
   font-size: var(--text-xs);
   color: var(--promo-muted);
+  overflow-wrap: anywhere;
 }
 
+/* 44px hit area around a smaller visible circle. */
 .toggle {
-  width: 100%;
-  min-height: var(--target-min);
-  margin-top: auto;
-  padding: 0 var(--space-3);
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  margin: calc((var(--target-min) - var(--promo-mark)) / -2);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--promo-mark);
+  height: var(--promo-mark);
   border: var(--promo-border-width) solid var(--promo-olive);
-  border-radius: var(--promo-radius-button);
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--promo-olive);
-  font-family: var(--font-body);
-  font-size: var(--text-button);
-  font-weight: var(--weight-medium);
+  font-size: var(--text-xl);
+  line-height: var(--leading-none);
   white-space: nowrap;
-  cursor: pointer;
   transition:
     background var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out);
 }
 
-.on {
+.on .mark {
   background: var(--promo-olive);
-  color: var(--promo-cream);
+  color: var(--white);
 }

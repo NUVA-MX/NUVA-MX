@@ -29,6 +29,7 @@ function sampleList(p: ListParams): CatalogListResponse {
     const text = searchKey(`${c.name} ${c.code} ${c.category ?? ''} ${c.subcategory ?? ''}`);
     return words.every((w) => text.includes(w));
   });
+  if (p.sort && p.sort !== 'name') matches.sort((a, b) => (a.category ?? '').localeCompare(b.category ?? '') || a.name.localeCompare(b.name));
   const start = (p.page - 1) * p.pageSize;
   const items: CatalogCard[] = matches.slice(start, start + p.pageSize).map(({ code, name, category, subcategory, image, colors, variantCount, availability, price }) => ({
     code, name, category, subcategory, image, colors, variantCount, availability, price,

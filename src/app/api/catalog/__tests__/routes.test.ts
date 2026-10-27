@@ -82,6 +82,42 @@ describe('public catalog routes', () => {
     expect((await (await list(get('/api/catalog'))).json()).items[0].price).toBeNull();
   });
 
+  describe('sort', () => {
+    const cheap = { ...dbRow, code: 'AA-1', costCents: 1000 };
+    const dear = { ...dbRow, code: 'BB-2', costCents: 7654321 };
+    const free = { ...dbRow, code: 'CC-3', costCents: null };
+
+    it('price sorts are 400 while prices are hidden, as is an unknown sort', async () => {
+      for (const qs of ['sort=price_asc', 'sort=price_desc', 'sort=newest']) {
+        const res = await list(get(`/api/catalog?${qs}`));
+        expect(res.status).toBe(400);
+        expect(await res.json()).toEqual({ error: 'bad_request' });
+      }
+      expect(m.listProducts).not.toHaveBeenCalled();
+    });
+
+    it('with prices on: passes sort and paging to the store and keeps its order (nulls last), prices derived, no cost leak', async () => {
+      vi.stubEnv('INTEGRATION_INNOVATION_SHOW_PRICES', 'true');
+      resetEnvCache();
+      m.listProducts.mockResolvedValue({ rows: [cheap, dear, free], total: 60 });
+      const res = await list(get('/api/catalog?sort=price_asc&page=2&pageSize=12'));
+      expect(m.listProducts).toHaveBeenCalledWith(expect.objectContaining({ sort: 'price_asc', page: 2, pageSize: 12 }));
+      const text = await res.text();
+      const body = JSON.parse(text);
+      expect(body).toMatchObject({ page: 2, pageSize: 12, total: 60 });
+      expect(body.items.map((i: { code: string }) => i.code)).toEqual(['AA-1', 'BB-2', 'CC-3']);
+      expect(body.items.map((i: { price: number | null }) => i.price)).toEqual([Math.round(1000 * 1.17) / 100, Math.round(7654321 * 1.17) / 100, null]);
+      for (const needle of [SENTINEL, '7654321', '1000,', 'costCents', 'cost_cents']) expect(text).not.toContain(needle);
+      await list(get('/api/catalog?sort=price_desc'));
+      expect(m.listProducts).toHaveBeenLastCalledWith(expect.objectContaining({ sort: 'price_desc', page: 1 }));
+    });
+
+    it('the default sort is name and is passed through', async () => {
+      await list(get('/api/catalog'));
+      expect(m.listProducts).toHaveBeenCalledWith(expect.objectContaining({ sort: 'name' }));
+    });
+  });
+
   it('still serves the snapshot when the supplier integration is disabled (DoD-15)', async () => {
     vi.stubEnv('INTEGRATION_INNOVATION_ENABLED', 'false');
     resetEnvCache();

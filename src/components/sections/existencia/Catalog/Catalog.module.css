@@ -1,7 +1,7 @@
 /* Re-points the theme tokens to the Promocionales palette, so shared patterns (skeleton, status, buttons) follow it. */
 .root {
-  --color-bg: var(--promo-cream);
-  --color-surface: var(--promo-cream-card);
+  --color-bg: var(--promo-page);
+  --color-surface: var(--white);
   --color-placeholder: var(--promo-cream-dark);
   --color-text: var(--promo-ink);
   --color-text-muted: var(--promo-ink-2);
@@ -14,7 +14,7 @@
   --color-link: var(--promo-orange-deep);
   --shadow-card: none;
   padding: var(--promo-pad-top) 0 var(--promo-pad-bottom);
-  background: var(--promo-cream);
+  background: var(--promo-page);
   color: var(--promo-ink);
   scroll-margin-top: var(--nav-offset);
 }
@@ -34,6 +34,13 @@
   color: var(--promo-ink-2);
 }
 
+/* White filter bar; sticky below the site nav from tablet up (on phones it would cover too much of the screen). */
+.filters {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+}
+
 /* Result count and the reset link; reserves its height so the grid does not jump. */
 .bar {
   display: flex;
@@ -42,7 +49,7 @@
   min-height: var(--target-min);
   margin: var(--space-4-5) 0 var(--space-5-5);
   font-size: var(--text-button);
-  color: var(--promo-muted);
+  color: var(--promo-ink-2);
 }
 
 .count {
@@ -81,15 +88,24 @@
   gap: var(--space-3-5);
   margin: 0;
   font-size: var(--text-button);
-  color: var(--promo-muted);
+  color: var(--promo-ink-2);
 }
 
 .pending {
   opacity: 0.55;
-  transition: opacity 0.2s;
+  transition: opacity var(--duration-fast);
 }
 
 /* Programmatic focus target after "retry"; not a control, so no ring. */
 .root:focus {
   outline: none;
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .filters {
+    position: sticky;
+    top: calc(var(--nav-offset) + var(--space-2));
+    z-index: var(--z-raised);
+  }
 }

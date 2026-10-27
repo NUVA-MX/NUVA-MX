@@ -1,0 +1,48 @@
+.root {
+  display: flex;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-bottom: var(--space-half);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.chip {
+  flex-shrink: 0;
+  min-height: var(--target-min);
+  padding: 0 var(--space-4);
+  border: var(--promo-border-width) solid var(--promo-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--promo-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-button);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.chip:hover {
+  border-color: var(--promo-olive);
+}
+
+.chip:focus-visible {
+  outline: var(--focus-width) solid var(--promo-olive);
+  outline-offset: var(--focus-offset);
+}
+
+.on {
+  border-color: var(--promo-olive);
+  background: var(--promo-olive);
+  color: var(--white);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .root {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}

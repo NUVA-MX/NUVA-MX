@@ -57,3 +57,7 @@ export const CATALOG_MAX_PAGE = 200;
 export const CATALOG_MAX_QUERY = 60;
 export const CATALOG_MAX_FILTER = 80;
 export const CATALOG_CODE_PATTERN = /^[A-Z0-9][A-Z0-9-]{0,29}$/;
+
+export const CATALOG_SORTS = ['name', 'price_asc', 'price_desc'] as const;
+export type CatalogSort = (typeof CATALOG_SORTS)[number];
+export const CATALOG_DEFAULT_SORT: CatalogSort = 'name';
