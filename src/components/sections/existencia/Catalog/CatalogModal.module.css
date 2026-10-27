@@ -1,0 +1,58 @@
+.backdrop[data-theme] {
+  font-family: var(--font-body);
+}
+
+/* Height 0 and sticky: the close button stays at the top-right while the box scrolls. */
+.closeBar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-card-hover);
+  display: flex;
+  justify-content: flex-end;
+  height: 0;
+}
+
+.close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  margin: var(--space-3);
+  padding: 0;
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.close:hover {
+  background: var(--color-bg);
+}
+
+.state {
+  padding: var(--space-12) var(--space-6) var(--space-8);
+}
+
+.title {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

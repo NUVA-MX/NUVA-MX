@@ -1,18 +1,51 @@
 .root {
-  margin-top: var(--space-10);
-  padding: var(--space-14) 0;
-  background: var(--color-bg-alt);
+  padding: var(--promo-pad-top) 0;
+  background: var(--promo-olive);
   scroll-margin-top: var(--nav-offset);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-md), 100%), 1fr));
-  gap: var(--space-7);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--promo-band-min), 100%), 1fr));
+  gap: var(--space-8);
+}
+
+.block + .block {
+  margin-top: var(--space-6);
+}
+
+.grid > .block {
+  margin-top: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: var(--display-sm);
+  line-height: var(--leading-title);
+  color: var(--promo-yellow);
 }
 
 .text {
   margin: var(--space-2) 0 0;
   font-size: var(--text-md);
   line-height: var(--leading-lead);
+  color: var(--promo-on-olive-2);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  margin-top: var(--space-2);
+  color: var(--promo-yellow);
+  font-size: var(--text-md);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.link:focus-visible {
+  outline: var(--focus-width) solid var(--promo-yellow);
+  outline-offset: var(--focus-offset);
 }

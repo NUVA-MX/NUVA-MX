@@ -23,6 +23,7 @@ export const admin = {
       { label: 'Productos', href: '/admin' },
       { label: 'Página Merch', href: '/admin/encargo' },
       { label: 'Proyectos', href: '/admin/proyectos' },
+      { label: 'Catálogo proveedor', href: '/admin/catalogo' },
       { label: 'Ver tienda', href: '/existencia' },
     ],
     logout: 'Cerrar sesión',

@@ -1,0 +1,53 @@
+.root {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: var(--z-nav);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  height: var(--promo-fab-height);
+  padding: 0 var(--space-5-5);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--promo-olive);
+  color: var(--promo-cream);
+  box-shadow: var(--promo-shadow-fab);
+  font-family: var(--font-body);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.root:hover {
+  background: var(--promo-olive-hover);
+}
+
+.root:focus-visible {
+  outline: var(--focus-width) solid var(--promo-yellow);
+  outline-offset: var(--focus-offset);
+}
+
+.counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--promo-counter);
+  height: var(--promo-counter);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--promo-orange);
+  color: var(--promo-cream);
+  font-size: var(--text-sm);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .root {
+    right: var(--space-4);
+    left: var(--space-4);
+  }
+}

@@ -1,9 +1,17 @@
 import 'server-only';
 import { z } from 'zod';
+import { exampleShape, parseExampleEnv } from './example';
+import { opt, optSecret } from './fields';
+import { innovationShape, parseInnovationEnv, type InnovationEnv } from './innovation';
 
 /** Exact hostnames each provider may talk to. Adding a provider means adding its entry here. */
 export const PROVIDER_HOSTS = {
   example: ['api.example.test'],
+  innovation: [
+    '4vumtdis3m.execute-api.us-east-1.amazonaws.com',
+    '1x4nyx8c80.execute-api.us-east-1.amazonaws.com',
+    '9w2n2yr7u1.execute-api.us-east-1.amazonaws.com',
+  ],
 } as const satisfies Record<string, readonly string[]>;
 
 export type ProviderName = keyof typeof PROVIDER_HOSTS;
@@ -33,25 +41,20 @@ export type Env = {
   /** Trust x-real-ip / x-forwarded-for (true on Vercel or with TRUST_PROXY_HEADERS=true). */
   trustProxyHeaders: boolean;
   auditIpSalt?: string;
-  integrations: { example: ProviderEnv };
+  /** Bearer secret for the cron route (Vercel sends it automatically as Authorization). */
+  cronSecret?: string;
+  integrations: { example: ProviderEnv; innovation: InnovationEnv };
 };
 
 export type EnvSource = Record<string, string | undefined>;
 export type ParseEnvResult = { ok: true; env: Env } | { ok: false; errors: string[] };
 
-const SECRET_MIN = 32;
 const PUBLIC_ALLOWED = 'NEXT_PUBLIC_SITE_URL';
 
 /** Platform/library-injected names that are not app configuration (Vercel system vars, Next, @vercel/blob). */
 export function isPlatformPublicVar(key: string): boolean {
   return key === 'NEXT_PUBLIC_DEBUG' || key.startsWith('NEXT_PUBLIC_VERCEL_');
 }
-
-/** Blank or whitespace-only values count as unset. */
-const opt = z.preprocess(
-  (v) => (typeof v === 'string' && v.trim() !== '' ? v.trim() : undefined),
-  z.string().optional(),
-);
 
 function isUrlWithProtocol(value: string, protocols: string[]): boolean {
   try {
@@ -86,21 +89,9 @@ const shape = z.object({
   LOG_LEVEL: opt.refine((v) => v === undefined || ['debug', 'info', 'warn', 'error'].includes(v), {
     message: 'must be one of debug, info, warn, error',
   }),
-  AUDIT_IP_SALT: opt.refine((v) => v === undefined || v.length >= SECRET_MIN, {
-    message: `must be at least ${SECRET_MIN} characters`,
-  }),
-  INTEGRATION_EXAMPLE_ENABLED: opt.refine((v) => v === undefined || ['true', 'false', '1', '0'].includes(v.toLowerCase()), {
-    message: 'must be true or false',
-  }),
-  INTEGRATION_EXAMPLE_API_KEY: opt,
-  INTEGRATION_EXAMPLE_API_KEY_NEXT: opt,
-  INTEGRATION_EXAMPLE_WEBHOOK_SECRET: opt.refine((v) => v === undefined || v.length >= SECRET_MIN, {
-    message: `must be at least ${SECRET_MIN} characters`,
-  }),
-  INTEGRATION_EXAMPLE_WEBHOOK_SECRET_NEXT: opt.refine((v) => v === undefined || v.length >= SECRET_MIN, {
-    message: `must be at least ${SECRET_MIN} characters`,
-  }),
-  INTEGRATION_EXAMPLE_BASE_URL: opt,
+  AUDIT_IP_SALT: optSecret,
+  ...exampleShape,
+  ...innovationShape,
 });
 
 /**
@@ -143,28 +134,8 @@ export function parseEnv(source: EnvSource): ParseEnvResult {
     }
   }
 
-  // Example provider.
-  const enabled = ['true', '1'].includes((v.INTEGRATION_EXAMPLE_ENABLED ?? '').toLowerCase());
-  const baseUrl = v.INTEGRATION_EXAMPLE_BASE_URL ?? `https://${PROVIDER_HOSTS.example[0]}`;
-  if (enabled) {
-    // Production = Vercel production, or (off Vercel) NODE_ENV=production. Preview deployments may enable it.
-    if (v.VERCEL_ENV === 'production' || (v.VERCEL_ENV === undefined && v.NODE_ENV === 'production')) {
-      errors.push('INTEGRATION_EXAMPLE_ENABLED: the example provider cannot be enabled in production');
-    }
-    if (!v.INTEGRATION_EXAMPLE_API_KEY) errors.push('INTEGRATION_EXAMPLE_API_KEY: required when INTEGRATION_EXAMPLE_ENABLED is true');
-    if (!v.INTEGRATION_EXAMPLE_WEBHOOK_SECRET) {
-      errors.push('INTEGRATION_EXAMPLE_WEBHOOK_SECRET: required when INTEGRATION_EXAMPLE_ENABLED is true');
-    }
-    try {
-      const u = new URL(baseUrl);
-      const hosts: readonly string[] = PROVIDER_HOSTS.example;
-      if (u.protocol !== 'https:') errors.push('INTEGRATION_EXAMPLE_BASE_URL: must use https');
-      else if (!hosts.includes(u.host)) errors.push('INTEGRATION_EXAMPLE_BASE_URL: host is not on the provider allowlist');
-      else if (u.username || u.password) errors.push('INTEGRATION_EXAMPLE_BASE_URL: must not contain credentials');
-    } catch {
-      errors.push('INTEGRATION_EXAMPLE_BASE_URL: must be a valid URL');
-    }
-  }
+  const example = parseExampleEnv(v, PROVIDER_HOSTS.example, errors);
+  const { innovation, cronSecret } = parseInnovationEnv(v, errors);
 
   if (errors.length > 0) return { ok: false, errors: dedupe(errors) };
 
@@ -188,16 +159,8 @@ export function parseEnv(source: EnvSource): ParseEnvResult {
       trustProxyHeaders: Boolean(v.VERCEL) || ['true', '1'].includes((v.TRUST_PROXY_HEADERS ?? '').toLowerCase()),
       logLevel: (v.LOG_LEVEL as Env['logLevel'] | undefined) ?? 'info',
       auditIpSalt: v.AUDIT_IP_SALT,
-      integrations: {
-        example: {
-          enabled,
-          apiKey: v.INTEGRATION_EXAMPLE_API_KEY,
-          apiKeyNext: v.INTEGRATION_EXAMPLE_API_KEY_NEXT,
-          webhookSecret: v.INTEGRATION_EXAMPLE_WEBHOOK_SECRET,
-          webhookSecretNext: v.INTEGRATION_EXAMPLE_WEBHOOK_SECRET_NEXT,
-          baseUrl,
-        },
-      },
+      cronSecret,
+      integrations: { example, innovation },
     },
   };
 }

@@ -38,6 +38,10 @@ export function Products() {
     retry();
   }
 
+  // No own stock: the catalog section below is the product list, so skip the "no promocionales" message
+  // and keep only the anchor the "Productos" nav link points to.
+  if (status === 'empty') return <span id="productos" aria-hidden="true" />;
+
   return (
     <section ref={sectionRef} tabIndex={-1} id="productos" className={styles.root} aria-labelledby="productos-title" aria-busy={status === 'loading'}>
       <Container>
@@ -52,18 +56,6 @@ export function Products() {
                 ))}
               </Grid>
             </>
-          )}
-
-          {status === 'empty' && (
-            <StatusMessage
-              title={p.empty.title}
-              body={p.empty.body}
-              action={
-                <Button href={buildWhatsAppLink({ phone: site.whatsapp.phone, message: site.whatsapp.defaultMessage })} external icon="whatsapp">
-                  {p.empty.cta}
-                </Button>
-              }
-            />
           )}
 
           {status === 'error' && (

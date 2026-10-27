@@ -1,3 +1,4 @@
+import { isCatalogCartId } from '@/lib/catalog/cart-line';
 import type { Product } from '@/lib/products/types';
 import { maxQty, type CartItem, type CartState } from './reducer';
 
@@ -25,6 +26,11 @@ export function reconcileCart(state: CartState, products: readonly Product[]): {
   const changes: CartChange[] = [];
 
   for (const item of state.items) {
+    if (isCatalogCartId(item.id)) {
+      // Supplier catalog lines are not in the products table; price and stock are never trusted from storage.
+      items.push({ ...item, price: null, stock: null });
+      continue;
+    }
     const p = byId.get(item.id);
     if (!p) {
       changes.push({ kind: 'removed', name: item.name });

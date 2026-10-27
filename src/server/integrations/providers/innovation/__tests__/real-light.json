@@ -1,0 +1,81 @@
+{
+ "productos": [
+  {
+   "Codigo": "BE-018",
+   "Variantes": [
+    {
+     "Codigo Variante": "BE-018RS",
+     "Tono": "ROSA",
+     "Stock": "3584"
+    },
+    {
+     "Codigo Variante": "BE-018B",
+     "Tono": "BLANCO",
+     "Stock": "1405"
+    },
+    {
+     "Codigo Variante": "BE-018V",
+     "Tono": "VERDE LIMON",
+     "Stock": "1768"
+    },
+    {
+     "Codigo Variante": "BE-018O",
+     "Tono": "NARANJA",
+     "Stock": "5952"
+    },
+    {
+     "Codigo Variante": "BE-018A",
+     "Tono": "AZUL CLARO",
+     "Stock": "1974"
+    }
+   ],
+   "Stock": "14683"
+  },
+  {
+   "Codigo": "BE-022",
+   "Variantes": [
+    {
+     "Codigo Variante": "BE-022G",
+     "Tono": "GRIS CLARO",
+     "Stock": "17004"
+    },
+    {
+     "Codigo Variante": "BE-022RS",
+     "Tono": "ROSA CLARO",
+     "Stock": "7446"
+    },
+    {
+     "Codigo Variante": "BE-022M",
+     "Tono": "LILA",
+     "Stock": "10698"
+    }
+   ],
+   "Stock": "35148"
+  },
+  {
+   "Codigo": "BL-057",
+   "Variantes": [
+    {
+     "Codigo Variante": "BL-057V",
+     "Tono": "VERDE CIAN",
+     "Stock": "6367"
+    }
+   ],
+   "Stock": "6367"
+  }
+ ],
+ "respuesta_llave": {
+  "status": "success",
+  "response": {
+   "Activo": true,
+   "Correct_Datos": true,
+   "ProxLlegadas": false,
+   "Uso_minuto": 1,
+   "Limite_minuto": 60,
+   "Uso_hora": 1,
+   "Limite_hora": 1000,
+   "MostrarExistencias": false
+  }
+ },
+ "tiempo_respuesta_segundos": 7.64
+}

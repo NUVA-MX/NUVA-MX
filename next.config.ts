@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import { blobPublicHost } from './src/lib/blob';
+import { SUPPLIER_IMAGE_HOST, SUPPLIER_IMAGE_PATH_PREFIX } from './src/lib/catalog/images';
 import { API_HEADERS, buildSecurityHeaders } from './src/lib/security/headers';
 
 // If the Blob token is available at build time (it is on Vercel), next/image only accepts
@@ -16,7 +17,13 @@ const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
   images: {
-    remotePatterns: blobHost ? [{ protocol: 'https', hostname: blobHost }] : [],
+    // Supplier catalog images: exact host and path only (served through the optimizer, so CSP img-src is unchanged).
+    remotePatterns: [
+      ...(blobHost ? [{ protocol: 'https' as const, hostname: blobHost }] : []),
+      { protocol: 'https', hostname: SUPPLIER_IMAGE_HOST, port: '', pathname: `${SUPPLIER_IMAGE_PATH_PREFIX}**`, search: '' },
+    ],
+    // 31 days: keeps optimizer usage low for a large catalog.
+    minimumCacheTTL: 60 * 60 * 24 * 31,
   },
   async headers() {
     return [
