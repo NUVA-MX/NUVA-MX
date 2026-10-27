@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { cx } from '@/lib/cx';
 import styles from './Icon.module.css';
 
-export type IconName = 'whatsapp' | 'arrow' | 'plus' | 'minus' | 'close' | 'cart' | 'menu';
+export type IconName = 'whatsapp' | 'arrow' | 'plus' | 'minus' | 'close' | 'cart' | 'menu' | 'search';
 
 const paths: Record<IconName, ReactNode> = {
   whatsapp: (
@@ -18,6 +18,7 @@ const paths: Record<IconName, ReactNode> = {
   close: <path d="M6 6l12 12M18 6 6 18" />,
   cart: <path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2M9 20.5h.01M17 20.5h.01" />,
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  search: <path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM15.5 15.5 20 20" />,
 };
 
 type Props = { name: IconName; size?: 'sm' | 'md'; className?: string };

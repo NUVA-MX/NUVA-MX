@@ -572,10 +572,19 @@
   --promo-radius-button: 12px;
   --promo-border-width: 1.5px;
   --promo-filter-min: 220px;
-  --promo-card-min: 250px;
+  --promo-card-min: 220px;
+  --promo-card-min-sm: 150px; /* two columns from about 360px, one below */
   --promo-band-min: 240px;
   --promo-fab-height: 54px;
   --promo-counter: 24px;
   --promo-chevron: 8px;
-  --promo-mark: 32px; /* visible circle of the card toggle, inside a 44px hit area */
+  --promo-mark: 40px; /* visible circle of the card toggle, inside a 44px hit area */
+  --promo-wine: var(--wine-700); /* the wine of the header pill: active category, active chips, counters, "in list" */
+  --promo-hover: rgba(35, 38, 26, 0.05);
+  --promo-sidebar: 240px;
+  --promo-sheet: 380px;
+  --promo-row-height: 36px;
+  --promo-radius-row: 10px;
+  --promo-price-size: 18px;
+  --promo-dot: 6px;
 }
