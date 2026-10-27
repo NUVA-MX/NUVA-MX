@@ -13,7 +13,7 @@ import { catalogCartId, catalogLineName } from '@/lib/catalog/cart-line';
 import type { CatalogDetail as Detail } from '@/lib/catalog/types';
 import { useCart } from '@/lib/cart/CartContext';
 import { isAtMaxQty } from '@/lib/cart/reducer';
-import { fillTemplate } from '@/lib/format';
+import { fillTemplate, formatMXN } from '@/lib/format';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import styles from './CatalogDetail.module.css';
 
@@ -93,9 +93,15 @@ export function CatalogDetail({ product, titleId }: Props) {
           {product.name}
         </h2>
         <p className={styles.code}>{fillTemplate(d.code, { code: product.code })}</p>
+        {product.price !== null && (
+          <p className={styles.price}>
+            <span className={styles.amount}>{formatMXN(product.price)}</span>
+            <span className={styles.priceNote}>{d.priceNote}</span>
+          </p>
+        )}
         <div className={styles.status}>
           <Pill tone={AVAILABILITY_TONE[product.availability]}>{copy.availability[product.availability]}</Pill>
-          <span className={styles.notice}>{d.notice}</span>
+          <span className={styles.notice}>{product.price === null ? d.notice : d.noticeWithPrice}</span>
         </div>
         {product.description && <p className={styles.description}>{product.description}</p>}
         {specs.length > 0 && <InfoGrid className={styles.specs} items={specs} />}

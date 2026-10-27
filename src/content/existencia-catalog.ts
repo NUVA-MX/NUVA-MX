@@ -19,6 +19,8 @@ export const existenciaCatalog = {
   // TODO(client): loading, empty and error states.
   loading: 'Cargando catálogo…',
   empty: 'No encontramos productos con esos filtros.',
+  // TODO(client): shown when there are no filters and the catalog has no products yet.
+  emptyCatalog: 'Estamos actualizando el catálogo. Vuelve en unos minutos.',
   error: {
     title: 'No pudimos cargar el catálogo.',
     body: 'Revisa tu conexión e inténtalo de nuevo.',
@@ -40,6 +42,8 @@ export const existenciaCatalog = {
     addAria: 'Agregar {name} a mi lista',
     inListAria: 'Quitar {name} de mi lista',
     viewDetailAria: 'Ver detalle de {name}',
+    // TODO(client): note under the price.
+    priceNote: 'No incluye personalización',
   },
   envios: {
     designTitle: '¿Algo con tu diseño?',
@@ -76,6 +80,10 @@ export const existenciaCatalog = {
     // TODO(client): WhatsApp question about a catalog product.
     askTemplate: 'Hola Nuva, quiero información de "{name}" (código {code}).',
     notice: 'Precio y tiempo de entrega por confirmar',
+    // TODO(client): shown instead of `notice` when the price is visible.
+    noticeWithPrice: 'Tiempo de entrega por confirmar',
+    // TODO(client): note under the price.
+    priceNote: 'No incluye personalización',
   },
   // Name of the line in "Mi lista" and in the WhatsApp message: "{name} · {tone} ({code})".
   listItemName: '{name} · {tone} ({code})',

@@ -7,11 +7,17 @@ import type {
 } from '@/lib/catalog/types';
 import { sampleCatalog } from '@/lib/catalog/sample';
 import { catalogMode } from './mode';
-import { isStale, toCard, toDetail } from './public';
+import { innovationEnv } from '@/server/env';
+import { isStale, toCard, toDetail, type PriceRule } from './public';
 import { getProductByCode, lastSuccessfulSyncAt, listCategoryCounts, listProducts, type ListFilters } from './queries';
 import { searchKey } from './search';
 
 export type ListParams = ListFilters;
+
+function priceRule(): PriceRule {
+  const e = innovationEnv();
+  return { show: e.showPrices, factor: e.priceFactor };
+}
 
 const disabledList = (p: ListParams): CatalogListResponse => ({ enabled: false, items: [], page: p.page, pageSize: p.pageSize, total: 0, updatedAt: null });
 
@@ -39,7 +45,7 @@ export async function getCatalogList(p: ListParams): Promise<CatalogListResponse
   if (mode === 'sample') return sampleList(p);
   const [{ rows, total }, syncedAt] = await Promise.all([listProducts(p), lastSuccessfulSyncAt()]);
   const stale = isStale(syncedAt, new Date());
-  return { enabled: true, items: rows.map((r) => toCard(r, stale)), page: p.page, pageSize: p.pageSize, total, updatedAt: syncedAt?.toISOString() ?? null };
+  return { enabled: true, items: rows.map((r) => toCard(r, stale, priceRule())), page: p.page, pageSize: p.pageSize, total, updatedAt: syncedAt?.toISOString() ?? null };
 }
 
 export function groupCategories(counts: readonly { category: string; subcategory: string | null; n: number }[]): CatalogCategoriesResponse['categories'] {
@@ -71,5 +77,5 @@ export async function getCatalogDetail(code: string): Promise<CatalogDetail | nu
   if (mode === 'error') throw new Error('catalog error mode');
   if (mode === 'sample') return sampleCatalog.find((c) => c.code === code) ?? null;
   const [row, syncedAt] = await Promise.all([getProductByCode(code), lastSuccessfulSyncAt()]);
-  return row ? toDetail(row, isStale(syncedAt, new Date())) : null;
+  return row ? toDetail(row, isStale(syncedAt, new Date()), priceRule()) : null;
 }

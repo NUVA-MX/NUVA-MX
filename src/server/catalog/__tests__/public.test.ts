@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { availabilityOf, isStale, publicPrice, toCard, toDetail, type PublicDetailRow } from '../public';
+import { availabilityOf, isStale, NO_PRICES, publicPrice, toCard, toDetail, type PriceRule, type PublicDetailRow } from '../public';
 
 const SENTINEL = 'PRECIO-SENTINEL-98765';
 const row = {
@@ -25,13 +25,31 @@ const row = {
 } as PublicDetailRow;
 
 describe('public mapping', () => {
-  it('has price null and leaks no cost, id, provider, raw keys or stock numbers (DoD-4, DoD-5)', () => {
-    const json = JSON.stringify([toCard(row, false), toDetail(row, false)]);
-    expect(publicPrice()).toBeNull();
-    for (const needle of [SENTINEL, '999999', 'costCents', 'cost_cents', 'UniqueID', 'uniqueId', 'provider', 'innovation', 'Codigo', 'Nombre', 'Variantes', '"stock"', 'totalStock', '250']) {
-      expect(json).not.toContain(needle);
-    }
+  const LEAKS = [SENTINEL, '999999', 'costCents', 'cost_cents', 'UniqueID', 'uniqueId', 'provider', 'innovation', 'Codigo', 'Nombre', 'Variantes', '"stock"', 'totalStock', '250'];
+  const ON: PriceRule = { show: true, factor: 1.17 };
+
+  it('prices OFF: price null and no cost, id, provider, raw keys or stock numbers (DoD-4, DoD-5)', () => {
+    const json = JSON.stringify([toCard(row, false), toDetail(row, false), toCard(row, false, NO_PRICES)]);
+    for (const needle of LEAKS) expect(json).not.toContain(needle);
     expect(toCard(row, false).price).toBeNull();
+    expect(toDetail(row, false).price).toBeNull();
+  });
+
+  it('prices ON: the derived price is shown, the raw cost never is', () => {
+    const json = JSON.stringify([toCard(row, false, ON), toDetail(row, false, ON)]);
+    const price = toCard(row, false, ON).price;
+    expect(price).toBe(Math.round(999999 * ON.factor) / 100);
+    expect(price).not.toBe(999999 / 100);
+    expect(toDetail(row, false, ON).price).toBe(price);
+    for (const needle of LEAKS) expect(json).not.toContain(needle);
+    expect(json).not.toContain('9999.99');
+  });
+
+  it('publicPrice: 127.55 -> 149.23; null, zero, negative or NaN cost and prices off -> null', () => {
+    expect(publicPrice(12755, ON)).toBe(149.23);
+    for (const cost of [null, 0, -5, Number.NaN]) expect(publicPrice(cost, ON)).toBeNull();
+    expect(publicPrice(12755, NO_PRICES)).toBeNull();
+    expect(publicPrice(12755, { show: false, factor: 2 })).toBeNull();
   });
 
   it('maps availability coarsely and marks old snapshots unknown', () => {
@@ -59,8 +77,10 @@ function walk(dir: string, out: string[] = []): string[] {
 const root = join(process.cwd(), 'src');
 
 describe('static guarantees', () => {
-  it('public reads never select the cost column (DoD-4)', () => {
-    for (const f of ['server/catalog/queries.ts', ...walk(join(root, 'app/api/catalog')).map((p) => p.slice(root.length + 1))]) {
+  it('cost is confined to queries.ts and public.ts: routes, components, hooks and public types never mention it (DoD-4)', () => {
+    const hooks = readdirSync(join(root, 'lib')).filter((n) => /^use.*\.tsx?$/.test(n)).map((n) => `lib/${n}`);
+    const files = [...walk(join(root, 'app/api/catalog')), ...walk(join(root, 'components')), ...walk(join(root, 'lib/catalog')), ...walk(join(root, 'lib/api'))].map((p) => p.slice(root.length + 1));
+    for (const f of [...files, ...hooks, 'server/catalog/service.ts']) {
       expect(readFileSync(join(root, f), 'utf8')).not.toMatch(/costCents|cost_cents/);
     }
   });

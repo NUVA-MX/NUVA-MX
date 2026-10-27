@@ -19,6 +19,11 @@ const str = (v: unknown, max = 2048): string | null => (typeof v === 'string' &&
 const arr = (v: unknown, max: number): unknown[] => (Array.isArray(v) ? v.slice(0, max) : []);
 const nonNegInt = (v: unknown): number => (typeof v === 'number' && Number.isInteger(v) && v >= 0 ? v : 0);
 
+/** A sane non-negative amount in pesos (cents allowed), else null. */
+function price(v: unknown): number | null {
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1_000_000 ? v : null;
+}
+
 function availability(v: unknown): CatalogAvailability {
   return typeof v === 'string' && AVAILABILITY.includes(v) ? (v as CatalogAvailability) : 'unknown';
 }
@@ -45,7 +50,7 @@ export function parseCard(v: unknown): CatalogCard | null {
     colors: arr(v.colors, 12).flatMap((c) => color(c) ?? []),
     variantCount: nonNegInt(v.variantCount),
     availability: availability(v.availability),
-    price: null,
+    price: price(v.price),
   };
 }
 

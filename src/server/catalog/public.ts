@@ -14,7 +14,7 @@ export const LOW_STOCK_PIECES = 100;
 export const STALE_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 const MAX_CARD_COLORS = 12;
 
-/** Row fields the public mapping needs. Cost is deliberately not part of this type. */
+/** Row fields the public mapping needs. `costCents` is read only to derive the price and is never copied to any output. */
 export type PublicVariantRow = { code: string; tone: string; hex: string | null; image: string | null; stock: number | null };
 export type PublicCardRow = {
   code: string;
@@ -24,15 +24,21 @@ export type PublicCardRow = {
   image: string | null;
   variants: PublicVariantRow[];
   totalStock: number | null;
+  costCents: number | null;
 };
 export type PublicDetailRow = PublicCardRow & { description: string | null; images: string[]; specs: CatalogSpecs };
 
+export type PriceRule = { show: boolean; factor: number };
+/** Prices off: the default, so callers that pass no rule behave exactly as before. */
+export const NO_PRICES: PriceRule = { show: false, factor: 1 };
+
 /**
- * The only place a public price is decided. It is always null in this release; a later markup rule changes
- * only this function (the supplier cost never leaves the server).
+ * The only place a public price is decided. Null when prices are off or the cost is missing or not positive;
+ * otherwise cost x factor in pesos with 2 decimals. The cost itself never leaves the server.
  */
-export function publicPrice(): number | null {
-  return null;
+export function publicPrice(costCents: number | null, rule: PriceRule): number | null {
+  if (!rule.show || costCents === null || !Number.isFinite(costCents) || costCents <= 0) return null;
+  return Math.round(costCents * rule.factor) / 100;
 }
 
 export function isStale(snapshotAt: Date | null, now: Date): boolean {
@@ -57,7 +63,7 @@ function uniqueColors(variants: readonly PublicVariantRow[]): CatalogColor[] {
   return out;
 }
 
-export function toCard(row: PublicCardRow, stale: boolean): CatalogCard {
+export function toCard(row: PublicCardRow, stale: boolean, rule: PriceRule = NO_PRICES): CatalogCard {
   return {
     code: row.code,
     name: row.name,
@@ -67,11 +73,11 @@ export function toCard(row: PublicCardRow, stale: boolean): CatalogCard {
     colors: uniqueColors(row.variants),
     variantCount: row.variants.length,
     availability: availabilityOf(row.totalStock, stale),
-    price: publicPrice(),
+    price: publicPrice(row.costCents, rule),
   };
 }
 
-export function toDetail(row: PublicDetailRow, stale: boolean): CatalogDetail {
+export function toDetail(row: PublicDetailRow, stale: boolean, rule: PriceRule = NO_PRICES): CatalogDetail {
   const variants: CatalogVariant[] = row.variants.map((v) => ({
     code: v.code,
     tone: v.tone,
@@ -79,5 +85,5 @@ export function toDetail(row: PublicDetailRow, stale: boolean): CatalogDetail {
     image: v.image,
     availability: availabilityOf(v.stock, stale),
   }));
-  return { ...toCard(row, stale), description: row.description, images: row.images, variants, specs: row.specs };
+  return { ...toCard(row, stale, rule), description: row.description, images: row.images, variants, specs: row.specs };
 }
