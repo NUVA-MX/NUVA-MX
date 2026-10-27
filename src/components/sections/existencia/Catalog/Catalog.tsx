@@ -85,7 +85,7 @@ export function Catalog() {
 
         {list.status === 'empty' && (
           <p className={styles.empty} role="status">
-            {copy.empty}
+            {filtered ? copy.empty : copy.emptyCatalog}
             {filtered && clear}
           </p>
         )}

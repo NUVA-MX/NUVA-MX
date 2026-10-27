@@ -58,6 +58,30 @@ describe('public catalog routes', () => {
     expect((await list(get('/api/catalog'))).headers.get('cache-control')).toBe('no-store');
   });
 
+  it('prices ON: price is the derived value, never the cost, in list and detail; categories carry none', async () => {
+    vi.stubEnv('INTEGRATION_INNOVATION_SHOW_PRICES', 'true');
+    resetEnvCache();
+    const derived = Math.round(7654321 * 1.17) / 100;
+    const [l, c, d] = await Promise.all([list(get('/api/catalog')), categories(get('/api/catalog/categories')), item(get('/api/catalog/items/TH-239'), ctx('TH-239'))]);
+    const texts = [await l.text(), await c.text(), await d.text()];
+    expect(JSON.parse(texts[0]).items[0].price).toBe(derived);
+    expect(JSON.parse(texts[2]).product.price).toBe(derived);
+    expect(derived).not.toBe(7654321 / 100);
+    for (const text of texts) {
+      for (const needle of [SENTINEL, '7654321', '76543.21', 'costCents', 'cost_cents', '54321']) expect(text).not.toContain(needle);
+    }
+  });
+
+  it('a custom PRICE_FACTOR changes the derived price; SHOW_PRICES off keeps null', async () => {
+    vi.stubEnv('INTEGRATION_INNOVATION_SHOW_PRICES', 'true');
+    vi.stubEnv('INTEGRATION_INNOVATION_PRICE_FACTOR', '2');
+    resetEnvCache();
+    expect((await (await list(get('/api/catalog'))).json()).items[0].price).toBe(Math.round(7654321 * 2) / 100);
+    vi.stubEnv('INTEGRATION_INNOVATION_SHOW_PRICES', 'false');
+    resetEnvCache();
+    expect((await (await list(get('/api/catalog'))).json()).items[0].price).toBeNull();
+  });
+
   it('still serves the snapshot when the supplier integration is disabled (DoD-15)', async () => {
     vi.stubEnv('INTEGRATION_INNOVATION_ENABLED', 'false');
     resetEnvCache();

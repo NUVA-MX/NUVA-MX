@@ -4,7 +4,7 @@ import { Heading } from '@/components/primitives/Heading';
 import { Media } from '@/components/primitives/Media';
 import { cx } from '@/lib/cx';
 import type { CatalogCard as CatalogCardData } from '@/lib/catalog/types';
-import { fillTemplate } from '@/lib/format';
+import { fillTemplate, formatMXN } from '@/lib/format';
 import styles from './CatalogCard.module.css';
 
 export type CatalogCardLabels = {
@@ -18,6 +18,8 @@ export type CatalogCardLabels = {
   inListAria: string;
   /** "Ver detalle de {name}" */
   viewDetailAria: string;
+  /** Small note under the price, e.g. that customisation is not included. */
+  priceNote: string;
 };
 
 type Props = {
@@ -30,7 +32,7 @@ type Props = {
   onOpen: (code: string) => void;
 };
 
-/** Catalog card: photo (opens the detail), code and subcategory, name and one add/remove button. No price. */
+/** Catalog card: photo (opens the detail), code and subcategory, name and a price (only when the API sends one) and one add/remove button. */
 export function CatalogCard({ card, labels, inList, onToggle, onOpen }: Props) {
   const meta = card.subcategory ? fillTemplate(labels.meta, { code: card.code, subcategory: card.subcategory }) : card.code;
   const single = card.variantCount <= 1;
@@ -49,6 +51,12 @@ export function CatalogCard({ card, labels, inList, onToggle, onOpen }: Props) {
         <Heading level={3} size="xs" className={styles.name}>
           {card.name}
         </Heading>
+        {card.price !== null && (
+          <p className={styles.price}>
+            <span className={styles.amount}>{formatMXN(card.price)}</span>
+            <span className={styles.priceNote}>{labels.priceNote}</span>
+          </p>
+        )}
         <button
           type="button"
           className={cx(styles.toggle, inList && styles.on)}

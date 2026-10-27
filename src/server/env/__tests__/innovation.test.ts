@@ -58,4 +58,19 @@ describe('innovation env', () => {
     const r = parseEnv({ INTEGRATION_INNOVATION_CATALOG_PUBLIC: 'false' });
     expect(r.ok && r.env.integrations.innovation.catalogPublic).toBe(false);
   });
+
+  it('prices are off by default, factor defaults to 1.17', () => {
+    const r = parseEnv({});
+    expect(r.ok && r.env.integrations.innovation.showPrices).toBe(false);
+    expect(r.ok && r.env.integrations.innovation.priceFactor).toBe(1.17);
+    const on = parseEnv({ INTEGRATION_INNOVATION_SHOW_PRICES: 'true', INTEGRATION_INNOVATION_PRICE_FACTOR: '1.5' });
+    expect(on.ok && on.env.integrations.innovation).toMatchObject({ showPrices: true, priceFactor: 1.5 });
+  });
+
+  it.each(['abc', '0.5', '3.5', '-1', 'NaN'])('rejects PRICE_FACTOR %s by name, without the value', (value) => {
+    const e = errors({ INTEGRATION_INNOVATION_PRICE_FACTOR: value });
+    expect(e).toContain('INTEGRATION_INNOVATION_PRICE_FACTOR');
+    expect(e).not.toContain(value === 'NaN' ? 'xx' : `${value}\n`);
+    expect(e).not.toMatch(new RegExp(`is ${value}`));
+  });
 });

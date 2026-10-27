@@ -5,7 +5,7 @@ import { supplierProducts as t, supplierSyncRuns } from '@/lib/db/schema';
 import type { PublicCardRow, PublicDetailRow, PublicVariantRow } from './public';
 import { likePatterns } from './search';
 
-// Explicit column lists: the supplier cost column is never selected by a public read.
+// Explicit column lists. `costCents` is selected only so the price can be derived server-side (see public.ts); it is never serialized.
 const cardColumns = {
   code: t.code,
   name: t.name,
@@ -14,6 +14,7 @@ const cardColumns = {
   image: t.image,
   variants: t.variants,
   totalStock: t.totalStock,
+  costCents: t.costCents,
 };
 const detailColumns = { ...cardColumns, description: t.description, images: t.images, specs: t.specs };
 
@@ -43,6 +44,7 @@ function toCardRow(r: CardDbRow): PublicCardRow {
     image: textOrNull(r.image),
     variants: asVariants(r.variants),
     totalStock: typeof r.totalStock === 'number' ? r.totalStock : null,
+    costCents: typeof r.costCents === 'number' ? r.costCents : null,
   };
 }
 
