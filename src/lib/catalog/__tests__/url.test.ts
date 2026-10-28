@@ -18,6 +18,10 @@ describe('parseCatalogUrl', () => {
     expect(state.page).toBe(1);
   });
 
+  it('accepts the Z–A name sort', () => {
+    expect(parseCatalogUrl('?sort=name_desc').filters.sort).toBe('name_desc');
+  });
+
   it('ignores sub without cat and caps long text', () => {
     expect(parseCatalogUrl('?sub=Termos').filters.subcategory).toBe('');
     expect(parseCatalogUrl(`?q=${'a'.repeat(200)}`).filters.q).toHaveLength(60);

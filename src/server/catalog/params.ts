@@ -29,6 +29,6 @@ export function parseListQuery(url: URL, opts: { pricesVisible: boolean }): z.in
   }
   const parsed = listQuerySchema.safeParse(raw);
   if (!parsed.success) return null;
-  if (parsed.data.sort !== 'name' && !opts.pricesVisible) return null;
+  if (parsed.data.sort.startsWith('price_') && !opts.pricesVisible) return null;
   return parsed.data;
 }

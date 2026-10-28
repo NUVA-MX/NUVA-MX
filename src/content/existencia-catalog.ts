@@ -9,28 +9,18 @@ export const existenciaCatalog = {
     searchLabel: 'Buscar producto o código',
     searchPlaceholder: 'Buscar producto o código',
     searchClear: 'Borrar búsqueda',
-    categoriesTitle: 'Categorías',
+    categoriesLabel: 'Categorías',
     allCategories: 'Todas',
-    clear: 'Limpiar filtros',
-    clearAll: 'Limpiar todo',
-    clearShort: 'Limpiar',
-    removeFilter: 'Quitar filtro {name}',
-    activeLabel: 'Filtros activos',
-    sidebarLabel: 'Filtros del catálogo',
     sortLabel: 'Ordenar',
-    sort: { name: 'Nombre A–Z', price_asc: 'Precio: menor a mayor', price_desc: 'Precio: mayor a menor' },
-    open: 'Filtros',
-    openWithCount: 'Filtros · {n}',
-    sheetTitle: 'Filtros',
-    sheetClose: 'Cerrar filtros',
-    sheetApply: 'Ver {n} productos',
-    sheetApplyOne: 'Ver 1 producto',
-    sheetApplyNone: 'Sin resultados',
+    sort: { name: 'Nombre A–Z', name_desc: 'Nombre Z–A', price_asc: 'Precio menor a mayor', price_desc: 'Precio mayor a menor' },
+    clear: 'Limpiar filtros',
   },
-  count: { one: '{n} producto', other: '{n} productos', none: 'Sin resultados', note: 'No incluye personalización', showing: 'Mostrando {from}–{to} de {total}' },
+  count: { one: '{n} producto', other: '{n} productos', none: 'Sin resultados', showing: 'Mostrando {from}–{to} de {total}' },
+  // TODO(client): shown at the right of the results row when prices are visible.
+  priceNote: 'Precios sin personalización',
   // TODO(client): loading, empty and error states.
   loading: 'Cargando catálogo…',
-  empty: 'No encontramos productos con esos filtros.',
+  empty: 'Sin resultados para esta búsqueda.',
   // TODO(client): shown when there are no filters and the catalog has no products yet.
   emptyCatalog: 'Estamos actualizando el catálogo. Vuelve en unos minutos.',
   error: {
@@ -48,12 +38,22 @@ export const existenciaCatalog = {
     unknown: 'Por confirmar',
   },
   card: {
-    meta: '{code} · {subcategory}',
-    add: '+',
-    inList: '✓',
+    add: '+ Agregar',
+    // TODO(client): shown in the burgundy pill when a several-color product is in the list ({n} pieces).
+    inList: 'En mi lista · {n}',
+    from: 'desde',
     addAria: 'Agregar {name} a mi lista',
-    inListAria: 'Quitar {name} de mi lista',
+    inListAria: '{name}: {n} en mi lista, ver detalle',
+    qtyAria: 'Cantidad de {name}',
+    decreaseAria: 'Restar una pieza de {name}',
+    increaseAria: 'Sumar una pieza de {name}',
     viewDetailAria: 'Ver detalle de {name}',
+  },
+  // TODO(client): list drawer additions.
+  drawer: {
+    subtotal: 'Subtotal estimado',
+    priceNote: 'Precio sin personalización',
+    skuLine: '{sku} · {total}',
   },
   envios: {
     designTitle: '¿Algo con tu diseño?',
@@ -63,7 +63,9 @@ export const existenciaCatalog = {
   detail: {
     // TODO(client): detail labels.
     loading: 'Cargando producto…',
-    error: { title: 'No pudimos cargar este producto.', body: 'Cierra e inténtalo de nuevo.' },
+    error: { title: 'No pudimos cargar los detalles.', body: 'Revisa tu conexión e inténtalo de nuevo.', retry: 'Reintentar' },
+    // TODO(client): read by screen readers while the detail loads.
+    loadingDetails: 'Cargando detalles…',
     code: 'Código {code}',
     description: 'Descripción',
     specsTitle: 'Ficha técnica',

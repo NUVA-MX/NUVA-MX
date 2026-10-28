@@ -26,6 +26,7 @@ const sortCost = sql`(case when ${t.costCents} > 0 then ${t.costCents} end)`;
 
 export function orderFor(sort: CatalogSort | undefined): SQL[] {
   const tail = [asc(t.category), asc(t.name), asc(t.code)];
+  if (sort === 'name_desc') return [desc(t.name), asc(t.code)];
   if (sort === 'price_asc') return [sql`${sortCost} asc nulls last`, ...tail];
   if (sort === 'price_desc') return [sql`${sortCost} desc nulls last`, ...tail];
   return tail;

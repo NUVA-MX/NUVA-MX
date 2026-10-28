@@ -56,7 +56,7 @@ export function CatalogDetail({ product, titleId }: Props) {
     cart.add({
       id: cartId,
       name: catalogLineName(copy.listItemName, { name: product.name, tone: variant.tone, code: variant.code }),
-      price: null,
+      price: product.price,
       stock: null,
     });
   }

@@ -74,4 +74,11 @@ describe('reconcileCart after sanitizeCart with duplicate ids', () => {
     expect(state.items).toHaveLength(1);
     expect(state.items.reduce((n, i) => n + i.qty, 0)).toBeLessThanOrEqual(3);
   });
+
+  it('keeps the estimate price of supplier catalog lines but never their stock', () => {
+    const state = { items: [{ id: 'cat:AB-1:AB-1-R', name: 'Taza', price: 120, stock: 5, qty: 2 }] };
+    const { state: next, changes } = reconcileCart(state, []);
+    expect(next.items).toEqual([{ id: 'cat:AB-1:AB-1-R', name: 'Taza', price: 120, stock: null, qty: 2 }]);
+    expect(changes).toEqual([]);
+  });
 });

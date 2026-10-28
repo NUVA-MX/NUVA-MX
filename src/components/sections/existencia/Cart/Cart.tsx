@@ -2,13 +2,23 @@
 
 import { CartPanel } from '@/components/patterns/CartPanel';
 import { existencia } from '@/content/existencia';
+import { existenciaCatalog as catalogCopy } from '@/content/existencia-catalog';
+import { isCatalogCartId } from '@/lib/catalog/cart-line';
 import { site } from '@/content/site';
 import { ui } from '@/content/ui';
 import { useCart } from '@/lib/cart/CartContext';
+import type { CartItem } from '@/lib/cart/reducer';
 import type { CartChange } from '@/lib/cart/reconcile';
 import { fillTemplate, formatMXN } from '@/lib/format';
 import { buildOrderMessage } from '@/lib/order';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
+
+/** "SKU · $total" for catalog lines (SKU = variant code from the cart id), the plain price text for the rest. */
+function lineLabel(item: CartItem, noPrice: string): string {
+  const total = item.price === null ? noPrice : formatMXN(item.price * item.qty);
+  if (!isCatalogCartId(item.id)) return total;
+  return fillTemplate(catalogCopy.drawer.skuLine, { sku: item.id.split(':')[2] ?? '', total });
+}
 
 function describe(change: CartChange): string {
   const t = existencia.cart.changes;
@@ -43,7 +53,13 @@ function goToProducts(close: () => void): void {
 export function Cart() {
   const cart = useCart();
   const c = existencia.cart;
-  const message = buildOrderMessage(cart.items, existencia.orderTemplate, formatMXN);
+  // The order message never carries catalog estimates: those lines go out without a price, as before.
+  const message = buildOrderMessage(
+    cart.items.map((i) => (isCatalogCartId(i.id) ? { ...i, price: null } : i)),
+    existencia.orderTemplate,
+    formatMXN,
+  );
+  const priced = cart.items.some((i) => i.price !== null);
   return (
     <CartPanel
       theme="taller"
@@ -53,10 +69,11 @@ export function Cart() {
         id: i.id,
         name: i.name,
         qty: i.qty,
-        priceLabel: i.price === null ? c.noPrice : formatMXN(i.price * i.qty),
+        priceLabel: lineLabel(i, c.noPrice),
         max: i.stock,
       }))}
-      totalLabel={formatMXN(cart.total)}
+      totalLabel={priced ? formatMXN(cart.total) : undefined}
+      totalNote={catalogCopy.drawer.priceNote}
       sendHref={buildWhatsAppLink({ phone: site.whatsapp.phone, message })}
       onSetQty={cart.setQty}
       onRemove={cart.remove}
@@ -67,7 +84,7 @@ export function Cart() {
       labels={{
         title: c.title,
         empty: c.empty,
-        total: c.total,
+        total: catalogCopy.drawer.subtotal,
         send: c.send,
         note: c.note,
         close: ui.close,

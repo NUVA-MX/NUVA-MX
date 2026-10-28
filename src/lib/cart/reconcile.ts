@@ -27,8 +27,9 @@ export function reconcileCart(state: CartState, products: readonly Product[]): {
 
   for (const item of state.items) {
     if (isCatalogCartId(item.id)) {
-      // Supplier catalog lines are not in the products table; price and stock are never trusted from storage.
-      items.push({ ...item, price: null, stock: null });
+      // Supplier catalog lines are not in the products table: stock is never trusted from storage. The stored price
+      // (already range-checked on load) is kept only to show an estimate; the WhatsApp message never includes it.
+      items.push({ ...item, stock: null });
       continue;
     }
     const p = byId.get(item.id);

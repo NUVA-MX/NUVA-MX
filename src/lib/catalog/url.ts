@@ -1,4 +1,4 @@
-import { CATALOG_MAX_FILTER, CATALOG_MAX_QUERY, type CatalogSort } from './types';
+import { CATALOG_MAX_FILTER, CATALOG_MAX_QUERY, CATALOG_SORTS, type CatalogSort } from './types';
 import { parsePageParam } from './pagination';
 
 export type CatalogFilters = {
@@ -15,7 +15,6 @@ export const NO_FILTERS: CatalogFilters = {
   subcategory: '',
   sort: 'name',
 };
-const SORTS: readonly CatalogSort[] = ['name', 'price_asc', 'price_desc'];
 
 function text(value: string | null, max: number): string {
   return (value ?? '').trim().slice(0, max);
@@ -34,7 +33,7 @@ export function parseCatalogUrl(search: string): CatalogUrlState {
       q: text(params.get('q'), CATALOG_MAX_QUERY),
       category,
       subcategory: category ? text(params.get('sub'), CATALOG_MAX_FILTER) : '',
-      sort: SORTS.includes(sort) ? sort : 'name',
+      sort: CATALOG_SORTS.includes(sort) ? sort : 'name',
     },
     page: parsePageParam(search),
   };

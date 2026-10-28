@@ -14,6 +14,8 @@ describe('parseListQuery sort', () => {
   it('defaults to name and accepts every sort when prices are visible', () => {
     expect(parseListQuery(url(''), { pricesVisible: false })?.sort).toBe('name');
     expect(parseListQuery(url('sort=name'), { pricesVisible: false })?.sort).toBe('name');
+    expect(parseListQuery(url('sort=name_desc'), { pricesVisible: false })?.sort).toBe('name_desc');
+    expect(parseListQuery(url('sort=name_desc'), { pricesVisible: true })?.sort).toBe('name_desc');
     for (const sort of ['price_asc', 'price_desc']) expect(parseListQuery(url(`sort=${sort}`), { pricesVisible: true })?.sort).toBe(sort);
   });
 
@@ -29,6 +31,14 @@ describe('orderFor', () => {
   it('orders by the positive cost with nulls last, then category, name, code', () => {
     expect(render('price_asc')).toMatch(/case when .*cost_cents.* > 0 then .* end\) asc nulls last, .*category.* asc, .*name.* asc, .*code.* asc/);
     expect(render('price_desc')).toMatch(/desc nulls last, .*category/);
+  });
+  it('name_desc orders by name descending then code, never touching the cost; name stays ascending', () => {
+    const desc = render('name_desc');
+    expect(desc).toMatch(/name.* desc, .*code.* asc/);
+    expect(desc).not.toContain('cost_cents');
+    expect(desc).not.toContain('category');
+    expect(render('name')).toMatch(/name.* asc/);
+    expect(render('name')).not.toMatch(/name.* desc/);
   });
   it('keeps the current order for name or no sort', () => {
     for (const s of ['name', undefined] as const) {

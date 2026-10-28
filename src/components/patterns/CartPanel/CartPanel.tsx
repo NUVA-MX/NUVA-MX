@@ -2,7 +2,6 @@
 
 import { useId } from 'react';
 import { Button } from '@/components/primitives/Button';
-import { Heading } from '@/components/primitives/Heading';
 import { Icon } from '@/components/primitives/Icon';
 import { fillTemplate } from '@/lib/format';
 import { Modal } from '../Modal';
@@ -37,7 +36,10 @@ type Props = {
   open: boolean;
   onClose: () => void;
   items: readonly CartPanelItem[];
-  totalLabel: string;
+  /** Formatted subtotal; the row is hidden when absent (no line has a price). */
+  totalLabel?: string;
+  /** Short note next to the subtotal (e.g. that the price is before customization). */
+  totalNote?: string;
   sendHref: string;
   onSetQty: (id: string, qty: number) => void;
   onRemove: (id: string) => void;
@@ -60,6 +62,7 @@ export function CartPanel({
   onClose,
   items,
   totalLabel,
+  totalNote,
   sendHref,
   onSetQty,
   onRemove,
@@ -73,12 +76,14 @@ export function CartPanel({
   const titleId = useId();
   const empty = items.length === 0;
   return (
-    <Modal open={open} onClose={onClose} labelledBy={titleId} placement="side" theme={theme}>
+    <Modal open={open} onClose={onClose} labelledBy={titleId} placement="side" theme={theme} className={styles.box} rootClassName={styles.backdrop}>
       <div className={styles.header}>
-        <Heading level={2} size="md" id={titleId}>
+        <h2 id={titleId} className={styles.title}>
           {labels.title}
-        </Heading>
-        <Button variant="secondary" size="sm" icon="close" ariaLabel={labels.close} onClick={onClose} />
+        </h2>
+        <button type="button" className={styles.close} aria-label={labels.close} onClick={onClose}>
+          <Icon name="close" size="md" />
+        </button>
       </div>
 
       {notices.length > 0 && (
@@ -153,19 +158,24 @@ export function CartPanel({
 
       {!empty && (
         <div className={styles.footer}>
-          <div className={styles.total}>
-            <span>{labels.total}</span>
-            <span className={styles.totalValue}>{totalLabel}</span>
-          </div>
-            {sendState === 'pending' ? (
-              <Button icon="whatsapp" size="lg" block disabled>
-                {labels.verifying}
-              </Button>
-            ) : (
-              <Button href={sendHref} external icon="whatsapp" size="lg" block>
-                {labels.send}
-              </Button>
-            )}
+          {totalLabel !== undefined && (
+            <div className={styles.total}>
+              <span>
+                {labels.total}
+                {totalNote && <span className={styles.totalNote}>{totalNote}</span>}
+              </span>
+              <span className={styles.totalValue}>{totalLabel}</span>
+            </div>
+          )}
+          {sendState === 'pending' ? (
+            <Button icon="whatsapp" size="lg" block disabled className={styles.send}>
+              {labels.verifying}
+            </Button>
+          ) : (
+            <Button href={sendHref} external icon="whatsapp" size="lg" block className={styles.send}>
+              {labels.send}
+            </Button>
+          )}
           <p className={styles.note}>{sendNote ?? labels.note}</p>
         </div>
       )}

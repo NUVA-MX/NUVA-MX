@@ -112,6 +112,30 @@ describe('public catalog routes', () => {
       expect(m.listProducts).toHaveBeenLastCalledWith(expect.objectContaining({ sort: 'price_desc', page: 1 }));
     });
 
+    it('name_desc is allowed with prices hidden: sort and page 2 reach the store, no cost or price in the output', async () => {
+      m.listProducts.mockResolvedValue({ rows: [dear, cheap], total: 30 });
+      const res = await list(get('/api/catalog?sort=name_desc&page=2'));
+      expect(res.status).toBe(200);
+      expect(m.listProducts).toHaveBeenCalledWith(expect.objectContaining({ sort: 'name_desc', page: 2 }));
+      const text = await res.text();
+      const body = JSON.parse(text);
+      expect(body.items.map((i: { code: string }) => i.code)).toEqual(['BB-2', 'AA-1']);
+      expect(body.items.every((i: { price: number | null }) => i.price === null)).toBe(true);
+      for (const needle of [SENTINEL, '7654321', 'costCents', 'cost_cents']) expect(text).not.toContain(needle);
+    });
+
+    it('sample mode: name_desc is the exact reverse of a name-sorted list by name (Spanish collation), and pages consistently', async () => {
+      vi.stubEnv('DATABASE_URL', '');
+      vi.stubEnv('NODE_ENV', 'development');
+      resetEnvCache();
+      const names = async (qs: string) => (await (await list(get(`/api/catalog?${qs}`))).json()).items.map((i: { name: string }) => i.name);
+      const desc = await names('sort=name_desc&pageSize=48');
+      expect(desc).toEqual([...desc].sort((a, b) => b.localeCompare(a, 'es')));
+      const page1 = await names('sort=name_desc&pageSize=12');
+      const page2 = await names('sort=name_desc&pageSize=12&page=2');
+      expect([...page1, ...page2]).toEqual(desc.slice(0, page1.length + page2.length));
+    });
+
     it('the default sort is name and is passed through', async () => {
       await list(get('/api/catalog'));
       expect(m.listProducts).toHaveBeenCalledWith(expect.objectContaining({ sort: 'name' }));
@@ -146,6 +170,34 @@ describe('public catalog routes', () => {
     const res = await item(get('/api/catalog/items/x'), ctx(decodeURIComponent(code)));
     expect(res.status).toBe(404);
     expect(m.getProductByCode).not.toHaveBeenCalled();
+  });
+
+  it('detail: only a 200 is CDN-cacheable; 404, 400-class, 429 and 500 stay no-store; other routes unchanged', async () => {
+    const ok = await item(get('/api/catalog/items/TH-239'), ctx('TH-239'));
+    expect(ok.status).toBe(200);
+    expect(ok.headers.get('cache-control')).toBe('public, s-maxage=300, stale-while-revalidate=3600');
+    const text = await ok.text();
+    for (const needle of [SENTINEL, '7654321', 'costCents', 'cost_cents']) expect(text).not.toContain(needle);
+
+    expect((await item(get('/api/catalog/items/x'), ctx('th-239'))).headers.get('cache-control')).toBe('no-store');
+    m.getProductByCode.mockResolvedValue(null);
+    const missing = await item(get('/api/catalog/items/ZZ-1'), ctx('ZZ-1'));
+    expect([missing.status, missing.headers.get('cache-control')]).toEqual([404, 'no-store']);
+    m.getProductByCode.mockRejectedValue(new Error('db down'));
+    const failed = await item(get('/api/catalog/items/TH-239'), ctx('TH-239'));
+    expect([failed.status, failed.headers.get('cache-control')]).toEqual([500, 'no-store']);
+
+    expect((await list(get('/api/catalog'))).headers.get('cache-control')).toBe('no-store');
+    expect((await list(get('/api/catalog?page=0'))).headers.get('cache-control')).toBe('no-store');
+    expect((await categories(get('/api/catalog/categories'))).headers.get('cache-control')).toBe('no-store');
+  });
+
+  it('detail 429 keeps no-store and Retry-After', async () => {
+    for (let i = 0; i < 120; i++) await item(get('/api/catalog/items/TH-239', '5.5.5.5'), ctx('TH-239'));
+    const res = await item(get('/api/catalog/items/TH-239', '5.5.5.5'), ctx('TH-239'));
+    expect(res.status).toBe(429);
+    expect(res.headers.get('cache-control')).toBe('no-store');
+    expect(res.headers.get('retry-after')).toBeTruthy();
   });
 
   it('unknown or inactive code is 404', async () => {

@@ -28,7 +28,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: '/:path*', headers: securityHeaders },
-      { source: '/api/:path*', headers: API_HEADERS },
+      // Every API route is no-store, except the public product detail, which sets its own CDN cache header.
+      { source: '/api/:path((?!catalog/items/).*)', headers: API_HEADERS },
     ];
   },
 };

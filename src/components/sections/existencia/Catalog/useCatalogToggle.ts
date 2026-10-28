@@ -1,46 +1,49 @@
 'use client';
 
-import { fetchCatalogItem } from '@/lib/api/catalog';
+import { catalogItems } from '@/lib/catalogItemCache';
 import { catalogCartId, catalogLineName } from '@/lib/catalog/cart-line';
 import type { CatalogCard } from '@/lib/catalog/types';
 import { useCart } from '@/lib/cart/CartContext';
 import { existenciaCatalog as copy } from '@/content/existencia-catalog';
 
 export type CatalogToggle = {
-  /** True while any variant of the product is in the list. */
-  inList: (code: string) => boolean;
-  /** Removes the product if listed; adds a one-color product; opens the detail when a color must be picked. */
-  toggle: (card: CatalogCard) => void;
+  /** Pieces of the product in the list, summed over its colors. */
+  qtyOf: (code: string) => number;
+  /** Adds a one-color product (with its customer price when visible); opens the detail when a color must be picked. */
+  add: (card: CatalogCard) => void;
+  /** Sets the pieces of a one-color product; 0 removes it. */
+  setQty: (code: string, qty: number) => void;
 };
 
-/** Card-level add/remove for catalog products on top of the existing cart (no cart logic changes). */
+/** Card-level add and quantity for catalog products on top of the existing cart (no cart logic changes). */
 export function useCatalogToggle(openDetail: (code: string) => void): CatalogToggle {
   const cart = useCart();
-  const prefix = (code: string) => `cat:${code}:`;
-  const inList = (code: string) => cart.items.some((i) => i.id.startsWith(prefix(code)));
+  const lines = (code: string) => cart.items.filter((i) => i.id.startsWith(`cat:${code}:`));
+  const qtyOf = (code: string) => lines(code).reduce((sum, i) => sum + i.qty, 0);
 
-  function toggle(card: CatalogCard) {
-    if (inList(card.code)) {
-      cart.items.filter((i) => i.id.startsWith(prefix(card.code))).forEach((i) => cart.remove(i.id));
-      return;
-    }
+  function add(card: CatalogCard) {
     if (card.variantCount > 1) {
       openDetail(card.code);
       return;
     }
-    fetchCatalogItem(card.code)
+    catalogItems.get(card.code)
       .then((product) => {
         const variant = product.variants.find((v) => v.availability !== 'out');
         if (!variant) return openDetail(card.code);
         cart.add({
           id: catalogCartId(product.code, variant.code),
           name: catalogLineName(copy.listItemName, { name: product.name, tone: variant.tone, code: variant.code }),
-          price: null,
+          price: product.price,
           stock: null,
         });
       })
       .catch(() => openDetail(card.code));
   }
 
-  return { inList, toggle };
+  function setQty(code: string, qty: number) {
+    const line = lines(code)[0];
+    if (line) cart.setQty(line.id, qty);
+  }
+
+  return { qtyOf, add, setQty };
 }

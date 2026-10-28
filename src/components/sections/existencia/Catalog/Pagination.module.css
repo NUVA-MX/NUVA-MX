@@ -23,11 +23,11 @@
   min-width: var(--target-min);
   min-height: var(--target-min);
   padding: 0 var(--space-3);
-  border: var(--promo-border-width) solid var(--promo-border);
-  border-radius: var(--promo-radius-button);
-  background: var(--promo-cream-card);
-  color: var(--promo-olive);
-  font-family: var(--font-body);
+  border: var(--border-width-strong) solid var(--soft-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--soft-surface);
+  color: var(--soft-burgundy);
+  font-family: var(--soft-font-body);
   font-size: var(--text-button);
   white-space: nowrap;
   cursor: pointer;
@@ -38,30 +38,30 @@
 
 .step:hover:not(:disabled),
 .num:hover:not(.current) {
-  border-color: var(--promo-olive);
+  border-color: var(--soft-burgundy);
 }
 
 .current {
-  border-color: var(--promo-olive);
-  background: var(--promo-olive);
-  color: var(--promo-cream);
+  border-color: var(--soft-burgundy);
+  background: var(--soft-burgundy);
+  color: var(--soft-cream-text);
   cursor: default;
 }
 
 .step:disabled {
   border-style: dashed;
   background: transparent;
-  color: var(--promo-disabled);
+  color: var(--soft-faint);
   cursor: not-allowed;
 }
 
 .gap {
   padding: 0 var(--space-1);
-  color: var(--promo-muted);
+  color: var(--soft-muted);
 }
 
 .step:focus-visible,
 .num:focus-visible {
-  outline: var(--focus-width) solid var(--promo-olive);
+  outline: var(--focus-width) solid var(--soft-burgundy);
   outline-offset: var(--focus-offset);
 }

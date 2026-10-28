@@ -1,35 +1,32 @@
-/* White card on the darker page: the layers separate by color, so no border or shadow. */
 .root {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-width: 0;
-  background: var(--white);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: transform 150ms var(--ease-out);
+  padding: var(--soft-card-pad);
+  background: var(--soft-surface);
+  border-radius: var(--soft-card-radius);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .root:hover {
-  transform: translateY(calc(var(--space-half) * -1));
+  transform: translateY(var(--soft-lift));
+  box-shadow: var(--soft-shadow-lift);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .root {
-    transition: none;
-  }
-
-  .root:hover {
-    transform: none;
-  }
+.root svg {
+  stroke-width: var(--soft-stroke);
 }
 
 .photo {
   display: block;
   width: 100%;
-  padding: var(--space-4);
+  padding: var(--space-3);
   border: 0;
-  background: var(--white);
+  border-radius: var(--soft-white-radius);
+  background: var(--soft-white);
   cursor: pointer;
 }
 
@@ -38,98 +35,172 @@
 }
 
 .photo:focus-visible,
-.toggle:focus-visible {
-  outline: var(--focus-width) solid var(--promo-olive);
-  outline-offset: calc(var(--focus-offset) * -1);
+.add:focus-visible,
+.inList:focus-visible,
+.step:focus-visible {
+  outline: var(--focus-width) solid var(--soft-burgundy);
+  outline-offset: var(--focus-offset);
 }
 
 .body {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: 0 var(--space-4-5) var(--space-4-5) var(--space-4);
+  gap: var(--space-2-5);
+  padding: var(--space-4) var(--space-2) var(--space-1-5);
 }
 
-/* Two lines at most; the full name is in the detail. */
-.name {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-5);
+}
+
+.category,
+.code {
+  max-width: 100%;
+  padding: var(--space-half) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  font-family: var(--soft-font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
   overflow: hidden;
-  overflow-wrap: anywhere;
-  font-size: var(--text-lg);
+  text-overflow: ellipsis;
+}
+
+.category {
+  background: var(--soft-tint);
+  color: var(--soft-burgundy);
+}
+
+.code {
+  border: var(--border-width) solid var(--soft-border);
+  color: var(--soft-muted);
+}
+
+.name {
+  margin: 0;
+  font-family: var(--soft-font-heading);
+  font-size: var(--soft-name-size);
   font-weight: var(--weight-medium);
   line-height: var(--leading-quote);
-  color: var(--promo-ink);
+  color: var(--soft-deep);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 
-.footer {
+.bottom {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-2-5);
   margin-top: auto;
 }
 
-.info {
+.price {
   display: flex;
   flex-direction: column;
-  gap: var(--space-half);
-  min-width: 0;
-}
-
-.price {
-  margin: var(--space-1-5) 0 0;
-  font-size: var(--promo-price-size);
-  font-weight: var(--weight-display);
-  line-height: var(--leading-quote);
-  color: var(--promo-ink);
-}
-
-.meta {
   margin: 0;
-  font-size: var(--text-xs);
-  color: var(--promo-muted);
-  overflow-wrap: anywhere;
 }
 
-/* 44px hit area around a smaller visible circle. */
-.toggle {
+.from {
+  font-family: var(--soft-font-body);
+  font-size: var(--text-2xs);
+  color: var(--soft-faint);
+}
+
+.amount {
+  font-family: var(--soft-font-heading);
+  font-size: var(--soft-price-size);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-none);
+  font-variant-numeric: tabular-nums;
+  color: var(--soft-deep);
+}
+
+.action {
+  margin-left: auto;
+}
+
+.add,
+.inList,
+.stepper {
   display: inline-flex;
-  flex-shrink: 0;
   align-items: center;
-  justify-content: center;
-  width: var(--target-min);
-  height: var(--target-min);
-  margin: calc((var(--target-min) - var(--promo-mark)) / -2);
-  padding: 0;
+  min-height: var(--soft-action-height);
+  border-radius: var(--radius-pill);
+  font-family: var(--soft-font-body);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.add {
+  padding: 0 var(--space-4-5);
   border: 0;
-  background: transparent;
+  background: var(--soft-lime);
+  color: var(--soft-deep);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.add:hover {
+  background: var(--soft-lime-hover);
+}
+
+.inList {
+  padding: 0 var(--space-4-5);
+  border: 0;
+  background: var(--soft-burgundy);
+  color: var(--soft-cream-text);
   cursor: pointer;
 }
 
-.mark {
+.stepper {
+  gap: var(--space-half);
+  padding: var(--space-1);
+  background: var(--soft-burgundy);
+  color: var(--soft-cream-text);
+}
+
+.step {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--promo-mark);
-  height: var(--promo-mark);
-  border: var(--promo-border-width) solid var(--promo-olive);
+  width: var(--soft-step);
+  height: var(--soft-step);
+  padding: 0;
+  border: 0;
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--promo-olive);
-  font-size: var(--text-xl);
-  line-height: var(--leading-none);
-  white-space: nowrap;
-  transition:
-    background var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+  color: inherit;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
 }
 
-.on .mark {
-  border-color: var(--promo-wine);
-  background: var(--promo-wine);
-  color: var(--white);
+.step:hover:not(:disabled) {
+  background: var(--soft-tint-cream);
+}
+
+.step:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stepper .step:focus-visible {
+  outline-color: var(--soft-cream-text);
+}
+
+.qty {
+  min-width: var(--space-6);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root:hover {
+    transform: none;
+  }
 }
