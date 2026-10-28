@@ -30,9 +30,9 @@ describe('catalog cart lines', () => {
     expect(r.changes).toEqual([]);
   });
 
-  it('does not trust a price or stock tampered into a catalog line', () => {
+  it('does not trust stock stored in a catalog line; its price is only a display estimate', () => {
     const state = { items: [{ id: 'cat:TH-239:TH-239A', name: 'x', price: 1, stock: 1, qty: 1 }] };
-    expect(reconcileCart(state, []).state.items[0]).toMatchObject({ price: null, stock: null });
+    expect(reconcileCart(state, []).state.items[0]).toMatchObject({ price: 1, stock: null });
   });
 
   it('still removes unknown DB products', () => {

@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.root svg {
+  stroke-width: var(--soft-stroke);
+}
+
 .label {
   position: absolute;
   width: var(--space-px);
@@ -16,40 +20,47 @@
 .icon {
   position: absolute;
   top: 50%;
-  left: var(--space-3);
+  left: var(--space-4);
   display: inline-flex;
-  color: var(--promo-ink-2);
+  color: var(--soft-muted);
   transform: translateY(-50%);
   pointer-events: none;
 }
 
 .input {
   width: 100%;
-  height: var(--target-min);
-  padding: 0 var(--target-min) 0 var(--space-10);
-  border: var(--promo-border-width) solid var(--promo-border);
-  border-radius: var(--promo-radius-button);
-  background: var(--white);
-  color: var(--promo-ink);
-  font-family: var(--font-body);
+  height: var(--soft-search-height);
+  padding: 0 var(--target-min) 0 var(--space-11);
+  border: var(--border-width) solid var(--soft-border);
+  border-radius: var(--radius-pill);
+  background: var(--soft-surface);
+  color: var(--soft-body);
+  font-family: var(--soft-font-body);
   font-size: var(--text-md);
   appearance: none;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--soft-muted);
 }
 
 .input::-webkit-search-cancel-button {
   display: none;
 }
 
-.input:focus-visible {
-  border-color: var(--promo-olive);
-  outline: var(--focus-width) solid var(--promo-olive);
-  outline-offset: var(--space-half);
+.input:focus {
+  border-color: var(--soft-burgundy);
+  outline: none;
+  box-shadow: 0 0 0 var(--space-1) var(--soft-ring);
 }
 
 .clear {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: var(--space-1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -57,12 +68,14 @@
   height: var(--target-min);
   padding: 0;
   border: 0;
+  border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--promo-ink-2);
+  color: var(--soft-muted);
   cursor: pointer;
+  transform: translateY(-50%);
 }
 
 .clear:focus-visible {
-  outline: var(--focus-width) solid var(--promo-olive);
+  outline: var(--focus-width) solid var(--soft-burgundy);
   outline-offset: calc(var(--focus-offset) * -1);
 }

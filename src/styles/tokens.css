@@ -572,19 +572,61 @@
   --promo-radius-button: 12px;
   --promo-border-width: 1.5px;
   --promo-filter-min: 220px;
-  --promo-card-min: 220px;
+  --promo-card-min: 250px;
   --promo-card-min-sm: 150px; /* two columns from about 360px, one below */
   --promo-band-min: 240px;
   --promo-fab-height: 54px;
   --promo-counter: 24px;
   --promo-chevron: 8px;
-  --promo-mark: 40px; /* visible circle of the card toggle, inside a 44px hit area */
+  --promo-mark: 36px; /* visible circle of the card toggle, inside a 44px hit area */
   --promo-wine: var(--wine-700); /* the wine of the header pill: active category, active chips, counters, "in list" */
-  --promo-hover: rgba(35, 38, 26, 0.05);
-  --promo-sidebar: 240px;
-  --promo-sheet: 380px;
-  --promo-row-height: 36px;
-  --promo-radius-row: 10px;
-  --promo-price-size: 18px;
-  --promo-dot: 6px;
+}
+
+/* 4. "Soft" restyle of the catalog section and the list drawer (client spec). Used only by those two. */
+:root {
+  --soft-surface: #f7f4e4; /* cards, inputs, drawer */
+  --soft-white: #ffffff;
+  --soft-burgundy: #5c2339;
+  --soft-burgundy-hover: #4a1b2d;
+  --soft-deep: #3e1626; /* headings, prices */
+  --soft-body: #2a1520;
+  --soft-muted: #6b5a60; /* 5.2:1 on the page, 5.8:1 on the surface */
+  --soft-faint: #7a6a70; /* spec asks #8a7a80 (3.7:1 on the surface); this is 4.6:1 */
+  --soft-lime: #e4e0a8;
+  --soft-lime-hover: #d9d48f;
+  --soft-cream-text: #f4f0da; /* text on burgundy */
+  --soft-border: rgba(92, 35, 57, 0.13);
+  --soft-border-strong: rgba(92, 35, 57, 0.35);
+  --soft-tint: rgba(92, 35, 57, 0.07); /* count badge, category label */
+  --soft-tint-cream: rgba(244, 240, 218, 0.16); /* badge and hover on burgundy */
+  --soft-ring: rgba(92, 35, 57, 0.12);
+  --soft-shadow-lift: 0 18px 40px -18px rgba(62, 22, 38, 0.35);
+  --soft-shadow-drawer: 0 30px 80px -20px rgba(62, 22, 38, 0.45);
+  --soft-overlay: rgba(20, 8, 14, 0.45);
+
+  --soft-font-heading: var(--font-urbanist), system-ui, sans-serif;
+  --soft-font-body: var(--font-instrument), system-ui, sans-serif;
+  --soft-stroke: 1.75;
+  --soft-title: clamp(40px, 5.5vw, 60px);
+  --soft-search-height: 50px;
+  --soft-search-width: 320px;
+  --soft-sort-width: 200px;
+  --soft-chip-height: 40px;
+  --soft-card-min: 250px;
+  --soft-card-pad: 10px;
+  --soft-card-radius: 24px;
+  --soft-white-radius: 18px;
+  --soft-name-size: 20px;
+  --soft-price-size: 26px;
+  --soft-total-size: 30px;
+  --soft-action-height: 42px;
+  --soft-step: 36px;
+  --soft-badge: 22px;
+  --soft-drawer-width: 420px;
+  --soft-drawer-gap: 12px;
+  --soft-drawer-radius: 28px;
+  --soft-row-radius: 18px;
+  --soft-thumb: 52px;
+  --soft-send-height: 54px;
+  --soft-lift: -3px;
 }

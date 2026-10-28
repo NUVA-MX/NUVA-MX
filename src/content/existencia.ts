@@ -11,19 +11,17 @@ export const existencia = {
       { label: 'Productos', href: '#productos' },
       { label: 'Envíos', href: '#envios' },
     ],
-    cart: 'Carrito ({count})',
-    cartAria: 'Abrir carrito, {count} piezas',
+    cart: 'Mi lista ({count})',
+    cartAria: 'Abrir mi lista, {count} piezas',
   },
   hero: {
     eyebrow: 'Promocionales',
     titleLines: ['Listo para', 'enviar'],
     body: 'Stock real, precio a la vista y salida el mismo día. Sin cotización ni espera de producción.',
-    // TODO(client): confirm the three short hero facts.
+    // TODO(client): confirm the short hero facts.
     facts: [
-      'Envío en 24 h',
-      // v1 has no online payment: orders and payment are arranged on WhatsApp.
-      'Pedido por WhatsApp',
-      'Cambios 15 días',
+      // v1 has no online payment: the saved list is sent and paid on WhatsApp.
+      'Envías tu lista por WhatsApp',
     ],
     // TODO(client): photo of an in-stock product.
     image: null as string | null,
@@ -38,7 +36,7 @@ export const existencia = {
     badge: { out: 'Agotado', low: 'Últimas {n}', ok: '{n} en stock' },
     button: { add: 'Añadir', added: 'Añadido · {n}', notify: 'Avísame' },
     noPrice: 'Precio por confirmar',
-    addAria: 'Añadir {name} al carrito',
+    addAria: 'Añadir {name} a mi lista',
     notifyAria: 'Avísame por WhatsApp cuando haya {name}',
     // TODO(confirm): "Avísame" (notify me) opens WhatsApp with this message.
     notifyTemplate: 'Hola Nuva, avísenme cuando vuelva a haber "{name}".',
@@ -73,23 +71,23 @@ export const existencia = {
   },
   // TODO(confirm): all cart panel copy.
   cart: {
-    title: 'Tu pedido',
-    empty: 'Tu carrito está vacío.',
+    title: 'Mi lista',
+    empty: 'Tu lista está vacía.',
     emptyCta: 'Ver productos',
     total: 'Total estimado',
-    send: 'Enviar pedido por WhatsApp',
-    note: 'Te confirmamos disponibilidad, envío y pago por WhatsApp.',
+    send: 'Enviar lista por WhatsApp',
+    note: 'Aquí no se paga: nos mandas tu lista por WhatsApp y ahí confirmamos disponibilidad, envío y pago.',
     remove: 'Quitar',
-    removeAria: 'Quitar {name} del carrito',
+    removeAria: 'Quitar {name} de tu lista',
     qty: 'Cantidad',
     increase: 'Sumar una pieza de {name}',
     decrease: 'Restar una pieza de {name}',
     noPrice: 'Precio por confirmar',
     // TODO(confirm): notices when the saved cart changes against live inventory.
-    changesTitle: 'Actualizamos tu carrito con el inventario actual:',
+    changesTitle: 'Actualizamos tu lista con el inventario actual:',
     changes: {
-      removed: '"{name}" ya no está disponible y lo quitamos de tu carrito.',
-      soldOut: '"{name}" se agotó y lo quitamos de tu carrito.',
+      removed: '"{name}" ya no está disponible y lo quitamos de tu lista.',
+      soldOut: '"{name}" se agotó y lo quitamos de tu lista.',
       qty: 'De "{name}" solo quedan {qty}; ajustamos la cantidad.',
       price: 'El precio de "{name}" cambió a {price}.',
       priceUnknown: 'El precio de "{name}" ahora está por confirmar.',

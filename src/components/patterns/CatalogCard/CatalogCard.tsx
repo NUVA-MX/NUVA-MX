@@ -1,70 +1,107 @@
 'use client';
 
-import { Heading } from '@/components/primitives/Heading';
+import { Icon } from '@/components/primitives/Icon';
 import { Media } from '@/components/primitives/Media';
-import { cx } from '@/lib/cx';
+import { MAX_QTY } from '@/lib/cart/reducer';
 import type { CatalogCard as CatalogCardData } from '@/lib/catalog/types';
 import { fillTemplate, formatMXN } from '@/lib/format';
 import styles from './CatalogCard.module.css';
 
+export type CatalogPrefetch = { prefetch: (code: string) => void; prefetchSoon: (code: string) => void; cancelSoon: () => void };
+
 export type CatalogCardLabels = {
-  /** Template with {code} and {subcategory}. */
-  meta: string;
   add: string;
+  /** "En mi lista · {n}" */
   inList: string;
-  /** "Agregar {name} a mi lista" */
+  from: string;
   addAria: string;
-  /** "Quitar {name} de mi lista" */
+  /** "{name}: {n} en mi lista, ver detalle" */
   inListAria: string;
-  /** "Ver detalle de {name}" */
+  qtyAria: string;
+  decreaseAria: string;
+  increaseAria: string;
   viewDetailAria: string;
 };
 
 type Props = {
   card: CatalogCardData;
   labels: CatalogCardLabels;
-  /** True while any variant of this product is in the list. */
-  inList: boolean;
-  /** Adds the product, removes it, or opens the detail when a color must be picked. */
-  onToggle: (card: CatalogCardData) => void;
+  /** Pieces of this product in the list (all colors). */
+  qty: number;
+  onAdd: (card: CatalogCardData) => void;
+  onSetQty: (code: string, qty: number) => void;
   onOpen: (code: string) => void;
+  /** Warms the detail cache: right away on focus/touch, after a short pause on mouse hover. */
+  prefetch?: CatalogPrefetch;
 };
 
-/** Catalog card: photo (opens the detail), code and subcategory, name, price (only when the API sends one), small code and a round add/remove button. */
-export function CatalogCard({ card, labels, inList, onToggle, onOpen }: Props) {
-  const meta = card.subcategory ? fillTemplate(labels.meta, { code: card.code, subcategory: card.subcategory }) : card.code;
-  const single = card.variantCount <= 1;
+/**
+ * Catalog card: white square photo (opens the detail), category and code pills, name, and a bottom row with the price
+ * (only when the API sends one) and the action: "+ Agregar", a quantity pill, or "En mi lista · n" for several colors.
+ */
+export function CatalogCard({ card, labels, qty, onAdd, onSetQty, onOpen, prefetch }: Props) {
+  const vars = { name: card.name, n: qty };
+  const several = card.variantCount > 1;
   return (
-    <article className={styles.root}>
-      <button
-        type="button"
-        className={styles.photo}
-        aria-label={fillTemplate(labels.viewDetailAria, { name: card.name })}
-        onClick={() => onOpen(card.code)}
-      >
+    <article
+      className={styles.root}
+      onPointerEnter={(e) => e.pointerType === 'mouse' && prefetch?.prefetchSoon(card.code)}
+      onPointerLeave={() => prefetch?.cancelSoon()}
+      onFocus={() => prefetch?.prefetch(card.code)}
+      onTouchStart={() => prefetch?.prefetch(card.code)}
+    >
+      <button type="button" className={styles.photo} aria-label={fillTemplate(labels.viewDetailAria, vars)} onClick={() => onOpen(card.code)}>
         <Media src={card.image} alt="" ratio="1/1" sizes="grid" />
       </button>
       <div className={styles.body}>
-        <Heading level={3} size="xs" className={styles.name}>
-          {card.name}
-        </Heading>
-        <div className={styles.footer}>
-          <div className={styles.info}>
-            {card.price !== null && <p className={styles.price}>{formatMXN(card.price)}</p>}
-            <p className={styles.meta}>{meta}</p>
+        <div className={styles.pills}>
+          {card.category && <span className={styles.category}>{card.category}</span>}
+          <span className={styles.code}>{card.code}</span>
+        </div>
+        <h3 className={styles.name}>{card.name}</h3>
+        <div className={styles.bottom}>
+          {card.price !== null && (
+            <p className={styles.price}>
+              <span className={styles.from}>{labels.from}</span>
+              <span className={styles.amount}>{formatMXN(card.price)}</span>
+            </p>
+          )}
+          <div className={styles.action}>
+            {qty === 0 && (
+              <button type="button" className={styles.add} aria-label={fillTemplate(labels.addAria, vars)} onClick={() => onAdd(card)}>
+                {labels.add}
+              </button>
+            )}
+            {qty > 0 && several && (
+              <button type="button" className={styles.inList} aria-label={fillTemplate(labels.inListAria, vars)} onClick={() => onOpen(card.code)}>
+                {fillTemplate(labels.inList, vars)}
+              </button>
+            )}
+            {qty > 0 && !several && (
+              <div className={styles.stepper} role="group" aria-label={fillTemplate(labels.qtyAria, vars)}>
+                <button
+                  type="button"
+                  className={styles.step}
+                  aria-label={fillTemplate(labels.decreaseAria, vars)}
+                  onClick={() => onSetQty(card.code, qty - 1)}
+                >
+                  <Icon name="minus" />
+                </button>
+                <output className={styles.qty} aria-live="polite">
+                  {qty}
+                </output>
+                <button
+                  type="button"
+                  className={styles.step}
+                  aria-label={fillTemplate(labels.increaseAria, vars)}
+                  disabled={qty >= MAX_QTY}
+                  onClick={() => onSetQty(card.code, qty + 1)}
+                >
+                  <Icon name="plus" />
+                </button>
+              </div>
+            )}
           </div>
-          <button
-            type="button"
-            className={cx(styles.toggle, inList && styles.on)}
-            aria-pressed={single ? inList : undefined}
-            aria-haspopup={single ? undefined : 'dialog'}
-            aria-label={fillTemplate(inList ? labels.inListAria : labels.addAria, { name: card.name })}
-            onClick={() => onToggle(card)}
-          >
-            <span className={styles.mark} aria-hidden="true">
-              {inList ? labels.inList : labels.add}
-            </span>
-          </button>
         </div>
       </div>
     </article>

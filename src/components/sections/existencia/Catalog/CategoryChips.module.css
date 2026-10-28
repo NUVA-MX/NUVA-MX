@@ -1,0 +1,73 @@
+/* Scrolls inside itself (hidden scrollbar); the padding keeps focus rings from being clipped. */
+.root {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-1);
+  margin: 0 calc(var(--space-1) * -1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.root::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--soft-chip-height);
+  padding: 0 var(--space-1-5) 0 var(--space-4);
+  border: var(--border-width) solid var(--soft-border);
+  border-radius: var(--radius-pill);
+  background: var(--soft-surface);
+  color: var(--soft-deep);
+  font-family: var(--soft-font-body);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.chip:hover {
+  border-color: var(--soft-border-strong);
+}
+
+.chip:focus-visible {
+  outline: var(--focus-width) solid var(--soft-burgundy);
+  outline-offset: var(--focus-offset);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--soft-badge);
+  height: var(--soft-badge);
+  padding: 0 var(--space-1-5);
+  border-radius: var(--radius-pill);
+  background: var(--soft-tint);
+  color: var(--soft-muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.on {
+  border-color: var(--soft-burgundy);
+  background: var(--soft-burgundy);
+  color: var(--soft-cream-text);
+}
+
+.on:hover {
+  background: var(--soft-burgundy-hover);
+}
+
+.on .badge {
+  background: var(--soft-tint-cream);
+  color: var(--soft-cream-text);
+}

@@ -12,7 +12,7 @@ type Props = {
   onChange: (sort: CatalogSort) => void;
 };
 
-const OPTIONS = ['name', 'price_asc', 'price_desc'] as const;
+const OPTIONS = ['name', 'name_desc', 'price_asc', 'price_desc'] as const;
 
 /** "Ordenar" select. A price option that is already selected stays in the list so the select is never blank. */
 export function SortSelect({ id, value, priceSort, onChange }: Props) {
@@ -22,7 +22,7 @@ export function SortSelect({ id, value, priceSort, onChange }: Props) {
         {copy.filters.sortLabel}
       </label>
       <select id={id} value={value} className={styles.select} onChange={(e) => onChange(e.target.value as CatalogSort)}>
-        {OPTIONS.filter((k) => k === 'name' || priceSort || k === value).map((k) => (
+        {OPTIONS.filter((k) => k === 'name' || k === 'name_desc' || priceSort || k === value).map((k) => (
           <option key={k} value={k}>
             {copy.filters.sort[k]}
           </option>

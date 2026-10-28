@@ -1,6 +1,7 @@
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 import type { Metadata, Viewport } from 'next';
+import { Instrument_Sans, Urbanist } from 'next/font/google';
 import localFont from 'next/font/local';
 import { site } from '@/content/site';
 import { siteUrl } from '@/server/env';
@@ -19,6 +20,10 @@ const acumin = localFont({
   display: 'swap',
 });
 
+// Only the catalog section and the list drawer use these (--soft-font-*); the rest of the site keeps its fonts.
+const urbanist = Urbanist({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-urbanist', display: 'swap' });
+const instrument = Instrument_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-instrument', display: 'swap' });
+
 export const metadata: Metadata = {
   metadataBase: siteUrl() ? new URL(siteUrl() as string) : undefined,
   title: site.brand,
@@ -32,7 +37,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-MX" data-scroll-behavior="smooth" className={`${darkerGrotesque.variable} ${acumin.variable}`}>
+    <html lang="es-MX" data-scroll-behavior="smooth" className={`${darkerGrotesque.variable} ${acumin.variable} ${urbanist.variable} ${instrument.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -1,46 +1,101 @@
-/* Re-points the theme tokens to the Promocionales palette, so shared patterns (skeleton, status, buttons) follow it. */
+/* Re-points the theme tokens to the "soft" palette, so shared patterns (skeleton, status, buttons) follow it. */
 .root {
-  --color-bg: var(--promo-page);
-  --color-surface: var(--white);
-  --color-placeholder: var(--promo-cream-dark);
-  --color-text: var(--promo-ink);
-  --color-text-muted: var(--promo-ink-2);
-  --color-text-subtle: var(--promo-muted);
-  --color-action: var(--promo-olive);
-  --color-action-hover: var(--promo-olive-hover);
-  --color-action-text: var(--promo-cream);
-  --color-border: var(--promo-border-soft);
-  --color-border-strong: var(--promo-border);
-  --color-link: var(--promo-orange-deep);
+  --color-bg: var(--soft-white);
+  --color-surface: var(--soft-surface);
+  --color-placeholder: var(--soft-tint);
+  --color-text: var(--soft-body);
+  --color-text-muted: var(--soft-muted);
+  --color-text-subtle: var(--soft-muted);
+  --color-action: var(--soft-burgundy);
+  --color-action-hover: var(--soft-burgundy-hover);
+  --color-action-text: var(--soft-cream-text);
+  --color-border: var(--soft-border);
+  --color-border-strong: var(--soft-border-strong);
+  --color-link: var(--soft-burgundy);
   --shadow-card: none;
   padding: var(--promo-pad-top) 0 var(--promo-pad-bottom);
-  background: var(--promo-page);
-  color: var(--promo-ink);
+  background: var(--soft-white);
+  color: var(--soft-body);
+  font-family: var(--soft-font-body);
   scroll-margin-top: var(--nav-offset);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.heading {
+  min-width: 0;
 }
 
 .title {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--soft-font-heading);
   font-weight: var(--weight-regular);
-  font-size: var(--promo-title);
+  font-size: var(--soft-title);
+  letter-spacing: -0.03em;
   line-height: var(--leading-none);
-  color: var(--promo-olive);
+  color: var(--soft-deep);
 }
 
 .intro {
-  margin: var(--space-2-5) 0 var(--space-7);
+  margin: var(--space-2-5) 0 0;
+  max-width: var(--measure-body);
+  font-size: var(--text-xl);
+  color: var(--soft-muted);
+}
+
+.tools {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.search {
+  flex: 1 1 var(--soft-search-width);
+  max-width: var(--soft-search-width);
+  min-width: 0;
+}
+
+.sort {
+  flex: 1 1 var(--soft-sort-width);
+  max-width: var(--soft-sort-width);
+  min-width: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--soft-card-min), 100%), 1fr));
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.empty {
+  margin: var(--space-12) 0;
+  text-align: center;
   font-size: var(--text-lg);
-  color: var(--promo-ink-2);
+  color: var(--soft-muted);
+}
+
+.empty p {
+  margin: 0;
 }
 
 .clear {
   min-height: var(--target-min);
-  padding: 0;
+  padding: 0 var(--space-2);
   border: 0;
   background: transparent;
-  color: var(--promo-orange-deep);
-  font-family: var(--font-body);
+  color: var(--soft-burgundy);
+  font-family: var(--soft-font-body);
   font-size: var(--text-button);
   text-decoration: underline;
   white-space: nowrap;
@@ -48,25 +103,8 @@
 }
 
 .clear:focus-visible {
-  outline: var(--focus-width) solid var(--promo-olive);
+  outline: var(--focus-width) solid var(--soft-burgundy);
   outline-offset: var(--focus-offset);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(var(--promo-card-min-sm), 100%), 1fr));
-  gap: var(--space-3);
-  align-items: stretch;
-}
-
-.empty {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3-5);
-  margin: 0;
-  font-size: var(--text-button);
-  color: var(--promo-ink-2);
 }
 
 .pending {
@@ -74,57 +112,14 @@
   transition: opacity var(--duration-fast);
 }
 
-/* Programmatic focus target after "retry"; not a control, so no ring. */
-.root:focus {
-  outline: none;
-}
-
-/* Sidebar on desktop; sticky toolbar and filter sheet below it. */
-.layout {
-  display: block;
-}
-
-.side {
-  display: none;
-}
-
-.main {
-  min-width: 0;
-}
-
-.toolbar {
-  display: contents;
-}
-
 .showing {
   margin: var(--space-3) 0 0;
   font-size: var(--text-sm);
   text-align: center;
-  color: var(--promo-muted);
+  color: var(--soft-muted);
 }
 
-/* see src/styles/breakpoints.ts */
-@media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--promo-card-min), 100%), 1fr));
-    gap: var(--space-4);
-  }
-}
-
-/* see src/styles/breakpoints.ts */
-@media (min-width: 1024px) {
-  .layout {
-    display: grid;
-    grid-template-columns: var(--promo-sidebar) minmax(0, 1fr);
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  .side {
-    display: block;
-  }
-
-  .toolbar {
-    display: none;
-  }
+/* Programmatic focus target after "retry"; not a control, so no ring. */
+.root:focus {
+  outline: none;
 }
