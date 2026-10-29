@@ -17,7 +17,7 @@ export const existencia = {
   hero: {
     eyebrow: 'Promocionales',
     titleLines: ['Tu marca', 'en todo'],
-    body: 'Explora nuestro catálogo, encuentra tus productos favoritos y agrégalos a tu lista. Compara al precio publicado o solicita una cotización personalizada para tu marca.',
+    body: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.',
 
     // TODO(client): confirm the short hero facts.
     facts: [

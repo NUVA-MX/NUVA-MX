@@ -50,25 +50,41 @@
   color: var(--soft-muted);
 }
 
+/* Mobile: search and sort stack at full width under the intro. */
 .tools {
   display: flex;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex: 1 1 100%;
+  flex-direction: column;
   gap: var(--space-3);
   min-width: 0;
 }
 
-.search {
-  flex: 1 1 var(--soft-search-width);
-  max-width: var(--soft-search-width);
+.search,
+.sort {
+  width: 100%;
   min-width: 0;
 }
 
-.sort {
-  flex: 1 1 var(--soft-sort-width);
-  max-width: var(--soft-sort-width);
-  min-width: 0;
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .tools {
+    flex: 1 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .search {
+    flex: 1 1 var(--soft-search-width);
+    width: auto;
+    max-width: var(--soft-search-width);
+  }
+
+  .sort {
+    flex: 1 1 var(--soft-sort-width);
+    width: auto;
+    max-width: var(--soft-sort-width);
+  }
 }
 
 .grid {
