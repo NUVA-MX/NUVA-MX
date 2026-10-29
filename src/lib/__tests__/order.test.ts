@@ -7,6 +7,7 @@ const template = {
   line: '{qty} × {name} — {price}',
   footer: 'Total estimado: {total}',
   noPrice: 'precio por confirmar',
+  partialFooter: 'Total parcial: {total}',
 };
 
 describe('buildOrderMessage', () => {
@@ -31,7 +32,20 @@ describe('buildOrderMessage', () => {
   it('maneja productos sin precio', () => {
     const msg = buildOrderMessage([{ id: 'a', name: 'X', price: null, qty: 3 }], template, formatMXN);
     expect(msg).toContain('3 × X — precio por confirmar');
-    expect(msg).toContain('Total estimado: $0');
+    expect(msg).not.toContain('Total');
+  });
+  it('usa el pie parcial cuando solo algunas líneas tienen precio', () => {
+    const msg = buildOrderMessage(
+      [
+        { id: 'a', name: 'A', price: 100, qty: 2 },
+        { id: 'b', name: 'B', price: null, qty: 1 },
+      ],
+      template,
+      formatMXN,
+    );
+    expect(msg).toContain('2 × A — $200');
+    expect(msg).toContain('1 × B — precio por confirmar');
+    expect(msg.endsWith('Total parcial: $200')).toBe(true);
   });
 });
 

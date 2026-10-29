@@ -53,12 +53,7 @@ function goToProducts(close: () => void): void {
 export function Cart() {
   const cart = useCart();
   const c = existencia.cart;
-  // The order message never carries catalog estimates: those lines go out without a price, as before.
-  const message = buildOrderMessage(
-    cart.items.map((i) => (isCatalogCartId(i.id) ? { ...i, price: null } : i)),
-    existencia.orderTemplate,
-    formatMXN,
-  );
+  const message = buildOrderMessage(cart.items, existencia.orderTemplate, formatMXN);
   const priced = cart.items.some((i) => i.price !== null);
   return (
     <CartPanel

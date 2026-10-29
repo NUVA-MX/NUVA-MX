@@ -9,7 +9,7 @@ import { existenciaCatalog as copy } from '@/content/existencia-catalog';
 export type CatalogToggle = {
   /** Pieces of the product in the list, summed over its colors. */
   qtyOf: (code: string) => number;
-  /** Adds a one-color product (with its customer price when visible); opens the detail when a color must be picked. */
+  /** Adds the product in its first available color (with its customer price when visible) without opening the detail. */
   add: (card: CatalogCard) => void;
   /** Sets the pieces of a one-color product; 0 removes it. */
   setQty: (code: string, qty: number) => void;
@@ -22,10 +22,6 @@ export function useCatalogToggle(openDetail: (code: string) => void): CatalogTog
   const qtyOf = (code: string) => lines(code).reduce((sum, i) => sum + i.qty, 0);
 
   function add(card: CatalogCard) {
-    if (card.variantCount > 1) {
-      openDetail(card.code);
-      return;
-    }
     catalogItems.get(card.code)
       .then((product) => {
         const variant = product.variants.find((v) => v.availability !== 'out');
