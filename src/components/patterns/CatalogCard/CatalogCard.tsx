@@ -1,5 +1,6 @@
 'use client';
 
+import { HoldStepButton, Quantity } from '@/components/patterns/HoldStepButton';
 import { Icon } from '@/components/primitives/Icon';
 import { Media } from '@/components/primitives/Media';
 import { MAX_QTY } from '@/lib/cart/reducer';
@@ -79,26 +80,28 @@ export function CatalogCard({ card, labels, qty, onAdd, onSetQty, onOpen, prefet
             )}
             {qty > 0 && !several && (
               <div className={styles.stepper} role="group" aria-label={fillTemplate(labels.qtyAria, vars)}>
-                <button
-                  type="button"
+                <HoldStepButton
+                  value={qty}
+                  direction={-1}
+                  max={MAX_QTY}
+                  onChange={(n) => onSetQty(card.code, n)}
                   className={styles.step}
-                  aria-label={fillTemplate(labels.decreaseAria, vars)}
-                  onClick={() => onSetQty(card.code, qty - 1)}
+                  ariaLabel={fillTemplate(labels.decreaseAria, vars)}
                 >
                   <Icon name="minus" />
-                </button>
-                <output className={styles.qty} aria-live="polite">
-                  {qty}
-                </output>
-                <button
-                  type="button"
-                  className={styles.step}
-                  aria-label={fillTemplate(labels.increaseAria, vars)}
+                </HoldStepButton>
+                <Quantity value={qty} className={styles.qty} />
+                <HoldStepButton
+                  value={qty}
+                  direction={1}
+                  max={MAX_QTY}
                   disabled={qty >= MAX_QTY}
-                  onClick={() => onSetQty(card.code, qty + 1)}
+                  onChange={(n) => onSetQty(card.code, n)}
+                  className={styles.step}
+                  ariaLabel={fillTemplate(labels.increaseAria, vars)}
                 >
                   <Icon name="plus" />
-                </button>
+                </HoldStepButton>
               </div>
             )}
           </div>
