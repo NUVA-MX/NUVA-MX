@@ -16,7 +16,7 @@ export const site = {
     { key: 'existencia', label: 'Promocionales', href: '/existencia' },
   ],
   // Page-identity tag shown in the announcement bar of each side.
-  sideTag: { encargo: 'Hecho a tu medida', existencia: 'Listo para enviar' },
+  sideTag: { encargo: 'Hecho a tu medida', existencia: 'Tu marca en todo' },
   switchLabel: 'Forma de comprar',
   description:
     'NUVA: merch personalizado y artículos promocionales listos para enviar. Hecho en México.',
