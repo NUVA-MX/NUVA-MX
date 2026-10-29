@@ -260,3 +260,14 @@
   list-style: none;
   color: var(--soft-muted);
 }
+
+/* 44px touch area around the 40px buttons. */
+.qtyButton {
+  position: relative;
+}
+
+.qtyButton::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-half) * -1);
+}

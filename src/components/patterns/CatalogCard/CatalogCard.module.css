@@ -166,6 +166,7 @@
 }
 
 .step {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -203,4 +204,11 @@
   .root:hover {
     transform: none;
   }
+}
+
+/* 44px touch area around the 36px button. */
+.step::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-1) * -1);
 }

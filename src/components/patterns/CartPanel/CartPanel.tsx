@@ -3,8 +3,8 @@
 import { useId } from 'react';
 import { Button } from '@/components/primitives/Button';
 import { Icon } from '@/components/primitives/Icon';
-import { fillTemplate } from '@/lib/format';
 import { Modal } from '../Modal';
+import { CartPanelRow } from './CartPanelRow';
 import styles from './CartPanel.module.css';
 
 export type CartPanelItem = {
@@ -109,50 +109,9 @@ export function CartPanel({
         </div>
       ) : (
         <ul className={styles.list}>
-          {items.map((item) => {
-            const vars = { name: item.name };
-            const atMax = item.max !== null && item.qty >= item.max;
-            return (
-              <li key={item.id} className={styles.item}>
-                <div className={styles.itemMain}>
-                  <p className={styles.name}>{item.name}</p>
-                  <p className={styles.price}>{item.priceLabel}</p>
-                </div>
-                <div className={styles.controls}>
-                  <div className={styles.qty} role="group" aria-label={`${labels.qty}: ${item.name}`}>
-                    <button
-                      type="button"
-                      className={styles.qtyButton}
-                      aria-label={fillTemplate(labels.decrease, vars)}
-                      onClick={() => onSetQty(item.id, item.qty - 1)}
-                    >
-                      <Icon name="minus" />
-                    </button>
-                    <output className={styles.qtyValue} aria-live="polite">
-                      {item.qty}
-                    </output>
-                    <button
-                      type="button"
-                      className={styles.qtyButton}
-                      aria-label={fillTemplate(labels.increase, vars)}
-                      onClick={() => onSetQty(item.id, item.qty + 1)}
-                      disabled={atMax}
-                    >
-                      <Icon name="plus" />
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.remove}
-                    aria-label={fillTemplate(labels.removeAria, vars)}
-                    onClick={() => onRemove(item.id)}
-                  >
-                    {labels.remove}
-                  </button>
-                </div>
-              </li>
-            );
-          })}
+          {items.map((item) => (
+            <CartPanelRow key={item.id} item={item} labels={labels} onSetQty={onSetQty} onRemove={onRemove} />
+          ))}
         </ul>
       )}
 
