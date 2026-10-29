@@ -17,7 +17,8 @@ export const existencia = {
   hero: {
     eyebrow: 'Promocionales',
     titleLines: ['Listo para', 'enviar'],
-    body: 'Explora nuestro catálogo, encuentra tus productos favoritos y agrégalos a tu lista. ',
+    body: 'Explora nuestro catálogo, encuentra tus productos favoritos y agrégalos a tu lista. Compara al precio publicado o solicita una cotización personalizada para tu marca.',
+
     // TODO(client): confirm the short hero facts.
     facts: [
       // v1 has no online payment: the saved list is sent and paid on WhatsApp.

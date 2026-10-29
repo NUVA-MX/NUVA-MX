@@ -3,7 +3,7 @@ export const existenciaCatalog = {
   // TODO(client): section title, eyebrow and aside.
   title: 'Más promocionales',
   // TODO(client): subtitle under the title.
-  intro: 'Arma tu lista y te confirmamos precio y tiempo de entrega por WhatsApp.',
+  intro: 'Arma tu lista y Solicita una cotización con precio presonalizado y tiempo estimado de entrega.',
   filters: {
     // TODO(client): filter labels.
     searchLabel: 'Buscar producto o código',
