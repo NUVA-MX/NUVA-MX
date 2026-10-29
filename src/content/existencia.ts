@@ -99,7 +99,9 @@ export const existencia = {
   orderTemplate: {
     header: 'Hola Nuva, quiero hacer este pedido:',
     line: '{qty} × {name} — {price}',
-    footer: 'Total estimado: {total}',
+    footer: 'Total estimado: {total} (precios sin personalización)',
+    // Some lines have no price yet, so the total is only a part of the order.
+    partialFooter: 'Total parcial: {total} (precios sin personalización; hay piezas con precio por confirmar)',
     noPrice: 'precio por confirmar',
   },
 } as const;

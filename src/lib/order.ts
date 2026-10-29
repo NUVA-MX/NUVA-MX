@@ -7,6 +7,8 @@ export type OrderTemplate = {
   line: string;
   footer: string;
   noPrice: string;
+  /** Footer used when some lines have no price, so the total is only partial. Falls back to `footer`. */
+  partialFooter?: string;
 };
 
 /**
@@ -25,8 +27,11 @@ export function buildOrderMessage(
       price: it.price === null ? template.noPrice : format(it.price * it.qty),
     }),
   );
-  const total = orderTotal(items);
-  return [template.header, ...lines, fillTemplate(template.footer, { total: format(total) })].join('\n');
+  const priced = items.filter((it) => it.price !== null).length;
+  // Without any price there is no total to show (it would read $0).
+  if (priced === 0) return [template.header, ...lines].join('\n');
+  const footer = priced < items.length && template.partialFooter ? template.partialFooter : template.footer;
+  return [template.header, ...lines, fillTemplate(footer, { total: format(orderTotal(items)) })].join('\n');
 }
 
 /** Sum of price × quantity; items without a price add nothing. */
