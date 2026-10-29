@@ -18,6 +18,7 @@ export const existencia = {
     eyebrow: 'Promocionales',
     titleLines: ['Listo para', 'enviar'],
     body: 'Explora nuestro catálogo, encuentra tus productos favoritos y agrégalos a tu lista. Compara al precio publicado o solicita una cotización personalizada para tu marca.',
+
     // TODO(client): confirm the short hero facts.
     facts: [
       // v1 has no online payment: the saved list is sent and paid on WhatsApp.
@@ -56,11 +57,11 @@ export const existencia = {
   info: [
     {
       label: 'Envíos',
-      body: 'Salida el mismo día en pedidos antes de las 2 pm. Entrega de 2 a 4 días hábiles en todo el país.',
+      body: 'Realizamos envíos a todo México. los tiempos de preparación y entrega pueden varirar según la disponibilidad delos productos y destino.',
     },
     {
-      label: 'Cambios',
-      body: 'Quince días para cambio de talla o color, siempre que la pieza no esté personalizada.',
+      label: 'Garantía',
+      body: 'No realizamos cambios ni devoliciones por motivos de preferencia. Todos nuestros productos cuentan con garantía en caso de defectos de fabricación o errrores en la personalización atriburables a NUVA.',
     },
   ],
   crossLink: {
