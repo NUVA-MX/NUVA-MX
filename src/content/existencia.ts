@@ -17,11 +17,11 @@ export const existencia = {
   hero: {
     eyebrow: 'Promocionales',
     titleLines: ['Listo para', 'enviar'],
-    body: 'Stock real, precio a la vista y salida el mismo día. Sin cotización ni espera de producción.',
+    body: 'Explora nuestro catálogo, encuentra tus productos favoritos y agrégalos a tu lista. Compara al precio publicado o solicita una cotización personalizada para tu marca.',
     // TODO(client): confirm the short hero facts.
     facts: [
       // v1 has no online payment: the saved list is sent and paid on WhatsApp.
-      'Envías tu lista por WhatsApp',
+      'Cotizaciones personalizadas por WhatsApp',
     ],
     // TODO(client): photo of an in-stock product.
     image: null as string | null,
