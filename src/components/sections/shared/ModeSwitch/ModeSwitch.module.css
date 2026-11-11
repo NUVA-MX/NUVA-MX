@@ -1,0 +1,98 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-half);
+  padding: var(--space-half);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+/* Slides under the active option. Only transform, width and color animate. */
+.thumb {
+  position: absolute;
+  top: var(--space-half);
+  bottom: var(--space-half);
+  left: 0;
+  width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--brand);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.root[data-ready] .thumb {
+  opacity: 1;
+  transition:
+    transform 350ms cubic-bezier(0.65, 0, 0.25, 1),
+    width 350ms cubic-bezier(0.65, 0, 0.25, 1),
+    background-color 350ms cubic-bezier(0.65, 0, 0.25, 1);
+}
+
+.option {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-1-5) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  font: inherit;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-button);
+  line-height: var(--leading-body);
+  white-space: nowrap;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+/* Hover only where there is a real pointer: no hover-only states on touch. */
+@media (hover: hover) {
+  .option:not(.current):hover {
+    color: var(--color-text);
+  }
+}
+
+.current {
+  color: var(--color-text-inverse);
+}
+
+/* Before the thumb is measured (first paint) the active option paints its own pill. */
+.root:not([data-ready]) .current {
+  background: var(--brand);
+}
+
+/* Shape marker on the current option (circle on encargo, square on existencia): a cue besides color. */
+.current::before {
+  content: '';
+  display: inline-block;
+  width: var(--marker-size);
+  height: var(--marker-size);
+  margin-inline-end: var(--space-2);
+  border-radius: var(--radius-side-marker);
+  background: currentColor;
+}
+
+@media (pointer: coarse) {
+  .option {
+    min-height: var(--target-min);
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .option {
+    padding-inline: var(--space-3-5);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-switch);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-ready] .thumb {
+    transition: none;
+  }
+}

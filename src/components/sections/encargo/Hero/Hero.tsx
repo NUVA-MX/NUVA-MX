@@ -6,8 +6,14 @@ import { cx } from '@/lib/cx';
 import type { EncargoContent } from '@/lib/content/encargo-merge';
 import styles from './Hero.module.css';
 
-/** Full-bleed photo hero (olive-to-lemon gradient until there is a photo); title and two buttons sit bottom-left. */
-export function Hero({ content: h }: { content: EncargoContent['hero'] }) {
+/** Full-bleed photo hero (side-colored gradient (olive on /encargo, wine on /existencia) until there is a photo); title and two buttons sit bottom-left. */
+type HeroProps = {
+  content: EncargoContent['hero'];
+  /** Icon on the primary button. WhatsApp on /encargo; /existencia scrolls to the products, so it uses the arrow. */
+  primaryIcon?: 'whatsapp' | 'arrow';
+};
+
+export function Hero({ content: h, primaryIcon = 'whatsapp' }: HeroProps) {
   return (
     <section className={styles.root} aria-labelledby="hero-title">
       {h.image && (
@@ -26,7 +32,14 @@ export function Hero({ content: h }: { content: EncargoContent['hero'] }) {
           </Text>
         </div>
         <div className={styles.actions}>
-          <Button href={h.primary.href} variant="light" size="xl" icon="whatsapp" className={styles.button}>
+          <Button
+            href={h.primary.href}
+            variant="light"
+            size="xl"
+            icon={primaryIcon}
+            iconPosition={primaryIcon === 'arrow' ? 'end' : undefined}
+            className={styles.button}
+          >
             {h.primary.label}
           </Button>
           <Button

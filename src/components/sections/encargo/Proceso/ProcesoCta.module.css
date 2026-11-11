@@ -1,17 +1,25 @@
-/* Closing call to action on the kit's orange gradient. */
+/* Closing call to action: flat pale yellow-green, with the NUVA pattern on top (::before). */
 .cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: var(--space-16);
   padding: var(--space-12) var(--space-5);
   border-radius: var(--radius-block);
-  background-color: var(--orange-500);
-  /* A light wash over the gradient keeps black text at 5.2:1 or better, even on its darkest corner. */
-  background-image: linear-gradient(var(--color-cta-wash), var(--color-cta-wash)), url('/brand/gradient-orange.jpg');
-  background-size: cover;
-  background-position: center;
+  background: #d3d49d;
   text-align: center;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('/brand/patron-web/patron-gris.png') center / cover no-repeat;
+  pointer-events: none;
 }
 
 .ctaTitle {

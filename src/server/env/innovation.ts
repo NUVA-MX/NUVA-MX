@@ -13,11 +13,11 @@ export type InnovationEnv = {
   ignoreWindow: boolean;
   /** Show customer prices in the public catalog (default off). */
   showPrices: boolean;
-  /** Customer price = supplier Precio x factor. Default 1.17 = 1.30 x 0.9: the supplier price is base / 0.9 (11.11% over base) and the customer pays base x 1.30. */
+  /** Customer price = supplier Precio x factor. Default 1.35 = 1.50 x 0.9: the supplier price is base / 0.9 (11.11% over base) and the customer pays base x 1.50. */
   priceFactor: number;
 };
 
-export const DEFAULT_PRICE_FACTOR = 1.17;
+export const DEFAULT_PRICE_FACTOR = 1.35;
 const PRICE_FACTOR_RANGE = { min: 1, max: 3 } as const;
 
 export const innovationShape = {

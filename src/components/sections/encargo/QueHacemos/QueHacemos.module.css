@@ -43,6 +43,16 @@
   height: 46%;
 }
 
+.seal {
+  position: absolute;
+  z-index: 1;
+  left: 6%;
+  bottom: -3%;
+  width: 28%;
+  height: auto;
+  pointer-events: none;
+}
+
 .copy {
   display: flex;
   flex-direction: column;

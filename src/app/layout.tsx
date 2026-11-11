@@ -1,5 +1,6 @@
 import '@/styles/tokens.css';
 import '@/styles/base.css';
+import '@/styles/mode-transition.css';
 import type { Metadata, Viewport } from 'next';
 import { Instrument_Sans, Urbanist } from 'next/font/google';
 import localFont from 'next/font/local';

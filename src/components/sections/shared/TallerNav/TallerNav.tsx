@@ -6,7 +6,7 @@ import { type ReactNode, useCallback, useEffect, useId, useRef, useState } from 
 import { Button } from '@/components/primitives/Button';
 import { Icon } from '@/components/primitives/Icon';
 import type { NavLink } from '@/components/layout/SiteNav';
-import { SegmentedSwitch } from '@/components/patterns/SegmentedSwitch';
+import { ModeSwitch } from '@/components/sections/shared/ModeSwitch';
 import { encargo } from '@/content/encargo';
 import { site, type SwitchKey } from '@/content/site';
 import { ui } from '@/content/ui';
@@ -29,6 +29,8 @@ type Props = {
   action?: ReactNode;
   /** Pre-filled WhatsApp text for the nav button (menu button included). Defaults to the site-wide message. */
   whatsappMessage?: string;
+  /** Switch clicked: the frame flips to that side before the page has loaded. */
+  onSwitch: (key: string) => void;
 };
 
 /**
@@ -36,7 +38,7 @@ type Props = {
  * Desktop: links + action | wordmark | switch + WhatsApp. Phone/tablet: wordmark + menu button, the switch
  * on its own full-width row, and a full-screen menu dialog (focus trap, Escape, scroll lock).
  */
-export function TallerNav({ current, links, action, whatsappMessage = site.whatsapp.defaultMessage }: Props) {
+export function TallerNav({ current, links, action, whatsappMessage = site.whatsapp.defaultMessage, onSwitch }: Props) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -78,7 +80,8 @@ export function TallerNav({ current, links, action, whatsappMessage = site.whats
           {action && <div className={styles.actionMobile}>{action}</div>}
           {action && <div className={styles.actionDesktop}>{action}</div>}
           <div className={styles.end}>
-            <SegmentedSwitch
+            <ModeSwitch
+              onOptimistic={onSwitch}
               options={site.switch}
               current={current}
               ariaLabel={site.switchLabel}

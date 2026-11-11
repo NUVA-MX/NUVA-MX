@@ -57,3 +57,9 @@
 .root :focus-visible {
   outline-color: var(--color-text-inverse);
 }
+
+.logo {
+  display: block;
+  width: auto;
+  height: calc(var(--space-10) - 15px); /* 25px */
+}
