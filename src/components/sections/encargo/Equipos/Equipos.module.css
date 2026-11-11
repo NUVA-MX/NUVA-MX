@@ -36,7 +36,8 @@
 .line {
   font-size: var(--text-xl);
   line-height: var(--leading-lead);
-  color: var(--color-text-inverse-muted);
+  /* Project orange, as the client asked. Low contrast on the olive band (about 2.3:1); --orange-500 is meant for backgrounds. */
+  color: var(--orange-500);
 }
 
 .block .cta {

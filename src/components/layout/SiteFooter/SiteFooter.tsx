@@ -1,8 +1,11 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from './SiteFooter.module.css';
 
 type Props = {
   brand: string;
+  /** Logo image shown instead of the brand text (the text stays as the alt/accessible name). */
+  logo?: { src: string; width: number; height: number };
   brandHref: string;
   brandLabel: string;
   tagline: string;
@@ -10,12 +13,16 @@ type Props = {
   links?: readonly { label: string; href: string }[];
 };
 
-export function SiteFooter({ brand, brandHref, brandLabel, tagline, copyright, links = [] }: Props) {
+export function SiteFooter({ brand, logo, brandHref, brandLabel, tagline, copyright, links = [] }: Props) {
   return (
     <footer className={styles.root}>
       <div className={styles.inner}>
         <Link href={brandHref} className={styles.brand} aria-label={brandLabel}>
-          {brand}
+          {logo ? (
+            <Image src={logo.src} width={logo.width} height={logo.height} alt="" className={styles.logo} />
+          ) : (
+            brand
+          )}
         </Link>
         <span className={styles.text}>{tagline}</span>
         {links.length > 0 && (

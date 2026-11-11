@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Button } from '@/components/primitives/Button';
 import { Container } from '@/components/primitives/Container';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
@@ -22,6 +23,14 @@ export function QueHacemos({ content: q }: { content: EncargoContent['queHacemos
               <Media src={img.image} alt={img.imageAlt} ratio="fill" sizes="half" />
             </div>
           ))}
+          <Image
+            src="/brand/sello-nuva-naranja.png"
+            alt=""
+            width={507}
+            height={520}
+            className={styles.seal}
+            aria-hidden="true"
+          />
         </Reveal>
         <Reveal className={styles.copy}>
           <Eyebrow size="sm" tracking="label">

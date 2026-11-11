@@ -25,7 +25,7 @@ export const encargo = {
     title: 'Merch con identidad.',
     // TODO(confirm): says up front that there is no cart here.
     note: 'Aquí no hay carrito: cuéntanos tu idea por WhatsApp y te mandamos mockup y precio.',
-    primary: { label: 'Hagámoslo realidad', href: '#contacto' },
+    primary: { label: 'Hagámoslo realidad', href: '#contactar' },
     // The story is now "how we make it": the secondary action scrolls to the walkthrough.
     secondary: { label: 'Descubre el Proceso', href: '#proceso' },
     // TODO(client): full-width main photo (a person wearing a NUVA cap or garment).
@@ -142,7 +142,7 @@ export const encargo = {
   whatsapp: { messages: whatsappMessages, sticky: stickyWhatsapp },
   taller: {
     eyebrow: 'Sobre nosotros',
-    title: 'El equipo detrás de tus ideas',
+    title: 'El equipo detrás de tus ideas.',
     // TODO(confirm): paragraph about the workshop (draft using facts already on the site).
     paragraph:
       'Nuva nació de nuestra pasión por crear y personalizar. Lo que comenzó con una idea se convirtió en un espacio donde ayudamos a otras marcas a dar vida a las suyas. Nos encanta ser parte de cada proyecto, transformar diseños en productos reales y ver la emoción de nuestros clientes al recibir algo que antes solo imaginaban. Cada proyecto es diferente, y eso es lo que más nos gusta de lo que hacemos.',
@@ -156,12 +156,6 @@ export const encargo = {
       // TODO(confirm)
       { value: 'Desde 1', label: 'Pieza por pedido' },
     ] as { value: string; label: string }[],
-  },
-  contacto: {
-    title: '¿Tienes una idea?',
-    body: 'Cuéntanos qué tienes en mente y te ayudamos a encontrar las mejores opciones de productos y personalización para tu proyecto.',
-    whatsapp: 'Escríbenos por WhatsApp →',
-    email: 'Mandar correo',
   },
   crossLink: {
     eyebrow: 'Promocionales',

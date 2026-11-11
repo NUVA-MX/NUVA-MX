@@ -1,0 +1,68 @@
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Light bars on the brand-colored hero; only opacity animates. */
+.bar {
+  display: block;
+  border-radius: var(--radius-pill);
+  background: var(--color-text-inverse);
+  opacity: 0.16;
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+
+.title {
+  width: min(560px, 80vw);
+  height: clamp(36px, 6vw, 64px);
+}
+
+.short {
+  width: min(340px, 55vw);
+}
+
+.note {
+  width: min(460px, 70vw);
+  height: 18px;
+  margin-top: var(--space-2);
+}
+
+.button {
+  width: 200px;
+  height: 52px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-5);
+  padding-block: var(--space-10);
+}
+
+.card {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 0.22;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .card {
+    animation: none;
+  }
+}

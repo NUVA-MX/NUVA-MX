@@ -51,7 +51,6 @@ describe('resolveEncargo', () => {
     expect(c.projects.whatsappTemplate).toBe('P {name}');
     expect(c.projects.quoteTemplate).toBe('B {name}');
     expect(c.equipos.ctaMessage).toBe('T');
-    expect(c.contacto).toEqual(encargo.contacto);
   });
   it('ignores indexes beyond the fixed length', () => {
     const { overrides } = sanitizeOverrides({ equipos: { lines: ['a', 'b'] } }, HOST);

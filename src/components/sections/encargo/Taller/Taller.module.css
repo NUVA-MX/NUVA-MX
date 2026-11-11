@@ -14,11 +14,64 @@
   align-items: center;
 }
 
-.photo {
+/* Collage: large frame on the right, small frame overlapping its bottom-left corner, ribbon on the top-left corner,
+   seal on the bottom-right. Everything is positioned in percentages so it scales as one piece. */
+.visual {
   grid-area: photo;
+  position: relative;
   width: 100%;
   max-width: var(--container-crosslink);
   margin-inline: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.main,
+.small {
+  position: absolute;
+  overflow: hidden;
+  background: var(--color-placeholder);
+}
+
+.main {
+  top: 10%;
+  right: 12%;
+  width: 76%;
+  height: 83%;
+  border-radius: var(--radius-block);
+}
+
+.small {
+  z-index: 1; /* on top of the large frame's bottom-left corner */
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  height: 36%;
+  border-radius: var(--radius-card);
+  border: var(--border-width-strong) solid var(--color-bg);
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ribbon {
+  position: absolute;
+  top: -2%;
+  left: 3%;
+  width: 34%;
+  height: auto;
+  pointer-events: none;
+}
+
+.seal {
+  position: absolute;
+  right: 0;
+  bottom: 6%;
+  width: 26%;
+  height: auto;
+  pointer-events: none;
 }
 
 .copy {
@@ -26,58 +79,24 @@
 }
 
 /* Scoped under .copy so they beat the primitives' own rules whatever the CSS chunk order. */
+.copy .eyebrow {
+  color: var(--orange-600);
+}
+
 .copy .title {
+  max-width: 10em;
+  font-weight: 800; /* bold, like the hero title */
   margin-top: var(--space-3);
-  line-height: var(--leading-title);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+.accent {
+  color: var(--olive-900);
 }
 
 .copy .paragraph {
   margin-top: var(--space-5);
-}
-
-/* Without a photo the copy takes the whole width of its column. */
-.noPhoto {
-  grid-template-areas: 'copy';
-}
-
-/* One column per figure. */
-.stats {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
-  gap: var(--space-4);
-  margin-top: var(--space-10);
-  padding-top: var(--space-6);
-  border-top: var(--border-width) solid var(--color-border-strong);
-}
-
-.stat {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  min-width: 0;
-}
-
-.value {
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: var(--display-lg);
-  line-height: var(--leading-snug);
-  color: var(--color-text);
-}
-
-.label {
-  margin-top: var(--space-1);
-  font-size: var(--text-sm);
-  line-height: var(--leading-body);
-  color: var(--color-text-subtle);
-}
-
-/* see src/styles/breakpoints.ts */
-@media (max-width: 640px) {
-  .value {
-    font-size: var(--display-md);
-  }
 }
 
 /* see src/styles/breakpoints.ts */
@@ -88,12 +107,7 @@
     gap: var(--space-17);
   }
 
-  .photo {
+  .visual {
     max-width: none;
-  }
-
-  .noPhoto {
-    grid-template-columns: minmax(0, var(--container-text));
-    grid-template-areas: 'copy';
   }
 }

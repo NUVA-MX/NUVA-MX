@@ -1,6 +1,6 @@
 .root {
   padding: var(--promo-pad-top) 0;
-  background: var(--promo-olive);
+  background: var(--promo-slate);
   scroll-margin-top: var(--nav-offset);
 }
 
@@ -24,14 +24,14 @@
   font-weight: var(--weight-regular);
   font-size: var(--display-sm);
   line-height: var(--leading-title);
-  color: var(--promo-yellow);
+  color: var(--promo-slate-title);
 }
 
 .text {
   margin: var(--space-2) 0 0;
   font-size: var(--text-md);
   line-height: var(--leading-lead);
-  color: var(--promo-on-olive-2);
+  color: var(--promo-slate-text);
 }
 
 .link {
@@ -39,13 +39,13 @@
   align-items: center;
   min-height: var(--target-min);
   margin-top: var(--space-2);
-  color: var(--promo-yellow);
+  color: var(--promo-slate-title);
   font-size: var(--text-md);
   text-decoration: underline;
   white-space: nowrap;
 }
 
 .link:focus-visible {
-  outline: var(--focus-width) solid var(--promo-yellow);
+  outline: var(--focus-width) solid var(--promo-slate-title);
   outline-offset: var(--focus-offset);
 }

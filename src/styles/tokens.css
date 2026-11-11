@@ -1,3 +1,10 @@
+/* Registered so gradients and the pill can animate the brand color (fallback fade, see mode-transition.css). */
+@property --brand {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #363b22;
+}
+
 /*
  * NUVA — design tokens.
  * The only file with raw values (colors, px). Everything else uses var(--…).
@@ -417,7 +424,7 @@
   --nav-height-taller: 72px;
   --nav-row-taller: 52px;
   --announce-height: 36px;
-  --hero-taller-height: clamp(560px, 86vh, 820px);
+  --hero-taller-height: clamp(440px, 66vh, 640px);
   --duration-marquee: 38s;
   --duration-carousel: 700ms;
   --card-taller-width: 360px;
@@ -450,7 +457,9 @@
   --color-bg: var(--stone-300);
   --color-bg-alt: var(--stone-100);
   --color-surface: var(--stone-100);
-  --color-surface-inverse: var(--olive-900);
+  /* Brand color of the current side (olive on /encargo, wine on /existencia); everything dark follows it. */
+  --brand: var(--olive-900);
+  --color-surface-inverse: var(--brand);
   --color-placeholder-inverse: var(--olive-800);
   --color-text: var(--black);
   --color-text-muted: var(--ash-800);
@@ -517,7 +526,7 @@
 
 /* Per-side identity: /existencia swaps the dark surface to wine (lemon text 7.4:1) and the marker to a square. */
 [data-theme='taller'][data-side='existencia'] {
-  --color-surface-inverse: var(--wine-700);
+  --brand: var(--wine-700);
   --color-placeholder-inverse: var(--wine-600);
   --color-chip-dark: var(--olive-900);
   --radius-side-marker: 0;
@@ -559,6 +568,9 @@
   --promo-ink-2: #4a4e3a; /* secondary text, labels */
   --promo-muted: #6b6e58; /* meta text, counts */
   --promo-disabled: #9a9c86; /* disabled field text */
+  --promo-slate: #d3d8dc; /* Envíos band: light grey, black text on it (17:1) */
+  --promo-slate-title: #000000;
+  --promo-slate-text: #000000;
   --promo-on-olive-2: #d9d6a8; /* body text on olive */
   --promo-border: rgba(35, 38, 26, 0.16);
   --promo-border-soft: rgba(35, 38, 26, 0.08);

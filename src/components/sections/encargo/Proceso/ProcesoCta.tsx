@@ -15,7 +15,7 @@ export function ProcesoCta() {
   const mailto = buildMailtoLink(site.email);
   const whatsapp = buildWhatsAppLink({ phone: site.whatsapp.phone, message: cta.message });
   return (
-    <div data-hide-sticky>
+    <div id="contactar" data-hide-sticky style={{ scrollMarginTop: 'var(--nav-offset)' }}>
       <Reveal className={styles.cta}>
         <h3 className={styles.ctaTitle}>{cta.title}</h3>
         <p className={styles.ctaBody}>{cta.body}</p>

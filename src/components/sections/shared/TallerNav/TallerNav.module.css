@@ -10,6 +10,8 @@
   --color-border-strong: color-mix(in srgb, var(--stone-100) 50%, transparent);
   --color-link: var(--lemon-200);
   background: var(--color-nav-bg);
+  /* Own layer in the mode transition, so the header stays still while the page wipes. */
+  view-transition-name: site-header;
   /* Hairline inside the box, so the nav height equals --nav-offset exactly. */
   box-shadow: inset 0 calc(var(--border-width) * -1) 0 var(--color-border);
 }
@@ -91,7 +93,7 @@
   width: 100%;
 }
 
-.end .switch > a {
+.end .switch > button {
   display: flex;
   flex: 1;
   align-items: center;
@@ -231,7 +233,7 @@
     width: auto;
   }
 
-  .end .switch > a {
+  .end .switch > button {
     flex: none;
     min-height: 0;
     padding-block: var(--space-2);

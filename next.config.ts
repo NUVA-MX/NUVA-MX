@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
   // Do not auto-generate AGENTS.md / CLAUDE.md in `next dev`.
   agentRules: false,
   poweredByHeader: false,
+  experimental: {
+    // Client router cache: pages already visited (and prefetched ones) are reused for 5 minutes, so going back and
+    // forth between /encargo and /existencia does not hit the server again. Content edits show up after the window.
+    staleTimes: { dynamic: 300, static: 300 },
+  },
   images: {
     // Supplier catalog images: exact host and path only (served through the optimizer, so CSP img-src is unchanged).
     remotePatterns: [

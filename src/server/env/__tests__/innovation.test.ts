@@ -59,10 +59,10 @@ describe('innovation env', () => {
     expect(r.ok && r.env.integrations.innovation.catalogPublic).toBe(false);
   });
 
-  it('prices are off by default, factor defaults to 1.17', () => {
+  it('prices are off by default, factor defaults to 1.35', () => {
     const r = parseEnv({});
     expect(r.ok && r.env.integrations.innovation.showPrices).toBe(false);
-    expect(r.ok && r.env.integrations.innovation.priceFactor).toBe(1.17);
+    expect(r.ok && r.env.integrations.innovation.priceFactor).toBe(1.35);
     const on = parseEnv({ INTEGRATION_INNOVATION_SHOW_PRICES: 'true', INTEGRATION_INNOVATION_PRICE_FACTOR: '1.5' });
     expect(on.ok && on.env.integrations.innovation).toMatchObject({ showPrices: true, priceFactor: 1.5 });
   });

@@ -3,20 +3,20 @@
   display: flex;
   align-items: flex-end;
   height: var(--hero-taller-height);
-  /* No photo yet: solid olive for the top 60%, then an eased fade (no hard start) into the strip's lemon at the bottom
+  /* No photo yet: solid dark surface (olive on /encargo, wine on /existencia) for the top 60%, then an eased fade (no hard start) into the strip's lemon at the bottom
      edge. The grain is the ::after below. */
   background: linear-gradient(
     to bottom,
-    var(--olive-900) 0%,
-    color-mix(in srgb, var(--lemon-200) 0%, var(--olive-900)) 60%,
-    color-mix(in srgb, var(--lemon-200) 4.3%, var(--olive-900)) 65%,
-    color-mix(in srgb, var(--lemon-200) 15.6%, var(--olive-900)) 70%,
-    color-mix(in srgb, var(--lemon-200) 31.6%, var(--olive-900)) 75%,
-    color-mix(in srgb, var(--lemon-200) 50%, var(--olive-900)) 80%,
-    color-mix(in srgb, var(--lemon-200) 68.4%, var(--olive-900)) 85%,
-    color-mix(in srgb, var(--lemon-200) 84.4%, var(--olive-900)) 90%,
-    color-mix(in srgb, var(--lemon-200) 95.7%, var(--olive-900)) 95%,
-    color-mix(in srgb, var(--lemon-200) 100%, var(--olive-900)) 100%
+    var(--brand) 0%,
+    color-mix(in srgb, var(--lemon-200) 0%, var(--brand)) 60%,
+    color-mix(in srgb, var(--lemon-200) 4.3%, var(--brand)) 65%,
+    color-mix(in srgb, var(--lemon-200) 15.6%, var(--brand)) 70%,
+    color-mix(in srgb, var(--lemon-200) 31.6%, var(--brand)) 75%,
+    color-mix(in srgb, var(--lemon-200) 50%, var(--brand)) 80%,
+    color-mix(in srgb, var(--lemon-200) 68.4%, var(--brand)) 85%,
+    color-mix(in srgb, var(--lemon-200) 84.4%, var(--brand)) 90%,
+    color-mix(in srgb, var(--lemon-200) 95.7%, var(--brand)) 95%,
+    color-mix(in srgb, var(--lemon-200) 100%, var(--brand)) 100%
   );
   color: var(--color-text-inverse);
   overflow: hidden;
@@ -58,6 +58,7 @@
 
 .note {
   margin: 0;
+  animation: hero-rise 320ms var(--ease-out) calc(var(--hero-enter-base, 0ms) + 60ms) both;
 }
 
 .title {
@@ -70,6 +71,7 @@
   text-transform: uppercase;
   color: var(--color-text-inverse);
   text-wrap: balance;
+  animation: hero-rise 320ms var(--ease-out) var(--hero-enter-base, 0ms) both;
 }
 
 /* Outline CTA: border matches the hero text instead of the faint ghost border. */
@@ -82,6 +84,26 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  animation: hero-rise 320ms var(--ease-out) calc(var(--hero-enter-base, 0ms) + 120ms) both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .note,
+  .actions {
+    animation: none;
+  }
 }
 
 /* see src/styles/breakpoints.ts */

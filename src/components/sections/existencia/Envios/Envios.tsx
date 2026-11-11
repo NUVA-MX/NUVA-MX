@@ -4,7 +4,7 @@ import { existencia } from '@/content/existencia';
 import { existenciaCatalog as copy } from '@/content/existencia-catalog';
 import styles from './Envios.module.css';
 
-/** Olive band: shipping and exchanges on the left, a pointer to Merch on the right. Sits right before the footer. */
+/** Blue-grey band: shipping and exchanges on the left, a pointer to Merch on the right. Sits right before the footer. */
 export function Envios() {
   const c = existencia.crossLink;
   return (

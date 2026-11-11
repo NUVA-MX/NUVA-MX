@@ -15,19 +15,15 @@ export const existencia = {
     cartAria: 'Abrir mi lista, {count} piezas',
   },
   hero: {
-    eyebrow: 'Promocionales',
-    titleLines: ['Tu marca', 'en todo'],
-    body: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.',
-
-    // TODO(client): confirm the short hero facts.
-    facts: [
-      // v1 has no online payment: the saved list is sent and paid on WhatsApp.
-      'Cotizaciones personalizadas por WhatsApp',
-    ],
-    // TODO(client): photo of an in-stock product.
+    // Same full-bleed photo hero as /encargo (shared component), with this side's copy.
+    title: 'Tu marca en todo',
+    note: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.',
+    primary: { label: 'Ver productos', href: '#productos' },
+    // TODO(client): confirm the secondary action (quote by WhatsApp).
+    secondary: { label: 'Cotiza por WhatsApp', href: '#envios' },
+    // TODO(client): full-width photo of an in-stock product (same treatment as the Merch hero).
     image: null as string | null,
     imageAlt: 'Foto de producto en stock',
-    cta: 'Ver productos',
   },
   products: {
     eyebrow: 'Tienda',
@@ -57,7 +53,7 @@ export const existencia = {
   info: [
     {
       label: 'Envíos',
-      body: 'Realizamos envíos a todo México. los tiempos de preparación y entrega pueden varirar según la disponibilidad delos productos y destino.',
+      body: 'Realizamos envíos a todo México. los tiempos de preparación y entrega pueden variar según la disponibilidad delos productos y destino.',
     },
     {
       label: 'Garantía',

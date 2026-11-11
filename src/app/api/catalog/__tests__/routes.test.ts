@@ -61,7 +61,7 @@ describe('public catalog routes', () => {
   it('prices ON: price is the derived value, never the cost, in list and detail; categories carry none', async () => {
     vi.stubEnv('INTEGRATION_INNOVATION_SHOW_PRICES', 'true');
     resetEnvCache();
-    const derived = Math.round(7654321 * 1.17) / 100;
+    const derived = Math.round(7654321 * 1.35) / 100;
     const [l, c, d] = await Promise.all([list(get('/api/catalog')), categories(get('/api/catalog/categories')), item(get('/api/catalog/items/TH-239'), ctx('TH-239'))]);
     const texts = [await l.text(), await c.text(), await d.text()];
     expect(JSON.parse(texts[0]).items[0].price).toBe(derived);
@@ -106,7 +106,7 @@ describe('public catalog routes', () => {
       const body = JSON.parse(text);
       expect(body).toMatchObject({ page: 2, pageSize: 12, total: 60 });
       expect(body.items.map((i: { code: string }) => i.code)).toEqual(['AA-1', 'BB-2', 'CC-3']);
-      expect(body.items.map((i: { price: number | null }) => i.price)).toEqual([Math.round(1000 * 1.17) / 100, Math.round(7654321 * 1.17) / 100, null]);
+      expect(body.items.map((i: { price: number | null }) => i.price)).toEqual([Math.round(1000 * 1.35) / 100, Math.round(7654321 * 1.35) / 100, null]);
       for (const needle of [SENTINEL, '7654321', '1000,', 'costCents', 'cost_cents']) expect(text).not.toContain(needle);
       await list(get('/api/catalog?sort=price_desc'));
       expect(m.listProducts).toHaveBeenLastCalledWith(expect.objectContaining({ sort: 'price_desc', page: 1 }));
