@@ -105,5 +105,7 @@ export const proceso = {
     whatsapp: 'Escríbenos por WhatsApp',
     email: 'Mandar correo',
     message: whatsappMessages.general,
+    // Optional uploaded background (decorative); the bundled pattern is used while it is null.
+    image: null as string | null,
   },
 } as const;

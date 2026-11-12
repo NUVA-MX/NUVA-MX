@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
+import { BLUR_DATA_URL } from '@/lib/blur';
 import { cx } from '@/lib/cx';
 import { imageSizes, type ImageSizeKey } from '@/styles/breakpoints';
 import styles from './Media.module.css';
@@ -20,6 +21,9 @@ type Props = {
   /** Empty slot only: decorative content (an icon) centered in the slot. */
   children?: ReactNode;
 };
+
+/** Bundled assets (served from /public) do not need a blur placeholder; remote URLs do. */
+const isStatic = (src: string): boolean => src.startsWith('/');
 
 /**
  * Image inside an aspect-ratio box. With ratio="fill" it covers its positioned parent.
@@ -54,7 +58,15 @@ export function Media({
   }
   return (
     <div className={classes}>
-      <Image src={src} alt={alt} fill sizes={imageSizes[sizes]} priority={priority} className={styles.img} />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={imageSizes[sizes]}
+        priority={priority}
+        {...(isStatic(src) ? {} : { placeholder: 'blur' as const, blurDataURL: BLUR_DATA_URL })}
+        className={styles.img}
+      />
     </div>
   );
 }

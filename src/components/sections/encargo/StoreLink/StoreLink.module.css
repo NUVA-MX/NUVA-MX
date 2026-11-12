@@ -6,6 +6,8 @@
 .root .block {
   --tracking-split: var(--tracking-none);
   --tracking-cue: var(--tracking-nav);
+  /* Project orange on the eyebrow and the body, as the client asked (low contrast on the dark block, about 2.3:1). */
+  --crosslink-accent: var(--orange-500);
   border-radius: var(--radius-block);
   overflow: hidden;
 }

@@ -57,7 +57,7 @@ export const existenciaCatalog = {
   },
   envios: {
     designTitle: '¿Algo con tu diseño?',
-    designBody: 'Gorras y prendas personalizadas viven en Merch.',
+    designBody: 'Descubre nuestra línea de playeras, sudaderas, gorras, tote bags y más, hechas para llevar tu estilo o el de tu marca.',
   },
   fab: { label: 'Pedir mi lista por WhatsApp' },
   detail: {

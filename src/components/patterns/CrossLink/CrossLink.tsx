@@ -41,7 +41,7 @@ export function CrossLink({ href, eyebrow, title, body, cue, media, theme, varia
     <section className={cx(styles.section, className)} data-theme={theme}>
       <Link href={href} className={styles.full}>
         <div className={styles.text}>
-          <Eyebrow tone="inverse" tracking="entry">
+          <Eyebrow tone="inverse" tracking="entry" className={styles.eyebrow}>
             {eyebrow}
           </Eyebrow>
           {title && (

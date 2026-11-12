@@ -31,9 +31,13 @@ export function Taller({ content: t }: { content: EncargoContent['taller'] }) {
                 <TallerArt className={styles.art} />
               )}
             </div>
-            {!t.image && (
+            {(t.image2 || !t.image) && (
               <div className={styles.small}>
-                <TallerArt className={styles.art} />
+                {t.image2 ? (
+                  <Media src={t.image2} alt={t.image2Alt} ratio="fill" sizes="half" />
+                ) : (
+                  <TallerArt className={styles.art} />
+                )}
               </div>
             )}
             <Image

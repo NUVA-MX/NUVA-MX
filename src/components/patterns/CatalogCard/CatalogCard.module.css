@@ -4,7 +4,7 @@
   height: 100%;
   min-width: 0;
   padding: var(--soft-card-pad);
-  background: var(--soft-surface);
+  background: var(--soft-card);
   border-radius: var(--soft-card-radius);
   transition:
     transform var(--duration-fast) var(--ease-out),
@@ -140,14 +140,14 @@
 .add {
   padding: 0 var(--space-4-5);
   border: 0;
-  background: var(--soft-lime);
-  color: var(--soft-deep);
+  background: var(--soft-burgundy);
+  color: var(--soft-cream-text);
   cursor: pointer;
   transition: background var(--duration-fast) var(--ease-out);
 }
 
 .add:hover {
-  background: var(--soft-lime-hover);
+  background: var(--soft-burgundy-hover);
 }
 
 .inList {

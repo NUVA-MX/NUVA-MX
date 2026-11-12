@@ -4,6 +4,8 @@ import { upload } from '@vercel/blob/client';
 import { useId, useState, type ChangeEvent } from 'react';
 import { admin } from '@/content/admin';
 import { UPLOAD_PREFIX, type UploadPrefix } from '@/lib/blob';
+import { reencodeToWebp } from '@/lib/image-reencode';
+import { buildUploadName } from '@/lib/image-resize';
 import { Media } from '@/components/primitives/Media';
 import styles from './ImageUploader.module.css';
 
@@ -18,25 +20,14 @@ type Props = {
   label?: string;
   /** Alt text for the preview thumbnail. */
   previewAlt?: string;
+  /** Section slug ([a-z0-9]) used as filename prefix, e.g. `hero` gives `encargo/hero-<name>.webp`. */
+  section?: string;
 };
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const ACCEPT = 'image/jpeg,image/png,image/webp,image/avif';
 
-function safeName(file: File, prefix: UploadPrefix): string {
-  const base = file.name
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9.]+/g, '-')
-    .replace(/\.{2,}/g, '.')
-    .replace(/^[-.]+|[-.]+$/g, '')
-    .slice(0, 80);
-  // Must match isSafeUploadPath() on the server.
-  return `${prefix}${base || 'foto'}`;
-}
-
-export function ImageUploader({ name, defaultUrl, enabled, prefix = UPLOAD_PREFIX, label, previewAlt }: Props) {
+export function ImageUploader({ name, defaultUrl, enabled, prefix = UPLOAD_PREFIX, label, previewAlt, section }: Props) {
   const inputId = useId();
   const statusId = useId();
   const [url, setUrl] = useState(defaultUrl ?? '');
@@ -52,7 +43,10 @@ export function ImageUploader({ name, defaultUrl, enabled, prefix = UPLOAD_PREFI
     }
     setStatus('uploading');
     try {
-      const blob = await upload(safeName(file, prefix), file, { access: 'public', handleUploadUrl: '/api/admin/upload' });
+      const webp = await reencodeToWebp(file, MAX_BYTES);
+      const body = webp ?? file;
+      const pathname = buildUploadName(prefix, file.name, section, webp !== null);
+      const blob = await upload(pathname, body, { access: 'public', handleUploadUrl: '/api/admin/upload' });
       setUrl(blob.url);
       setStatus('idle');
     } catch (err) {

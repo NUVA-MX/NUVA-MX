@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { ProjectForm } from '@/components/admin/ProjectForm';
 import { requireAdmin } from '@/lib/auth/admin';
-import { projectIdSchema } from '@/lib/content/encargo-schema';
+import { projectIdSchema } from '@/lib/content/encargo-project-schema';
 import { getProjectForAdmin } from '@/server/content/encargo-store';
 import { isBlobConfigured } from '@/server/env';
 

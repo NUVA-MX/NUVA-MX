@@ -459,6 +459,8 @@
   --color-surface: var(--stone-100);
   /* Brand color of the current side (olive on /encargo, wine on /existencia); everything dark follows it. */
   --brand: var(--olive-900);
+  /* The hero fades into this grey on both sides, whatever the page background is. */
+  --hero-fade-end: var(--stone-300);
   --color-surface-inverse: var(--brand);
   --color-placeholder-inverse: var(--olive-800);
   --color-text: var(--black);
@@ -596,14 +598,15 @@
 
 /* 4. "Soft" restyle of the catalog section and the list drawer (client spec). Used only by those two. */
 :root {
-  --soft-surface: #f7f4e4; /* cards, inputs, drawer */
+  --soft-surface: #a4bbcb; /* cards, inputs, chips, drawer: the blue-grey the client asked for in place of the beige */
   --soft-white: #ffffff;
+  --soft-card: #bfd0dc; /* product card fill: a lighter step of --soft-surface */
   --soft-burgundy: #5c2339;
   --soft-burgundy-hover: #4a1b2d;
   --soft-deep: #3e1626; /* headings, prices */
   --soft-body: #2a1520;
-  --soft-muted: #6b5a60; /* 5.2:1 on the page, 5.8:1 on the surface */
-  --soft-faint: #7a6a70; /* spec asks #8a7a80 (3.7:1 on the surface); this is 4.6:1 */
+  --soft-muted: #44343a; /* 5.4:1 on the blue surface, more on white */
+  --soft-faint: #4f3f45; /* 4.6:1 on the blue surface */
   --soft-lime: #e4e0a8;
   --soft-lime-hover: #d9d48f;
   --soft-cream-text: #f4f0da; /* text on burgundy */

@@ -5,9 +5,9 @@ import {
   collectImageUrls,
   sanitizeOverrides,
   type EncargoOverrides,
-  type ProjectValues,
   type SectionKey,
 } from '@/lib/content/encargo-schema';
+import type { ProjectValues } from '@/lib/content/encargo-project-schema';
 import { defaultProjectRows } from '@/lib/content/seed-projects';
 import { getDb } from '@/lib/db/client';
 import { encargoProjects, siteContent, type EncargoProjectRow } from '@/lib/db/schema';

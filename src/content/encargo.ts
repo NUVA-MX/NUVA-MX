@@ -149,6 +149,9 @@ export const encargo = {
     // TODO(client): portrait photo of the workshop or the team.
     image: null as string | null,
     imageAlt: 'El taller de NUVA',
+    // Small second frame of the collage; the placeholder art shows while it is null.
+    image2: null as string | null,
+    image2Alt: 'Detalle del taller de NUVA',
     label: 'Foto: el taller o el equipo',
     stats: [
       // TODO(client): add real numbers (pieces made, clients) once the client provides them; never publish "XX".

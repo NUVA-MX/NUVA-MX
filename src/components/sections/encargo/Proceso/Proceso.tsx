@@ -14,14 +14,14 @@ import styles from './Proceso.module.css';
  * step icon until the client supplies photos) with a number and a short text. The only way to order is a message,
  * so links to WhatsApp sit inside the steps and the closing panel holds the main call to action.
  */
-export function Proceso() {
+export function Proceso({ ctaImage }: { ctaImage?: string | null }) {
   const p = encargo.proceso;
   const steps: readonly StepData[] = p.steps;
   return (
     <section id="proceso" className={styles.root} aria-labelledby="proceso-title">
       <Container>
         <Reveal className={styles.head}>
-          <Eyebrow size="sm" tracking="label">
+          <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
             {p.eyebrow}
           </Eyebrow>
           <Heading level={2} size="2xl" id="proceso-title" className={styles.title}>
@@ -41,7 +41,7 @@ export function Proceso() {
             />
           ))}
         </ol>
-        <ProcesoCta />
+        <ProcesoCta image={ctaImage} />
       </Container>
     </section>
   );

@@ -3,20 +3,19 @@
   display: flex;
   align-items: flex-end;
   height: var(--hero-taller-height);
-  /* No photo yet: solid dark surface (olive on /encargo, wine on /existencia) for the top 60%, then an eased fade (no hard start) into the strip's lemon at the bottom
-     edge. The grain is the ::after below. */
+  /* No photo yet: smooth, grainy fade from the dark brand color (olive on /encargo, wine on /existencia) at the top
+     to the light page grey at the bottom edge. It starts fading at the very top and eases in, so the title stays on
+     the darker part. The grain is the ::after below. */
   background: linear-gradient(
     to bottom,
-    var(--brand) 0%,
-    color-mix(in srgb, var(--lemon-200) 0%, var(--brand)) 60%,
-    color-mix(in srgb, var(--lemon-200) 4.3%, var(--brand)) 65%,
-    color-mix(in srgb, var(--lemon-200) 15.6%, var(--brand)) 70%,
-    color-mix(in srgb, var(--lemon-200) 31.6%, var(--brand)) 75%,
-    color-mix(in srgb, var(--lemon-200) 50%, var(--brand)) 80%,
-    color-mix(in srgb, var(--lemon-200) 68.4%, var(--brand)) 85%,
-    color-mix(in srgb, var(--lemon-200) 84.4%, var(--brand)) 90%,
-    color-mix(in srgb, var(--lemon-200) 95.7%, var(--brand)) 95%,
-    color-mix(in srgb, var(--lemon-200) 100%, var(--brand)) 100%
+    var(--hero-start, var(--brand)) 0%,
+    color-mix(in srgb, var(--hero-fade-end) 6%, var(--hero-start, var(--brand))) 15%,
+    color-mix(in srgb, var(--hero-fade-end) 14%, var(--hero-start, var(--brand))) 30%,
+    color-mix(in srgb, var(--hero-fade-end) 25%, var(--hero-start, var(--brand))) 45%,
+    color-mix(in srgb, var(--hero-fade-end) 40%, var(--hero-start, var(--brand))) 60%,
+    color-mix(in srgb, var(--hero-fade-end) 60%, var(--hero-start, var(--brand))) 75%,
+    color-mix(in srgb, var(--hero-fade-end) 85%, var(--hero-start, var(--brand))) 90%,
+    var(--hero-fade-end) 100%
   );
   color: var(--color-text-inverse);
   overflow: hidden;
@@ -117,7 +116,7 @@
 
   .inner {
     align-items: stretch;
-    padding-block-end: var(--space-24);
+    padding-block-end: calc(var(--space-24) + 80px); /* keeps the text above the light end of the fade */
   }
 
   .actions {
@@ -146,4 +145,14 @@
     flex-wrap: nowrap;
     padding-block-end: var(--space-2);
   }
+}
+
+/* Promocionales: the hero text, the outline button and the highlighted button use the blue-grey of that side. */
+:global([data-side='existencia']) .root {
+  --color-text-inverse: #a4bbcb;
+  --color-button-light-bg: #a4bbcb;
+  /* Richer wine than the brand color, as in the client's reference gradient. */
+  --hero-start: #701c40;
+  /* Fades into the blue-grey page below, so there is no seam. */
+  --hero-fade-end: #a4bbcb;
 }

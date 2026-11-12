@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { isValidDay } from './mx-date';
-import { PROJECT_LIMITS, PROJECT_TECHNIQUES, TEXT_LIMITS } from './limits';
+import { TEXT_LIMITS } from './limits';
 import { plainText } from './text';
 import { isAllowedImageUrl } from '@/lib/products/validation';
 
@@ -14,6 +14,7 @@ export const SECTION_KEYS = [
   'projectsIntro',
   'equipos',
   'taller',
+  'proceso',
   'crossLink',
   'whatsapp',
 ] as const;
@@ -129,6 +130,7 @@ export function sectionSchemas(host?: string | null) {
       title: text(TEXT_LIMITS.title).optional(),
       paragraph: text(TEXT_LIMITS.body, { multiline: true }).optional(),
       image: image.optional(),
+      image2: image.optional(),
       stats: slots(
         z.strictObject({
           value: text(TEXT_LIMITS.statValue).optional(),
@@ -137,6 +139,8 @@ export function sectionSchemas(host?: string | null) {
         3,
       ).optional(),
     }),
+    // Decorative background of the closing panel: url only, no alt text.
+    proceso: z.strictObject({ ctaImage: z.strictObject({ url: image.shape.url }).optional() }),
     crossLink: z.strictObject({
       eyebrow: text(TEXT_LIMITS.eyebrow).optional(),
       title: text(TEXT_LIMITS.title).optional(),
@@ -169,6 +173,7 @@ export function encargoOverridesSchema(host?: string | null) {
     projectsIntro: s.projectsIntro.optional(),
     equipos: s.equipos.optional(),
     taller: s.taller.optional(),
+    proceso: s.proceso.optional(),
     crossLink: s.crossLink.optional(),
     whatsapp: s.whatsapp.optional(),
   });
@@ -233,8 +238,10 @@ export const RESTORE_PATHS: Record<SectionKey, readonly string[]> = {
     'title',
     'paragraph',
     'image',
+    'image2',
     ...[0, 1, 2].flatMap((i) => [`stats.${i}`, `stats.${i}.value`, `stats.${i}.label`]),
   ],
+  proceso: ['ctaImage'],
   crossLink: ['eyebrow', 'title', 'body', 'image'],
   whatsapp: ['projectOrder', 'bulkQuote', 'teamQuote'],
 };
@@ -242,60 +249,3 @@ export const RESTORE_PATHS: Record<SectionKey, readonly string[]> = {
 export function isRestorePath(section: SectionKey, field: string): boolean {
   return RESTORE_PATHS[section].includes(field);
 }
-
-// ---- Projects -------------------------------------------------------------------------------------------
-
-const PROJECT_FIELDS = [
-  'name',
-  'technique',
-  'tag',
-  'meta',
-  'description',
-  'techniqueDetail',
-  'minimum',
-  'colors',
-  'delivery',
-  'imageUrl',
-  'imageAlt',
-  'visible',
-] as const;
-export type ProjectField = (typeof PROJECT_FIELDS)[number];
-export const PROJECT_FORM_FIELDS = PROJECT_FIELDS;
-
-const projectAlt = z
-  .string()
-  .max(PROJECT_LIMITS.imageAlt * 4)
-  .transform((v) => v.trim())
-  .pipe(z.union([z.literal(''), plainText(3, PROJECT_LIMITS.imageAlt)]));
-
-/**
- * Editable project fields only. `sortOrder`, `id` and timestamps are not accepted (strict object).
- * Alt text is required whenever an image is set.
- */
-export function projectSchema(host?: string | null) {
-  return z
-    .strictObject({
-      name: text(PROJECT_LIMITS.name),
-      technique: z.enum(PROJECT_TECHNIQUES),
-      tag: text(PROJECT_LIMITS.tag),
-      meta: text(PROJECT_LIMITS.meta),
-      description: text(PROJECT_LIMITS.description, { multiline: true }),
-      techniqueDetail: text(PROJECT_LIMITS.techniqueDetail),
-      minimum: text(PROJECT_LIMITS.minimum),
-      colors: text(PROJECT_LIMITS.colors),
-      delivery: text(PROJECT_LIMITS.delivery),
-      imageUrl: z
-        .string()
-        .max(2048)
-        .refine((v) => v === '' || isEncargoImageUrl(v, host), { message: 'image_url' })
-        .transform((v) => (v === '' ? null : v)),
-      imageAlt: projectAlt,
-      visible: z.boolean(),
-    })
-    .superRefine((v, ctx) => {
-      if (v.imageUrl && v.imageAlt.length < 3) ctx.addIssue({ code: 'custom', path: ['imageAlt'], message: 'alt_required' });
-    });
-}
-export type ProjectValues = z.output<ReturnType<typeof projectSchema>>;
-
-export const projectIdSchema = z.uuid();

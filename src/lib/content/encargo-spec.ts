@@ -4,46 +4,18 @@ import { adminEncargo as copy } from '@/content/admin-encargo';
 import { fillTemplate } from '@/lib/format';
 import { marqueeAt, type EncargoDefaults, type PromoWindow } from './encargo-merge';
 import { SECTION_KEYS, type EncargoOverrides, type SectionKey } from './encargo-schema';
+import type { FieldSpec, ImageFieldSpec, SectionSpec, TextFieldSpec } from './encargo-spec-types';
 import { TEXT_LIMITS } from './limits';
 import { mxDayEndUtc, mxDayStartUtc } from './mx-date';
 
-export type TextFieldSpec = {
-  kind: 'text' | 'textarea' | 'date';
-  name: string;
-  label: string;
-  /** What the input shows: the override, or the default when not overridden. */
-  value: string;
-  /** Default shown in the "Predeterminado" hint; null when there is no text default (promo fields). */
-  defaultValue: string | null;
-  overridden: boolean;
-  /** Path for the restore action. */
-  restore: string;
-  maxLength: number;
-  hint?: string;
-};
-export type CheckboxFieldSpec = { kind: 'checkbox'; name: string; label: string; checked: boolean; overridden: boolean; restore: string };
-export type ImageFieldSpec = {
-  kind: 'image';
-  /** Prefix of the form fields: `<name>.url` and `<name>.alt`. */
-  name: string;
-  label: string;
-  url: string;
-  alt: string;
-  overridden: boolean;
-  restore: string;
-  ratio: string;
-};
-export type HeadingSpec = { kind: 'heading'; label: string };
-export type FieldSpec = TextFieldSpec | CheckboxFieldSpec | ImageFieldSpec | HeadingSpec;
-
-export type SectionSpec = {
-  key: SectionKey;
-  title: string;
-  fields: FieldSpec[];
-  notes: string[];
-  /** True when the section has any stored override (enables "Restaurar sección"). */
-  overridden: boolean;
-};
+export type {
+  CheckboxFieldSpec,
+  FieldSpec,
+  HeadingSpec,
+  ImageFieldSpec,
+  SectionSpec,
+  TextFieldSpec,
+} from './encargo-spec-types';
 
 type Img = { url: string; alt: string } | null | undefined;
 
@@ -57,7 +29,7 @@ const text = (
   restore = name,
 ): TextFieldSpec => ({ kind, name, label, value: current ?? def, defaultValue: def, overridden: current !== undefined, restore, maxLength: max });
 
-const image = (name: string, label: string, ov: Img, ratio: string): ImageFieldSpec => ({
+const image = (name: string, label: string, ov: Img, ratio: string, decorative?: boolean): ImageFieldSpec => ({
   kind: 'image',
   name,
   label,
@@ -66,6 +38,7 @@ const image = (name: string, label: string, ov: Img, ratio: string): ImageFieldS
   overridden: Boolean(ov),
   restore: name,
   ratio,
+  ...(decorative ? { decorative } : {}),
 });
 
 const n = (i: number) => ({ n: i + 1 });
@@ -182,6 +155,7 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
             text('title', f.title, t?.title, d.taller.title, L.title),
             text('paragraph', f.paragraph, t?.paragraph, d.taller.paragraph, L.body, 'textarea'),
             image('image', f.image, t?.image, r.portrait),
+            image('image2', f.image2, t?.image2, r.portrait),
             ...d.taller.stats.flatMap((stat, i): FieldSpec[] => {
               const ov = t?.stats?.[i];
               return [
@@ -193,6 +167,11 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
           ],
           notes: [],
         };
+      }
+      case 'proceso': {
+        const ov = o.proceso?.ctaImage;
+        const img = image('ctaImage', s.proceso.fields.ctaImage, ov && { url: ov.url, alt: '' }, r.fill, true);
+        return { fields: [img], notes: [s.proceso.hint] };
       }
       case 'crossLink': {
         const x = o.crossLink;

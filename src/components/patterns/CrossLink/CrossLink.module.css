@@ -35,12 +35,17 @@
   letter-spacing: var(--tracking-split);
 }
 
+.text .eyebrow {
+  /* A caller can set --crosslink-accent to recolor the eyebrow and the body (the Merch store link uses the orange). */
+  color: var(--crosslink-accent, var(--color-eyebrow-inverse));
+}
+
 .body {
   margin: 0;
   max-width: var(--measure-lead);
   font-size: var(--text-xl);
   line-height: var(--leading-lead);
-  color: var(--color-text-inverse-muted);
+  color: var(--crosslink-accent, var(--color-text-inverse-muted));
 }
 
 .cue {

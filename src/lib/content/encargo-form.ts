@@ -1,9 +1,9 @@
 // Pure helpers for the content admin forms: explicit, allowlisted FormData reads (never Object.fromEntries),
 // candidate building, default pruning, path removal, diffs and zod-issue -> field-error mapping.
-import { adminEncargo as copy } from '@/content/admin-encargo';
-import { fillTemplate } from '@/lib/format';
-import { PROJECT_FORM_FIELDS } from './encargo-schema';
+import { PROJECT_FORM_FIELDS } from './encargo-project-schema';
 import type { SectionKey } from './encargo-schema';
+
+export { issuesToErrors } from './encargo-form-errors';
 
 /** Shared result of every content/project action. */
 export type EncargoActionState = {
@@ -37,8 +37,10 @@ export const SECTION_FIELD_NAMES: Record<SectionKey, readonly string[]> = {
     'title',
     'paragraph',
     ...imageNames('image'),
+    ...imageNames('image2'),
     ...range(3).flatMap((i) => [`stats.${i}.value`, `stats.${i}.label`]),
   ],
+  proceso: ['ctaImage.url'],
   crossLink: ['eyebrow', 'title', 'body', ...imageNames('image')],
   whatsapp: ['projectOrder', 'bulkQuote', 'teamQuote'],
 };
@@ -134,8 +136,13 @@ export function buildSectionCandidate(section: SectionKey, raw: Record<string, s
         title: t('title'),
         paragraph: t('paragraph'),
         image: image(raw, 'image'),
+        image2: image(raw, 'image2'),
         stats: slots(3, (i) => compactObj({ value: t(`stats.${i}.value`), label: t(`stats.${i}.label`) })),
       });
+    case 'proceso': {
+      const url = raw['ctaImage.url']?.trim();
+      return strip({ ctaImage: url ? { url } : undefined });
+    }
     case 'crossLink':
       return strip({ eyebrow: t('eyebrow'), title: t('title'), body: t('body'), image: image(raw, 'image') });
     case 'whatsapp':
@@ -240,31 +247,4 @@ export function diffPaths(before: unknown, after: unknown): string[] {
   flatten(after, '', b);
   const keys = new Set([...a.keys(), ...b.keys()]);
   return [...keys].filter((k) => a.get(k) !== b.get(k)).sort();
-}
-
-// ---- Errors ---------------------------------------------------------------------------------------------
-
-type Issue = { code: string; path: PropertyKey[]; message: string; maximum?: unknown; minimum?: unknown };
-
-/** One Spanish message per failing field (first issue wins), keyed by the form field name. */
-export function issuesToErrors(issues: readonly Issue[]): Record<string, string> {
-  const e = copy.errors;
-  const out: Record<string, string> = {};
-  for (const issue of issues) {
-    const key = issue.path.map(String).join('.') || 'form';
-    if (out[key]) continue;
-    let msg: string = e.generic;
-    if (issue.message === 'image_url') msg = e.image;
-    else if (issue.message === 'alt_required') msg = e.altRequired;
-    else if (issue.message === 'template') msg = /teamQuote/.test(key) ? e.templateNone : e.template;
-    else if (issue.message === 'date') msg = e.date;
-    else if (issue.message === 'date_order') msg = e.dateOrder;
-    else if (issue.message === 'marquee_text_required') msg = e.marqueeText;
-    else if (issue.message === 'plain_text') msg = e.text;
-    else if (issue.code === 'too_big') msg = fillTemplate(e.tooLong, { max: Number(issue.maximum) });
-    else if (issue.code === 'too_small') msg = /\.alt$|^imageAlt$/.test(key) ? e.altRequired : e.required;
-    else if (issue.code === 'invalid_value' && key === 'technique') msg = e.technique;
-    out[key] = msg;
-  }
-  return out;
 }

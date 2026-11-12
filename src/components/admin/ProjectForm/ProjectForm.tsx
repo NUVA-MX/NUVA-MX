@@ -89,6 +89,7 @@ export function ProjectForm({ project, blobEnabled }: Props) {
             defaultUrl={v?.imageUrl ?? project?.imageUrl ?? null}
             enabled={blobEnabled}
             prefix="encargo/"
+            section="projects"
             label={f.image}
             previewAlt={val('imageAlt', project?.imageAlt) || f.image}
           />

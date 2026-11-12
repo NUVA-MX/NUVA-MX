@@ -62,6 +62,7 @@ export function EncargoSectionForm({ spec, blobEnabled }: Props) {
             values={values}
             errors={errors}
             blobEnabled={blobEnabled}
+            section={spec.key}
             restoreButton={restoreButton}
           />
         ))}
@@ -90,10 +91,11 @@ type RowProps = {
   values: Record<string, string> | undefined;
   errors: Record<string, string>;
   blobEnabled: boolean;
+  section: string;
   restoreButton: (path: string | null, label: string) => React.ReactNode;
 };
 
-function FieldRow({ field, values, errors, blobEnabled, restoreButton }: RowProps) {
+function FieldRow({ field, values, errors, blobEnabled, section, restoreButton }: RowProps) {
   const id = useId();
   const a = adminEncargo.actions;
   if (field.kind === 'heading') return <h3 className={styles.heading}>{field.label}</h3>;
@@ -109,6 +111,8 @@ function FieldRow({ field, values, errors, blobEnabled, restoreButton }: RowProp
         alt={alt}
         ratio={field.ratio}
         blobEnabled={blobEnabled}
+        section={section}
+        decorative={field.decorative}
         error={errors[`${field.name}.url`]}
         altError={errors[`${field.name}.alt`]}
         overridden={field.overridden}
