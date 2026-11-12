@@ -61,7 +61,7 @@ export function ProductForm({ product, blobEnabled }: Props) {
         <Field label={f.category} name="category" defaultValue={text('category', product?.category)} error={e.category} />
         <Field label={f.sortOrder} name="sortOrder" type="number" inputMode="numeric" min={0} step={1} defaultValue={text('sortOrder', product?.sortOrder ?? 0)} error={e.sortOrder} />
         <div className={styles.wide}>
-          <ImageUploader name="imageUrl" defaultUrl={product?.imageUrl ?? null} enabled={blobEnabled} />
+          <ImageUploader name="imageUrl" defaultUrl={product?.imageUrl ?? null} enabled={blobEnabled} section="productos" />
           {e.imageUrl && <p className={styles.formError}>{e.imageUrl}</p>}
         </div>
         <Field label={f.imageAlt} name="imageAlt" defaultValue={text('imageAlt', product?.imageAlt)} error={e.imageAlt} className={styles.wide} />

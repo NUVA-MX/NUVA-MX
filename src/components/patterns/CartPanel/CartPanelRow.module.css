@@ -1,0 +1,146 @@
+/* One item card in "Mi lista": thumb + name/price on top, quantity pill + "Quitar" below. */
+.item {
+  display: grid;
+  grid-template-columns: var(--soft-thumb) minmax(0, 1fr);
+  grid-template-areas:
+    'thumb main'
+    'ctrl ctrl';
+  gap: var(--space-3) var(--space-3-5);
+  padding: var(--space-3-5);
+  border: var(--border-width) solid var(--soft-border);
+  border-radius: var(--soft-row-radius);
+  background: var(--soft-white);
+  transition: box-shadow var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .item:hover {
+    box-shadow: var(--soft-shadow-lift);
+  }
+}
+
+.thumb {
+  grid-area: thumb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--soft-thumb);
+  height: var(--soft-thumb);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--promo-blue-soft), var(--promo-blue));
+  font-family: var(--soft-font-heading);
+  font-size: var(--display-xs);
+  font-weight: var(--weight-display);
+  color: var(--soft-heading);
+}
+
+.itemMain {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--soft-font-heading);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-xl);
+  line-height: var(--leading-quote);
+  color: var(--soft-heading);
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.price {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--soft-muted);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.controls {
+  grid-area: ctrl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-half);
+  border-radius: var(--radius-pill);
+  background: var(--soft-wine);
+  color: var(--soft-on-wine);
+}
+
+.qtyButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-md);
+  height: var(--control-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 44px touch area around the 40px buttons. */
+.qtyButton::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-half) * -1);
+}
+
+.qtyButton:hover:not(:disabled) {
+  background: var(--soft-tint-on-wine);
+}
+
+.qtyButton:focus-visible {
+  outline: var(--focus-width) solid var(--soft-on-wine);
+  outline-offset: calc(var(--focus-offset) * -1);
+}
+
+.qtyButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qtyValue {
+  min-width: var(--space-6);
+  text-align: center;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.remove {
+  min-height: var(--target-min);
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  font-family: var(--soft-font-body);
+  font-size: var(--text-sm);
+  color: var(--soft-wine);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.remove:focus-visible {
+  outline: var(--focus-width) solid var(--soft-wine);
+  outline-offset: var(--focus-offset);
+}

@@ -4,7 +4,7 @@ import { existencia } from '@/content/existencia';
 import { existenciaCatalog as copy } from '@/content/existencia-catalog';
 import styles from './Envios.module.css';
 
-/** Blue-grey band: shipping and exchanges on the left, a pointer to Merch on the right. Sits right before the footer. */
+/** White info section: shipping and warranty on the left, a blue card pointing to Merch on the right. Sits right before the footer. */
 export function Envios() {
   const c = existencia.crossLink;
   return (
@@ -19,7 +19,7 @@ export function Envios() {
               </div>
             ))}
           </div>
-          <div className={styles.block}>
+          <div className={styles.card}>
             <h2 className={styles.title}>{copy.envios.designTitle}</h2>
             <p className={styles.text}>{copy.envios.designBody}</p>
             <Link href={c.href} className={styles.link}>

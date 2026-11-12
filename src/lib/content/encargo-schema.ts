@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { isValidDay } from './mx-date';
-import { PROJECT_LIMITS, PROJECT_TECHNIQUES, TEXT_LIMITS } from './limits';
+import { TEXT_LIMITS } from './limits';
 import { plainText } from './text';
+import { promoCarouselSchema, PROMO_CAROUSEL_RESTORE_PATHS } from './encargo-promo-carousel';
+import { nameTemplate, plainTemplate, text } from './encargo-schema-text';
 import { isAllowedImageUrl } from '@/lib/products/validation';
 
 /** Closed allowlist of editable sections. */
@@ -14,6 +16,8 @@ export const SECTION_KEYS = [
   'projectsIntro',
   'equipos',
   'taller',
+  'proceso',
+  'promoCarousel',
   'crossLink',
   'whatsapp',
 ] as const;
@@ -41,8 +45,6 @@ export function isEncargoImageUrl(value: string, host?: string | null): boolean 
   }
 }
 
-const text = (max: number, opts?: { multiline?: boolean }) => plainText(1, max, opts);
-
 export function imageSchema(host?: string | null) {
   return z.strictObject({
     url: z.string().max(2048).refine((v) => isEncargoImageUrl(v, host), { message: 'image_url' }),
@@ -51,27 +53,6 @@ export function imageSchema(host?: string | null) {
 }
 
 const dayString = z.string().refine(isValidDay, { message: 'date' });
-
-/** Placeholders other than {name}: rejected so a template cannot smuggle tokens we do not fill. */
-function placeholderCount(template: string): { name: number; other: number } {
-  let name = 0;
-  let other = 0;
-  for (const m of template.matchAll(/\{([^{}]*)\}/g)) {
-    if (m[1] === 'name') name += 1;
-    else other += 1;
-  }
-  return { name, other };
-}
-
-/** Template must contain `{name}` exactly once and no other `{...}` placeholder. */
-const nameTemplate = text(TEXT_LIMITS.template).refine(
-  (v) => {
-    const c = placeholderCount(v);
-    return c.name === 1 && c.other === 0 && !/[{}]/.test(v.replace(/\{name\}/, ''));
-  },
-  { message: 'template' },
-);
-const plainTemplate = text(TEXT_LIMITS.template).refine((v) => !/[{}]/.test(v), { message: 'template' });
 
 /** Arrays merge by index: a `null` entry means "use the default for this slot". */
 const slots = <T extends z.ZodType>(item: T, max: number) => z.array(item.nullable()).max(max);
@@ -129,6 +110,7 @@ export function sectionSchemas(host?: string | null) {
       title: text(TEXT_LIMITS.title).optional(),
       paragraph: text(TEXT_LIMITS.body, { multiline: true }).optional(),
       image: image.optional(),
+      image2: image.optional(),
       stats: slots(
         z.strictObject({
           value: text(TEXT_LIMITS.statValue).optional(),
@@ -137,6 +119,9 @@ export function sectionSchemas(host?: string | null) {
         3,
       ).optional(),
     }),
+    // Decorative background of the closing panel: url only, no alt text.
+    proceso: z.strictObject({ ctaImage: z.strictObject({ url: image.shape.url }).optional() }),
+    promoCarousel: promoCarouselSchema(image),
     crossLink: z.strictObject({
       eyebrow: text(TEXT_LIMITS.eyebrow).optional(),
       title: text(TEXT_LIMITS.title).optional(),
@@ -169,6 +154,8 @@ export function encargoOverridesSchema(host?: string | null) {
     projectsIntro: s.projectsIntro.optional(),
     equipos: s.equipos.optional(),
     taller: s.taller.optional(),
+    proceso: s.proceso.optional(),
+    promoCarousel: s.promoCarousel.optional(),
     crossLink: s.crossLink.optional(),
     whatsapp: s.whatsapp.optional(),
   });
@@ -233,8 +220,11 @@ export const RESTORE_PATHS: Record<SectionKey, readonly string[]> = {
     'title',
     'paragraph',
     'image',
+    'image2',
     ...[0, 1, 2].flatMap((i) => [`stats.${i}`, `stats.${i}.value`, `stats.${i}.label`]),
   ],
+  proceso: ['ctaImage'],
+  promoCarousel: PROMO_CAROUSEL_RESTORE_PATHS,
   crossLink: ['eyebrow', 'title', 'body', 'image'],
   whatsapp: ['projectOrder', 'bulkQuote', 'teamQuote'],
 };
@@ -242,60 +232,3 @@ export const RESTORE_PATHS: Record<SectionKey, readonly string[]> = {
 export function isRestorePath(section: SectionKey, field: string): boolean {
   return RESTORE_PATHS[section].includes(field);
 }
-
-// ---- Projects -------------------------------------------------------------------------------------------
-
-const PROJECT_FIELDS = [
-  'name',
-  'technique',
-  'tag',
-  'meta',
-  'description',
-  'techniqueDetail',
-  'minimum',
-  'colors',
-  'delivery',
-  'imageUrl',
-  'imageAlt',
-  'visible',
-] as const;
-export type ProjectField = (typeof PROJECT_FIELDS)[number];
-export const PROJECT_FORM_FIELDS = PROJECT_FIELDS;
-
-const projectAlt = z
-  .string()
-  .max(PROJECT_LIMITS.imageAlt * 4)
-  .transform((v) => v.trim())
-  .pipe(z.union([z.literal(''), plainText(3, PROJECT_LIMITS.imageAlt)]));
-
-/**
- * Editable project fields only. `sortOrder`, `id` and timestamps are not accepted (strict object).
- * Alt text is required whenever an image is set.
- */
-export function projectSchema(host?: string | null) {
-  return z
-    .strictObject({
-      name: text(PROJECT_LIMITS.name),
-      technique: z.enum(PROJECT_TECHNIQUES),
-      tag: text(PROJECT_LIMITS.tag),
-      meta: text(PROJECT_LIMITS.meta),
-      description: text(PROJECT_LIMITS.description, { multiline: true }),
-      techniqueDetail: text(PROJECT_LIMITS.techniqueDetail),
-      minimum: text(PROJECT_LIMITS.minimum),
-      colors: text(PROJECT_LIMITS.colors),
-      delivery: text(PROJECT_LIMITS.delivery),
-      imageUrl: z
-        .string()
-        .max(2048)
-        .refine((v) => v === '' || isEncargoImageUrl(v, host), { message: 'image_url' })
-        .transform((v) => (v === '' ? null : v)),
-      imageAlt: projectAlt,
-      visible: z.boolean(),
-    })
-    .superRefine((v, ctx) => {
-      if (v.imageUrl && v.imageAlt.length < 3) ctx.addIssue({ code: 'custom', path: ['imageAlt'], message: 'alt_required' });
-    });
-}
-export type ProjectValues = z.output<ReturnType<typeof projectSchema>>;
-
-export const projectIdSchema = z.uuid();

@@ -3,10 +3,10 @@ import {
   collectImageUrls,
   isEncargoImageUrl,
   isRestorePath,
-  projectSchema,
   sanitizeOverrides,
   sectionSchemas,
 } from '../encargo-schema';
+import { projectSchema } from '../encargo-project-schema';
 
 const HOST = 'abc123.public.blob.vercel-storage.com';
 const GOOD = `https://${HOST}/encargo/foto-AbC123.jpg`;

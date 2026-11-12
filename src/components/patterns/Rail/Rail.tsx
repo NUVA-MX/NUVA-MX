@@ -13,6 +13,11 @@ type Props = {
 
 const DRAG_THRESHOLD = 5;
 
+/** No animated scrolling for people who asked for reduced motion. */
+function scrollBehavior(): ScrollBehavior {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+}
+
 /**
  * Horizontal scroll-snap carousel. The first item lines up with the Container edge and the
  * rail bleeds to the right edge of the viewport. Arrow keys scroll one item; mouse drag scrolls.
@@ -36,13 +41,13 @@ export function Rail({ ariaLabel, itemWidth = 'project', className, children }: 
     const keys: Record<string, number> = { ArrowRight: 1, ArrowLeft: -1 };
     if (e.key in keys) {
       e.preventDefault();
-      el.scrollBy({ left: keys[e.key] * step(), behavior: 'smooth' });
+      el.scrollBy({ left: keys[e.key] * step(), behavior: scrollBehavior() });
     } else if (e.key === 'Home') {
       e.preventDefault();
-      el.scrollTo({ left: 0, behavior: 'smooth' });
+      el.scrollTo({ left: 0, behavior: scrollBehavior() });
     } else if (e.key === 'End') {
       e.preventDefault();
-      el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
+      el.scrollTo({ left: el.scrollWidth, behavior: scrollBehavior() });
     }
   }
 
@@ -75,7 +80,7 @@ export function Rail({ ariaLabel, itemWidth = 'project', className, children }: 
       delete el.dataset.dragging;
       // Snap to the closest item after a drag.
       const s = step();
-      if (s > 0) el.scrollTo({ left: Math.round(el.scrollLeft / s) * s, behavior: 'smooth' });
+      if (s > 0) el.scrollTo({ left: Math.round(el.scrollLeft / s) * s, behavior: scrollBehavior() });
     }
   }
 

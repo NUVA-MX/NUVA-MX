@@ -24,6 +24,11 @@ function withImage<T extends { image: string | null; imageAlt: string }>(base: T
   return ov ? { ...base, image: ov.url, imageAlt: ov.alt } : base;
 }
 
+/** Same as withImage for the small second frame of Taller (`image2` / `image2Alt`). */
+function withImage2<T extends { image2: string | null; image2Alt: string }>(base: T, ov: ImageOverride | null | undefined): T {
+  return ov ? { ...base, image2: ov.url, image2Alt: ov.alt } : base;
+}
+
 /** Returns `base[i]` merged with `fn(ov[i])` for each index within the fixed length of `base`. */
 function byIndex<T, O>(base: readonly T[], ov: readonly (O | null)[] | undefined, fn: (b: T, o: O) => T): T[] {
   return base.map((b, i) => {
@@ -52,6 +57,8 @@ export function overrideDefaults(d: EncargoDefaults): { [K in SectionKey]: unkno
       paragraph: d.taller.paragraph,
       stats: d.taller.stats.map((s) => ({ value: s.value, label: s.label })),
     },
+    proceso: {},
+    promoCarousel: {},
     crossLink: { eyebrow: d.crossLink.eyebrow, title: d.crossLink.title, body: d.crossLink.body },
     whatsapp: {
       projectOrder: d.projects.whatsappTemplate,
@@ -111,11 +118,17 @@ export function resolveEncargo(d: EncargoDefaults, o: EncargoOverrides): Encargo
     if (t.eyebrow) c.taller.eyebrow = t.eyebrow;
     if (t.title) c.taller.title = t.title;
     if (t.paragraph) c.taller.paragraph = t.paragraph;
-    c.taller = withImage(c.taller, t.image);
+    c.taller = withImage2(withImage(c.taller, t.image), t.image2);
     c.taller.stats = byIndex(c.taller.stats, t.stats, (b, s) => ({
       value: s.value ?? b.value,
       label: s.label ?? b.label,
     }));
+  }
+
+  if (o.proceso?.ctaImage) c.proceso.cta.image = o.proceso.ctaImage.url;
+
+  if (o.promoCarousel) {
+    c.promoCarousel.slides = byIndex(c.promoCarousel.slides, o.promoCarousel.slides, withImage);
   }
 
   if (o.crossLink) {

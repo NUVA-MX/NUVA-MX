@@ -80,9 +80,19 @@ export const adminEncargo = {
     },
     taller: {
       title: 'El taller',
-      fields: { eyebrow: 'Sobretítulo', title: 'Título', paragraph: 'Párrafo', image: 'Foto del taller' },
+      fields: { eyebrow: 'Sobretítulo', title: 'Título', paragraph: 'Párrafo', image: 'Foto del taller', image2: 'Foto pequeña del taller' },
       stat: 'Dato {n}',
       statFields: { value: 'Valor', label: 'Etiqueta' },
+    },
+    proceso: {
+      title: 'Hacemos realidad tu idea',
+      fields: { ctaImage: 'Fondo del bloque verde' },
+      hint: 'Imagen decorativa de fondo (sin texto alternativo). Déjala vacía para usar el patrón verde original.',
+    },
+    promoCarousel: {
+      title: 'Carrusel de Promocionales',
+      slide: 'Foto {n} del carrusel',
+      hint: 'Ocho espacios fijos en la página Promocionales. Los vacíos se muestran como tarjetas en blanco.',
     },
     crossLink: {
       title: 'Enlace a la tienda',

@@ -25,7 +25,7 @@ const DESKTOP_QUERY = `(min-width: ${breakpoints.tablet}px)`;
 type Props = {
   current: SwitchKey;
   links: readonly NavLink[];
-  /** Extra control (e.g. the cart). Desktop: inner edge of the links column, so the switch and WhatsApp never move between pages. Phone/tablet: top-left cell. */
+  /** Extra control (e.g. the cart). Desktop: right side, between the switch and WhatsApp. Phone/tablet: top-left cell. */
   action?: ReactNode;
   /** Pre-filled WhatsApp text for the nav button (menu button included). Defaults to the site-wide message. */
   whatsappMessage?: string;
@@ -35,7 +35,7 @@ type Props = {
 
 /**
  * Sticky nav of the taller theme, shared by /encargo and /existencia.
- * Desktop: links + action | wordmark | switch + WhatsApp. Phone/tablet: wordmark + menu button, the switch
+ * Desktop: links | wordmark | switch + action + WhatsApp. Phone/tablet: wordmark + menu button, the switch
  * on its own full-width row, and a full-screen menu dialog (focus trap, Escape, scroll lock).
  */
 export function TallerNav({ current, links, action, whatsappMessage = site.whatsapp.defaultMessage, onSwitch }: Props) {
@@ -78,7 +78,6 @@ export function TallerNav({ current, links, action, whatsappMessage = site.whats
             <Image src={LOGO} alt="" width={800} height={277} priority className={styles.logo} />
           </Link>
           {action && <div className={styles.actionMobile}>{action}</div>}
-          {action && <div className={styles.actionDesktop}>{action}</div>}
           <div className={styles.end}>
             <ModeSwitch
               onOptimistic={onSwitch}
@@ -87,6 +86,7 @@ export function TallerNav({ current, links, action, whatsappMessage = site.whats
               ariaLabel={site.switchLabel}
               className={styles.switch}
             />
+            {action && <div className={styles.actionDesktop}>{action}</div>}
             <Button href={whatsapp} external size="md" icon="whatsapp" className={styles.whatsapp}>
               {encargo.nav.whatsapp}
             </Button>

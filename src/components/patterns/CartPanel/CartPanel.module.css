@@ -1,4 +1,5 @@
-/* "Soft" floating panel: 12px from the edges, rounded, on a blurred dark backdrop. */
+/* "Soft" floating panel: 12px from the edges, rounded, on a blurred dark backdrop.
+   Three zones: wine header, scrolling blue body, sticky footer (CartPanelFooter.module.css). */
 .backdrop[data-theme] {
   padding: var(--soft-drawer-gap);
   background: var(--soft-overlay);
@@ -6,24 +7,26 @@
   font-family: var(--soft-font-body);
 }
 
+/* overflow: hidden overrides the Modal box scroll so only .body scrolls and the footer stays visible. */
 .backdrop[data-theme] .box {
-  --color-action: var(--soft-burgundy);
-  --color-action-hover: var(--soft-burgundy-hover);
-  --color-action-text: var(--soft-cream-text);
+  --color-action: var(--soft-wine);
+  --color-action-hover: var(--soft-wine-hover);
+  --color-action-text: var(--soft-on-wine);
   --color-text: var(--soft-body);
   --color-text-muted: var(--soft-muted);
   --color-text-subtle: var(--soft-muted);
   --color-border: var(--soft-border);
   --color-border-strong: var(--soft-border-strong);
   --color-surface: var(--soft-white);
-  --color-link: var(--soft-burgundy);
+  --color-link: var(--soft-wine);
   --radius-button: var(--radius-pill);
   max-width: var(--soft-drawer-width);
   height: 100%;
   border-radius: var(--soft-drawer-radius);
-  background: var(--soft-surface);
+  background: var(--soft-card);
   color: var(--soft-body);
   box-shadow: var(--soft-shadow-drawer);
+  overflow: hidden;
 }
 
 .box svg {
@@ -31,20 +34,63 @@
 }
 
 .header {
+  position: relative;
+  flex-shrink: 0;
+  padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--space-6) var(--space-6);
+  background: linear-gradient(160deg, var(--promo-wine) 0%, var(--promo-wine-dark) 100%);
+  color: var(--soft-on-wine);
+}
+
+/* Brand strip between the wine header and the blue body. */
+.header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--promo-wine-dark), var(--promo-blue));
+}
+
+.headerTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-6) var(--space-6) var(--space-4);
+}
+
+.logo {
+  width: 112px;
+  height: auto;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 
 .title {
   margin: 0;
   font-family: var(--soft-font-heading);
   font-weight: var(--weight-medium);
-  font-size: var(--display-sm);
+  font-size: var(--display-md);
   letter-spacing: -0.03em;
-  color: var(--soft-deep);
+  color: var(--soft-on-wine);
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--soft-badge);
+  height: calc(var(--soft-badge) + var(--space-1-5));
+  padding: 0 var(--space-2);
+  border: var(--border-width) solid var(--soft-tint-on-wine);
+  border-radius: var(--radius-pill);
+  background: var(--soft-tint-on-wine);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
 }
 
 .close {
@@ -54,220 +100,37 @@
   width: var(--target-min);
   height: var(--target-min);
   padding: 0;
-  border: var(--border-width) solid var(--soft-border);
+  border: var(--border-width) solid var(--soft-tint-on-wine);
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--soft-deep);
+  color: var(--soft-on-wine);
   cursor: pointer;
 }
 
 .close:hover {
-  background: var(--soft-tint);
+  background: var(--soft-tint-on-wine);
 }
 
-.close:focus-visible,
-.qtyButton:focus-visible,
-.remove:focus-visible {
-  outline: var(--focus-width) solid var(--soft-burgundy);
+/* White ring: a wine ring would be invisible on the wine header. */
+.close:focus-visible {
+  outline: var(--focus-width) solid var(--soft-on-wine);
   outline-offset: var(--focus-offset);
 }
 
-.empty {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-8) var(--space-6);
-}
+/* see src/styles/breakpoints.ts: full-width sheet on phones. */
+@media (max-width: 639.98px) {
+  .backdrop[data-theme] {
+    padding: 0;
+  }
 
-.emptyText {
-  margin: 0;
-  color: var(--soft-muted);
-}
+  .backdrop[data-theme] .box {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    border-radius: 0;
+  }
 
-.list {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-2-5);
-  margin: 0;
-  padding: var(--space-1) var(--space-4);
-  list-style: none;
-  overflow-y: auto;
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2-5);
-  padding: var(--space-3-5) var(--space-4);
-  border-radius: var(--soft-row-radius);
-  background: var(--soft-white);
-}
-
-.itemMain {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-half);
-  min-width: 0;
-}
-
-.name {
-  margin: 0;
-  font-family: var(--soft-font-heading);
-  font-weight: var(--weight-medium);
-  font-size: var(--text-xl);
-  line-height: var(--leading-quote);
-  color: var(--soft-deep);
-  overflow-wrap: anywhere;
-}
-
-.price {
-  margin: 0;
-  font-size: var(--text-sm);
-  color: var(--soft-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.qty {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-half);
-  border-radius: var(--radius-pill);
-  background: var(--soft-burgundy);
-  color: var(--soft-cream-text);
-}
-
-.qtyButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--control-md);
-  height: var(--control-md);
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: none;
-  color: inherit;
-  cursor: pointer;
-}
-
-.qtyButton:hover:not(:disabled) {
-  background: var(--soft-tint-cream);
-}
-
-.qtyButton:focus-visible {
-  outline-color: var(--soft-cream-text);
-  outline-offset: calc(var(--focus-offset) * -1);
-}
-
-.qtyButton:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.qtyValue {
-  min-width: var(--space-6);
-  text-align: center;
-  font-weight: var(--weight-medium);
-  font-variant-numeric: tabular-nums;
-}
-
-.remove {
-  min-height: var(--target-min);
-  padding: 0 var(--space-1);
-  border: 0;
-  background: none;
-  font-family: var(--soft-font-body);
-  font-size: var(--text-sm);
-  color: var(--soft-burgundy);
-  text-decoration: underline;
-  text-underline-offset: var(--space-1);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.footer {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  margin-top: auto;
-  padding: var(--space-5) var(--space-6) var(--space-6);
-  border-top: var(--border-width) solid var(--soft-border);
-}
-
-.total {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-3);
-  font-size: var(--text-lg);
-}
-
-.totalNote {
-  display: block;
-  font-size: var(--text-sm);
-  color: var(--soft-muted);
-}
-
-.totalValue {
-  font-family: var(--soft-font-heading);
-  font-weight: var(--weight-display);
-  font-size: var(--soft-total-size);
-  line-height: var(--leading-none);
-  color: var(--soft-deep);
-  font-variant-numeric: tabular-nums;
-}
-
-.send {
-  min-height: var(--soft-send-height);
-  white-space: nowrap;
-}
-
-.note {
-  margin: 0;
-  font-size: var(--text-sm);
-  color: var(--soft-muted);
-}
-
-.notices {
-  margin: 0 var(--space-4) var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border: var(--border-width) solid var(--soft-border-strong);
-  border-radius: var(--soft-row-radius);
-  background: var(--soft-white);
-  font-size: var(--text-sm);
-}
-
-.noticesTitle {
-  margin: 0 0 var(--space-1);
-  font-weight: var(--weight-medium);
-}
-
-.noticeList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  color: var(--soft-muted);
-}
-
-/* 44px touch area around the 40px buttons. */
-.qtyButton {
-  position: relative;
-}
-
-.qtyButton::after {
-  content: '';
-  position: absolute;
-  inset: calc(var(--space-half) * -1);
+  .header {
+    padding: calc(var(--space-4) + env(safe-area-inset-top)) var(--space-5) var(--space-5);
+  }
 }

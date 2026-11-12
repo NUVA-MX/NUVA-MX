@@ -41,3 +41,8 @@
     --zigzag: var(--space-8); /* how far each badge sits off the center line */
   }
 }
+
+/* Project orange (large-text orange, 3.2:1 on the page background). */
+.head .eyebrow {
+  color: var(--orange-600);
+}

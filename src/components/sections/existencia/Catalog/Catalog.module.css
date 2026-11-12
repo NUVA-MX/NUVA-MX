@@ -1,20 +1,20 @@
 /* Re-points the theme tokens to the "soft" palette, so shared patterns (skeleton, status, buttons) follow it. */
 .root {
-  --color-bg: var(--soft-white);
+  --color-bg: var(--promo-blue);
   --color-surface: var(--soft-surface);
   --color-placeholder: var(--soft-tint);
   --color-text: var(--soft-body);
   --color-text-muted: var(--soft-muted);
   --color-text-subtle: var(--soft-muted);
-  --color-action: var(--soft-burgundy);
-  --color-action-hover: var(--soft-burgundy-hover);
-  --color-action-text: var(--soft-cream-text);
+  --color-action: var(--soft-wine);
+  --color-action-hover: var(--soft-wine-hover);
+  --color-action-text: var(--soft-on-wine);
   --color-border: var(--soft-border);
   --color-border-strong: var(--soft-border-strong);
-  --color-link: var(--soft-burgundy);
+  --color-link: var(--soft-wine);
   --shadow-card: none;
   padding: var(--promo-pad-top) 0 var(--promo-pad-bottom);
-  background: var(--soft-white);
+  background: var(--promo-blue);
   color: var(--soft-body);
   font-family: var(--soft-font-body);
   scroll-margin-top: var(--nav-offset);
@@ -36,11 +36,11 @@
 .title {
   margin: 0;
   font-family: var(--soft-font-heading);
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-light);
   font-size: var(--soft-title);
   letter-spacing: -0.03em;
   line-height: var(--leading-none);
-  color: var(--soft-deep);
+  color: var(--soft-heading);
 }
 
 .intro {
@@ -89,9 +89,17 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(var(--soft-card-min), 100%), 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--soft-card-min), 100%), 1fr));
+  gap: var(--soft-grid-gap);
   align-items: stretch;
+}
+
+/* see src/styles/breakpoints.ts (sm = 640): two columns from 360px instead of one very wide card */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--soft-card-min-phone), 100%), 1fr));
+    gap: var(--soft-grid-gap-phone);
+  }
 }
 
 .empty {
@@ -110,7 +118,7 @@
   padding: 0 var(--space-2);
   border: 0;
   background: transparent;
-  color: var(--soft-burgundy);
+  color: var(--soft-wine);
   font-family: var(--soft-font-body);
   font-size: var(--text-button);
   text-decoration: underline;
@@ -119,7 +127,7 @@
 }
 
 .clear:focus-visible {
-  outline: var(--focus-width) solid var(--soft-burgundy);
+  outline: var(--focus-width) solid var(--soft-wine);
   outline-offset: var(--focus-offset);
 }
 
@@ -130,7 +138,7 @@
 
 .showing {
   margin: var(--space-3) 0 0;
-  font-size: var(--text-sm);
+  font-size: var(--text-button);
   text-align: center;
   color: var(--soft-muted);
 }

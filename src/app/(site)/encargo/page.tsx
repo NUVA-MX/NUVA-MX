@@ -41,7 +41,7 @@ export default async function EncargoPage() {
         ribbon={{ src: '/brand/cinta-from-brand-negro.png', width: 1406, height: 144 }}
       />
       <Intro />
-      <Proceso />
+      <Proceso ctaImage={content.proceso.cta.image} />
       <QueHacemos content={content.queHacemos} />
       <Tecnicas content={content.tecnicas} />
       {projects.length > 0 && <Projects content={content.projects} projects={projects} />}

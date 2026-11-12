@@ -3,8 +3,8 @@
   flex-direction: column;
   height: 100%;
   min-width: 0;
-  padding: var(--soft-card-pad);
-  background: var(--soft-surface);
+  overflow: hidden;
+  background: var(--soft-white);
   border-radius: var(--soft-card-radius);
   transition:
     transform var(--duration-fast) var(--ease-out),
@@ -20,83 +20,76 @@
   stroke-width: var(--soft-stroke);
 }
 
+/* Square photo area, flush with the card edges; white product shots blend into the tint. */
 .photo {
   display: block;
   width: 100%;
-  padding: var(--space-3);
+  padding: 0;
   border: 0;
-  border-radius: var(--soft-white-radius);
-  background: var(--soft-white);
+  background: var(--promo-blue-soft);
   cursor: pointer;
 }
 
 .photo img {
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .photo:focus-visible,
 .add:focus-visible,
 .inList:focus-visible,
 .step:focus-visible {
-  outline: var(--focus-width) solid var(--soft-burgundy);
-  outline-offset: var(--focus-offset);
+  outline: var(--focus-width) solid var(--soft-wine);
+  outline-offset: calc(var(--focus-offset) * -1);
 }
 
 .body {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--space-2-5);
-  padding: var(--space-4) var(--space-2) var(--space-1-5);
+  gap: var(--space-2);
+  padding: var(--space-4);
 }
 
 .pills {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1-5);
+  align-items: baseline;
+  gap: var(--space-half) var(--space-2);
+  font-size: var(--soft-meta-size);
+  line-height: var(--leading-snug);
+  color: var(--soft-muted);
 }
 
 .category,
 .code {
   max-width: 100%;
-  padding: var(--space-half) var(--space-2-5);
-  border-radius: var(--radius-pill);
-  font-family: var(--soft-font-body);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-medium);
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.category {
-  background: var(--soft-tint);
-  color: var(--soft-burgundy);
+  white-space: nowrap;
 }
 
 .code {
-  border: var(--border-width) solid var(--soft-border);
-  color: var(--soft-muted);
+  font-family: var(--font-mono);
 }
 
 .name {
   margin: 0;
   font-family: var(--soft-font-heading);
   font-size: var(--soft-name-size);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-display);
   line-height: var(--leading-quote);
-  color: var(--soft-deep);
+  color: var(--soft-heading);
   text-wrap: pretty;
   overflow-wrap: anywhere;
 }
 
 .bottom {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-2-5);
+  flex-direction: column;
+  gap: var(--space-3);
   margin-top: auto;
+  padding-top: var(--space-1);
 }
 
 .price {
@@ -106,9 +99,8 @@
 }
 
 .from {
-  font-family: var(--soft-font-body);
-  font-size: var(--text-2xs);
-  color: var(--soft-faint);
+  font-size: var(--soft-meta-size);
+  color: var(--soft-muted);
 }
 
 .amount {
@@ -117,52 +109,41 @@
   font-weight: var(--weight-display);
   line-height: var(--leading-none);
   font-variant-numeric: tabular-nums;
-  color: var(--soft-deep);
-}
-
-.action {
-  margin-left: auto;
+  color: var(--soft-heading);
 }
 
 .add,
 .inList,
 .stepper {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   min-height: var(--soft-action-height);
-  border-radius: var(--radius-pill);
+  border: 0;
+  border-radius: var(--promo-radius-button);
+  background: var(--soft-wine);
+  color: var(--soft-on-wine);
   font-family: var(--soft-font-body);
   font-size: var(--text-button);
   font-weight: var(--weight-medium);
-  white-space: nowrap;
 }
 
-.add {
-  padding: 0 var(--space-4-5);
-  border: 0;
-  background: var(--soft-lime);
-  color: var(--soft-deep);
+.add,
+.inList {
+  padding: 0 var(--space-4);
   cursor: pointer;
   transition: background var(--duration-fast) var(--ease-out);
 }
 
-.add:hover {
-  background: var(--soft-lime-hover);
-}
-
-.inList {
-  padding: 0 var(--space-4-5);
-  border: 0;
-  background: var(--soft-burgundy);
-  color: var(--soft-cream-text);
-  cursor: pointer;
+.add:hover,
+.inList:hover {
+  background: var(--soft-wine-hover);
 }
 
 .stepper {
-  gap: var(--space-half);
+  justify-content: space-between;
   padding: var(--space-1);
-  background: var(--soft-burgundy);
-  color: var(--soft-cream-text);
 }
 
 .step {
@@ -174,7 +155,7 @@
   height: var(--soft-step);
   padding: 0;
   border: 0;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-xs);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -182,7 +163,7 @@
 }
 
 .step:hover:not(:disabled) {
-  background: var(--soft-tint-cream);
+  background: var(--soft-tint-on-wine);
 }
 
 .step:disabled {
@@ -191,7 +172,7 @@
 }
 
 .stepper .step:focus-visible {
-  outline-color: var(--soft-cream-text);
+  outline-color: var(--soft-on-wine);
 }
 
 .qty {

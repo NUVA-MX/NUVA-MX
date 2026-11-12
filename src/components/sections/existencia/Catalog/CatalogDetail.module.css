@@ -74,12 +74,12 @@
 .amount {
   font-size: var(--display-sm);
   font-weight: var(--weight-display);
-  color: var(--promo-olive);
+  color: var(--promo-wine-dark);
 }
 
 .priceNote {
   font-size: var(--text-sm);
-  color: var(--promo-muted);
+  color: var(--promo-ink-muted);
 }
 
 .status {

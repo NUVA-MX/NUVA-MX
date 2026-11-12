@@ -1,25 +1,19 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { refresh } from './encargo-refresh';
 import { adminEncargo as copy } from '@/content/admin-encargo';
 import { encargo as defaults } from '@/content/encargo';
 import { requireAdmin } from '@/lib/auth/admin';
 import { blobPublicHost } from '@/lib/blob';
 import { overrideDefaults } from '@/lib/content/encargo-merge';
 import {
-  buildProjectCandidate,
-  buildSectionCandidate,
-  diffPaths,
-  issuesToErrors,
-  pruneDefaults,
-  readProjectRaw,
-  readSectionRaw,
-  removeOverridePath,
-  type EncargoActionState,
+  buildProjectCandidate, buildSectionCandidate, diffPaths, issuesToErrors, pruneDefaults,
+  readProjectRaw, readSectionRaw, removeOverridePath, type EncargoActionState,
 } from '@/lib/content/encargo-form';
-import { isRestorePath, projectIdSchema, projectSchema, sectionKeySchema, sectionSchemas } from '@/lib/content/encargo-schema';
+import { projectIdSchema, projectSchema } from '@/lib/content/encargo-project-schema';
+import { isRestorePath, sectionKeySchema, sectionSchemas } from '@/lib/content/encargo-schema';
 import { MAX_PROJECTS } from '@/lib/content/limits';
 import { fillTemplate } from '@/lib/format';
 import { audit } from '@/server/audit/audit';
@@ -75,12 +69,6 @@ function record(admin: Admin, ctx: Ctx, action: string, target: string | null, m
     requestId: ctx.requestId,
     metadata,
   });
-}
-
-function refresh() {
-  revalidatePath('/encargo');
-  revalidatePath('/admin/encargo');
-  revalidatePath('/admin/proyectos');
 }
 
 function imageHost() {

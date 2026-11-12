@@ -2,7 +2,7 @@
 // admin "import" button. Lives in src/lib (not src/server) so tsx scripts can import it without server-only.
 import { projects as defaultProjects, type Project } from '@/content/projects';
 import type { EncargoProjectRow } from '@/lib/db/schema';
-import { projectSchema } from './encargo-schema';
+import { projectSchema } from './encargo-project-schema';
 
 export type ProjectInsert = {
   name: string;

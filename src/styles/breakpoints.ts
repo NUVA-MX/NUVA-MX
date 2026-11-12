@@ -16,6 +16,7 @@ export const imageSizes = {
   thumb: '64px',
   projectTaller: `(max-width: ${breakpoints.sm}px) 82vw, 360px`,
   tecnica: `(max-width: ${breakpoints.sm}px) 100vw, (max-width: ${breakpoints.tablet - 1}px) 50vw, 400px`,
+  promoCarousel: `(max-width: ${breakpoints.sm}px) 72vw, 260px`,
   equipos: '(max-width: 1240px) 100vw, 1160px',
 } as const;
 

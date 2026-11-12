@@ -11,8 +11,8 @@
   padding: 0 var(--space-5-5);
   border: 0;
   border-radius: var(--radius-pill);
-  background: var(--promo-olive);
-  color: var(--promo-cream);
+  background: var(--promo-wine);
+  color: var(--soft-on-wine);
   box-shadow: var(--promo-shadow-fab);
   font-family: var(--font-body);
   font-size: var(--text-button);
@@ -23,11 +23,11 @@
 }
 
 .root:hover {
-  background: var(--promo-olive-hover);
+  background: var(--promo-wine-dark);
 }
 
 .root:focus-visible {
-  outline: var(--focus-width) solid var(--promo-yellow);
+  outline: var(--focus-width) solid var(--promo-wine-dark);
   outline-offset: var(--focus-offset);
 }
 
@@ -39,8 +39,9 @@
   height: var(--promo-counter);
   padding: 0 var(--space-1);
   border-radius: var(--radius-pill);
-  background: var(--promo-orange);
-  color: var(--promo-cream);
+  background: var(--soft-on-wine);
+  color: var(--promo-wine);
+  font-weight: var(--weight-medium);
   font-size: var(--text-sm);
 }
 

@@ -2,48 +2,21 @@
 // The admin page builds it on the server; the client form just renders it.
 import { adminEncargo as copy } from '@/content/admin-encargo';
 import { fillTemplate } from '@/lib/format';
-import { marqueeAt, type EncargoDefaults, type PromoWindow } from './encargo-merge';
+import type { EncargoDefaults } from './encargo-merge';
+import { marqueeSpec } from './encargo-spec-marquee';
+import { promoCarouselFields } from './encargo-promo-carousel';
 import { SECTION_KEYS, type EncargoOverrides, type SectionKey } from './encargo-schema';
+import type { FieldSpec, ImageFieldSpec, SectionSpec, TextFieldSpec } from './encargo-spec-types';
 import { TEXT_LIMITS } from './limits';
-import { mxDayEndUtc, mxDayStartUtc } from './mx-date';
 
-export type TextFieldSpec = {
-  kind: 'text' | 'textarea' | 'date';
-  name: string;
-  label: string;
-  /** What the input shows: the override, or the default when not overridden. */
-  value: string;
-  /** Default shown in the "Predeterminado" hint; null when there is no text default (promo fields). */
-  defaultValue: string | null;
-  overridden: boolean;
-  /** Path for the restore action. */
-  restore: string;
-  maxLength: number;
-  hint?: string;
-};
-export type CheckboxFieldSpec = { kind: 'checkbox'; name: string; label: string; checked: boolean; overridden: boolean; restore: string };
-export type ImageFieldSpec = {
-  kind: 'image';
-  /** Prefix of the form fields: `<name>.url` and `<name>.alt`. */
-  name: string;
-  label: string;
-  url: string;
-  alt: string;
-  overridden: boolean;
-  restore: string;
-  ratio: string;
-};
-export type HeadingSpec = { kind: 'heading'; label: string };
-export type FieldSpec = TextFieldSpec | CheckboxFieldSpec | ImageFieldSpec | HeadingSpec;
-
-export type SectionSpec = {
-  key: SectionKey;
-  title: string;
-  fields: FieldSpec[];
-  notes: string[];
-  /** True when the section has any stored override (enables "Restaurar sección"). */
-  overridden: boolean;
-};
+export type {
+  CheckboxFieldSpec,
+  FieldSpec,
+  HeadingSpec,
+  ImageFieldSpec,
+  SectionSpec,
+  TextFieldSpec,
+} from './encargo-spec-types';
 
 type Img = { url: string; alt: string } | null | undefined;
 
@@ -57,7 +30,7 @@ const text = (
   restore = name,
 ): TextFieldSpec => ({ kind, name, label, value: current ?? def, defaultValue: def, overridden: current !== undefined, restore, maxLength: max });
 
-const image = (name: string, label: string, ov: Img, ratio: string): ImageFieldSpec => ({
+const image = (name: string, label: string, ov: Img, ratio: string, decorative?: boolean): ImageFieldSpec => ({
   kind: 'image',
   name,
   label,
@@ -66,6 +39,7 @@ const image = (name: string, label: string, ov: Img, ratio: string): ImageFieldS
   overridden: Boolean(ov),
   restore: name,
   ratio,
+  ...(decorative ? { decorative } : {}),
 });
 
 const n = (i: number) => ({ n: i + 1 });
@@ -91,31 +65,8 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
           ],
           notes: [],
         };
-      case 'marquee': {
-        const m = o.marquee;
-        const window: PromoWindow | null =
-          m?.enabled && m.text
-            ? { text: m.text, startsAt: m.startsOn ? mxDayStartUtc(m.startsOn) : null, endsAt: m.endsOn ? mxDayEndUtc(m.endsOn) : null }
-            : null;
-        const state = marqueeAt(d.marquee, window, now);
-        const status = !window
-          ? s.marquee.status.off
-          : state.isPromo
-            ? s.marquee.status.active
-            : state.nextBoundary
-              ? s.marquee.status.scheduled
-              : s.marquee.status.ended;
-        const f = s.marquee.fields;
-        return {
-          fields: [
-            { kind: 'checkbox', name: 'enabled', label: f.enabled, checked: m?.enabled === true, overridden: m?.enabled !== undefined, restore: 'enabled' },
-            { kind: 'text', name: 'text', label: f.text, value: m?.text ?? '', defaultValue: null, overridden: m?.text !== undefined, restore: 'text', maxLength: L.marqueeText },
-            { kind: 'date', name: 'startsOn', label: f.startsOn, value: m?.startsOn ?? '', defaultValue: null, overridden: m?.startsOn !== undefined, restore: 'startsOn', maxLength: 10 },
-            { kind: 'date', name: 'endsOn', label: f.endsOn, value: m?.endsOn ?? '', defaultValue: null, overridden: m?.endsOn !== undefined, restore: 'endsOn', maxLength: 10 },
-          ],
-          notes: [status, fillTemplate(s.marquee.defaultText, { text: d.marquee }), s.marquee.hint],
-        };
-      }
+      case 'marquee':
+        return marqueeSpec(d, o.marquee, now);
       case 'queHacemos': {
         const q = o.queHacemos;
         return {
@@ -182,6 +133,7 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
             text('title', f.title, t?.title, d.taller.title, L.title),
             text('paragraph', f.paragraph, t?.paragraph, d.taller.paragraph, L.body, 'textarea'),
             image('image', f.image, t?.image, r.portrait),
+            image('image2', f.image2, t?.image2, r.portrait),
             ...d.taller.stats.flatMap((stat, i): FieldSpec[] => {
               const ov = t?.stats?.[i];
               return [
@@ -194,6 +146,16 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
           notes: [],
         };
       }
+      case 'proceso': {
+        const ov = o.proceso?.ctaImage;
+        const img = image('ctaImage', s.proceso.fields.ctaImage, ov && { url: ov.url, alt: '' }, r.fill, true);
+        return { fields: [img], notes: [s.proceso.hint] };
+      }
+      case 'promoCarousel':
+        return {
+          fields: promoCarouselFields(o.promoCarousel?.slides, (i) => fillTemplate(s.promoCarousel.slide, { n: i }), r.square),
+          notes: [s.promoCarousel.hint],
+        };
       case 'crossLink': {
         const x = o.crossLink;
         const f = s.crossLink.fields;
