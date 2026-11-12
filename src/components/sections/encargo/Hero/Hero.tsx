@@ -5,6 +5,7 @@ import { Text } from '@/components/primitives/Text';
 import { cx } from '@/lib/cx';
 import type { EncargoContent } from '@/lib/content/encargo-merge';
 import styles from './Hero.module.css';
+import promo from './HeroPromo.module.css';
 
 /** Full-bleed photo hero (side-colored gradient (olive on /encargo, wine on /existencia) until there is a photo); title and two buttons sit bottom-left. */
 type HeroProps = {
@@ -15,30 +16,30 @@ type HeroProps = {
 
 export function Hero({ content: h, primaryIcon = 'whatsapp' }: HeroProps) {
   return (
-    <section className={styles.root} aria-labelledby="hero-title">
+    <section className={cx(styles.root, promo.root)} aria-labelledby="hero-title">
       {h.image && (
         <>
           <Media src={h.image} alt={h.imageAlt} ratio="fill" tone="inverse" sizes="full" priority />
           <div className={styles.veil} aria-hidden="true" />
         </>
       )}
-      <Container className={styles.inner}>
+      <Container className={cx(styles.inner, promo.inner)}>
         <div className={styles.copy}>
-          <h1 id="hero-title" className={styles.title}>
+          <h1 id="hero-title" className={cx(styles.title, promo.title)}>
             {h.title}
           </h1>
-          <Text size="lg" tone="inverse" measure="body" className={styles.note}>
+          <Text size="lg" tone="inverse" measure="body" className={cx(styles.note, promo.note)}>
             {h.note}
           </Text>
         </div>
-        <div className={styles.actions}>
+        <div className={cx(styles.actions, promo.actions)}>
           <Button
             href={h.primary.href}
             variant="light"
             size="xl"
             icon={primaryIcon}
             iconPosition={primaryIcon === 'arrow' ? 'end' : undefined}
-            className={styles.button}
+            className={cx(styles.button, promo.button)}
           >
             {h.primary.label}
           </Button>
@@ -46,7 +47,7 @@ export function Hero({ content: h, primaryIcon = 'whatsapp' }: HeroProps) {
             href={h.secondary.href}
             variant="ghost-inverse"
             size="xl"
-            className={cx(styles.button, styles.outline)}
+            className={cx(styles.button, styles.outline, promo.button, promo.outline)}
           >
             {h.secondary.label}
           </Button>

@@ -1,9 +1,11 @@
 // Pure helpers for the content admin forms: explicit, allowlisted FormData reads (never Object.fromEntries),
 // candidate building, default pruning, path removal, diffs and zod-issue -> field-error mapping.
+import { buildPromoCarouselCandidate, PROMO_CAROUSEL_FIELD_NAMES } from './encargo-promo-carousel';
 import { PROJECT_FORM_FIELDS } from './encargo-project-schema';
 import type { SectionKey } from './encargo-schema';
 
 export { issuesToErrors } from './encargo-form-errors';
+export { diffPaths } from './encargo-diff';
 
 /** Shared result of every content/project action. */
 export type EncargoActionState = {
@@ -41,6 +43,7 @@ export const SECTION_FIELD_NAMES: Record<SectionKey, readonly string[]> = {
     ...range(3).flatMap((i) => [`stats.${i}.value`, `stats.${i}.label`]),
   ],
   proceso: ['ctaImage.url'],
+  promoCarousel: PROMO_CAROUSEL_FIELD_NAMES,
   crossLink: ['eyebrow', 'title', 'body', ...imageNames('image')],
   whatsapp: ['projectOrder', 'bulkQuote', 'teamQuote'],
 };
@@ -143,6 +146,8 @@ export function buildSectionCandidate(section: SectionKey, raw: Record<string, s
       const url = raw['ctaImage.url']?.trim();
       return strip({ ctaImage: url ? { url } : undefined });
     }
+    case 'promoCarousel':
+      return buildPromoCarouselCandidate(raw);
     case 'crossLink':
       return strip({ eyebrow: t('eyebrow'), title: t('title'), body: t('body'), image: image(raw, 'image') });
     case 'whatsapp':
@@ -227,24 +232,4 @@ function removeAt(node: unknown, parts: string[]): unknown {
 /** Removes one override path (`title`, `images.1`, `items.0.image`, ...). The path must already be allowlisted. */
 export function removeOverridePath(section: unknown, path: string): unknown {
   return compact(removeAt(section, path.split('.')));
-}
-
-function flatten(v: unknown, prefix: string, out: Map<string, string>) {
-  if (Array.isArray(v)) {
-    v.forEach((el, i) => flatten(el, prefix ? `${prefix}.${i}` : String(i), out));
-  } else if (v && typeof v === 'object') {
-    for (const [k, val] of Object.entries(v as Obj)) flatten(val, prefix ? `${prefix}.${k}` : k, out);
-  } else if (v !== undefined && v !== null) {
-    out.set(prefix, JSON.stringify(v));
-  }
-}
-
-/** Leaf paths whose value changed (added, removed or different). Values themselves are never returned. */
-export function diffPaths(before: unknown, after: unknown): string[] {
-  const a = new Map<string, string>();
-  const b = new Map<string, string>();
-  flatten(before, '', a);
-  flatten(after, '', b);
-  const keys = new Set([...a.keys(), ...b.keys()]);
-  return [...keys].filter((k) => a.get(k) !== b.get(k)).sort();
 }

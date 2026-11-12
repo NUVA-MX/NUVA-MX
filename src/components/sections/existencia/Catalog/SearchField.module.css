@@ -31,16 +31,14 @@
   width: 100%;
   height: var(--soft-search-height);
   padding: 0 var(--target-min) 0 var(--space-11);
-  border: var(--border-width) solid var(--soft-border);
-  border-radius: var(--radius-pill);
+  border: 0;
+  border-radius: var(--promo-radius-button);
   background: var(--soft-surface);
   color: var(--soft-body);
   font-family: var(--soft-font-body);
   font-size: var(--text-md);
   appearance: none;
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+  transition: box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .input::placeholder {
@@ -52,9 +50,8 @@
 }
 
 .input:focus {
-  border-color: var(--soft-burgundy);
   outline: none;
-  box-shadow: 0 0 0 var(--space-1) var(--soft-ring);
+  box-shadow: 0 0 0 var(--border-width-strong) var(--soft-wine);
 }
 
 .clear {
@@ -76,6 +73,6 @@
 }
 
 .clear:focus-visible {
-  outline: var(--focus-width) solid var(--soft-burgundy);
+  outline: var(--focus-width) solid var(--soft-wine);
   outline-offset: calc(var(--focus-offset) * -1);
 }

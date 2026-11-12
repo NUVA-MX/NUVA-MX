@@ -63,3 +63,15 @@
   width: auto;
   height: calc(var(--space-10) - 15px); /* 25px */
 }
+
+/* Promocionales: wine band (via --brand) with white text, no lemon/cream. */
+:global([data-side='existencia']) .root {
+  --color-text-inverse: var(--white);
+  --color-text-inverse-muted: var(--white);
+  --color-eyebrow-inverse: var(--white);
+}
+
+:global([data-side='existencia']) .link:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}

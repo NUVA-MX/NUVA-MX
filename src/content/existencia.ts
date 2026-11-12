@@ -1,3 +1,5 @@
+import { promoCarousel } from './promo-carousel';
+
 /** Copy for the In stock page (reference: Nuva Tienda.dc.html). */
 export const existencia = {
   meta: {
@@ -25,6 +27,7 @@ export const existencia = {
     image: null as string | null,
     imageAlt: 'Foto de producto en stock',
   },
+  carousel: promoCarousel,
   products: {
     eyebrow: 'Tienda',
     title: 'Disponible ahora',

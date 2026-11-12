@@ -2,11 +2,12 @@
 // The admin page builds it on the server; the client form just renders it.
 import { adminEncargo as copy } from '@/content/admin-encargo';
 import { fillTemplate } from '@/lib/format';
-import { marqueeAt, type EncargoDefaults, type PromoWindow } from './encargo-merge';
+import type { EncargoDefaults } from './encargo-merge';
+import { marqueeSpec } from './encargo-spec-marquee';
+import { promoCarouselFields } from './encargo-promo-carousel';
 import { SECTION_KEYS, type EncargoOverrides, type SectionKey } from './encargo-schema';
 import type { FieldSpec, ImageFieldSpec, SectionSpec, TextFieldSpec } from './encargo-spec-types';
 import { TEXT_LIMITS } from './limits';
-import { mxDayEndUtc, mxDayStartUtc } from './mx-date';
 
 export type {
   CheckboxFieldSpec,
@@ -64,31 +65,8 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
           ],
           notes: [],
         };
-      case 'marquee': {
-        const m = o.marquee;
-        const window: PromoWindow | null =
-          m?.enabled && m.text
-            ? { text: m.text, startsAt: m.startsOn ? mxDayStartUtc(m.startsOn) : null, endsAt: m.endsOn ? mxDayEndUtc(m.endsOn) : null }
-            : null;
-        const state = marqueeAt(d.marquee, window, now);
-        const status = !window
-          ? s.marquee.status.off
-          : state.isPromo
-            ? s.marquee.status.active
-            : state.nextBoundary
-              ? s.marquee.status.scheduled
-              : s.marquee.status.ended;
-        const f = s.marquee.fields;
-        return {
-          fields: [
-            { kind: 'checkbox', name: 'enabled', label: f.enabled, checked: m?.enabled === true, overridden: m?.enabled !== undefined, restore: 'enabled' },
-            { kind: 'text', name: 'text', label: f.text, value: m?.text ?? '', defaultValue: null, overridden: m?.text !== undefined, restore: 'text', maxLength: L.marqueeText },
-            { kind: 'date', name: 'startsOn', label: f.startsOn, value: m?.startsOn ?? '', defaultValue: null, overridden: m?.startsOn !== undefined, restore: 'startsOn', maxLength: 10 },
-            { kind: 'date', name: 'endsOn', label: f.endsOn, value: m?.endsOn ?? '', defaultValue: null, overridden: m?.endsOn !== undefined, restore: 'endsOn', maxLength: 10 },
-          ],
-          notes: [status, fillTemplate(s.marquee.defaultText, { text: d.marquee }), s.marquee.hint],
-        };
-      }
+      case 'marquee':
+        return marqueeSpec(d, o.marquee, now);
       case 'queHacemos': {
         const q = o.queHacemos;
         return {
@@ -173,6 +151,11 @@ export function buildSectionSpecs(d: EncargoDefaults, o: EncargoOverrides, now: 
         const img = image('ctaImage', s.proceso.fields.ctaImage, ov && { url: ov.url, alt: '' }, r.fill, true);
         return { fields: [img], notes: [s.proceso.hint] };
       }
+      case 'promoCarousel':
+        return {
+          fields: promoCarouselFields(o.promoCarousel?.slides, (i) => fillTemplate(s.promoCarousel.slide, { n: i }), r.square),
+          notes: [s.promoCarousel.hint],
+        };
       case 'crossLink': {
         const x = o.crossLink;
         const f = s.crossLink.fields;

@@ -1,8 +1,11 @@
 import { proceso } from './encargo-proceso';
+import { promoCarousel } from './promo-carousel';
 import { stickyWhatsapp, whatsappMessages } from './encargo-whatsapp';
 
 /** Copy for the Made to order page (reference: Nuva Sitio.dc.html). */
 export const encargo = {
+  // Photo carousel of the Promocionales page; it lives here so the admin overrides merge from one defaults object.
+  promoCarousel,
   meta: {
     title: 'Merch · NUVA',
     description:

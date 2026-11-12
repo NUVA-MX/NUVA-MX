@@ -1,0 +1,86 @@
+/* Sits at the bottom of the blue catalog area, right before the white info section: blue down to the info section's top
+   edge, transparent over the last overlap so the cards hang onto the white part. */
+.root {
+  position: relative;
+  z-index: 1;
+  margin-bottom: calc(-1 * var(--promo-carousel-overlap));
+  background: linear-gradient(
+    to bottom,
+    var(--promo-blue) calc(100% - var(--promo-carousel-overlap)),
+    transparent calc(100% - var(--promo-carousel-overlap))
+  );
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-6);
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.rail.rail {
+  --rail-item-width: var(--promo-carousel-card-width);
+  --rail-gap: var(--space-4);
+}
+
+.card {
+  border-radius: var(--radius-card);
+  background: var(--soft-surface);
+  box-shadow: var(--promo-shadow-card);
+  overflow: hidden;
+}
+
+/* Empty slots: plain white card, no text. */
+.media.media {
+  background: var(--soft-surface);
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-pad);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: var(--promo-border-width) solid var(--promo-wine);
+  border-radius: var(--radius-pill);
+  background: var(--soft-surface);
+  color: var(--promo-wine);
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--promo-wine);
+  color: var(--soft-on-wine);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--promo-wine-dark);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+@media (max-width: 640px) {
+  .rail.rail {
+    --rail-item-width: 72vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail.rail {
+    scroll-behavior: auto;
+  }
+}

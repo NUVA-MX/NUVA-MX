@@ -1,0 +1,32 @@
+/*
+ * Promocionales (/existencia) overrides of the shared hero. Every rule is scoped with
+ * :global([data-side='existencia']), so /encargo (Merch) keeps Hero.module.css untouched.
+ * Wine -> blue gradient (ends exactly on --promo-blue) and a light grain, plus this side's colors. The layout
+ * (height, title and note bottom-left, buttons on the right) is the same as Merch, from Hero.module.css.
+ */
+:global([data-side='existencia']) .root {
+  background: var(--promo-hero-gradient);
+  --color-text-inverse: var(--white);
+  --color-button-light-bg: var(--promo-blue);
+  --color-button-light-text: var(--promo-wine-dark);
+  --color-button-light-hover: var(--white);
+}
+
+/* Light grain: replaces the heavy overlay noise. Decorative; faded out over the last 30% so the end color stays exact. */
+:global([data-side='existencia']) .root::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.6 -0.2'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+  background-size: var(--promo-grain-size);
+  mix-blend-mode: normal;
+  opacity: var(--promo-grain-opacity);
+  mask-image: linear-gradient(to bottom, var(--black) 0%, var(--black) 70%, transparent 100%);
+}
+
+:global([data-side='existencia']) .note {
+  color: var(--promo-on-wine-soft);
+}
+
+:global([data-side='existencia']) .outline {
+  border-width: var(--promo-border-width);
+  border-color: var(--white);
+  color: var(--white);
+}

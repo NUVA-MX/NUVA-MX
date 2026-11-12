@@ -58,6 +58,7 @@ export function overrideDefaults(d: EncargoDefaults): { [K in SectionKey]: unkno
       stats: d.taller.stats.map((s) => ({ value: s.value, label: s.label })),
     },
     proceso: {},
+    promoCarousel: {},
     crossLink: { eyebrow: d.crossLink.eyebrow, title: d.crossLink.title, body: d.crossLink.body },
     whatsapp: {
       projectOrder: d.projects.whatsappTemplate,
@@ -125,6 +126,10 @@ export function resolveEncargo(d: EncargoDefaults, o: EncargoOverrides): Encargo
   }
 
   if (o.proceso?.ctaImage) c.proceso.cta.image = o.proceso.ctaImage.url;
+
+  if (o.promoCarousel) {
+    c.promoCarousel.slides = byIndex(c.promoCarousel.slides, o.promoCarousel.slides, withImage);
+  }
 
   if (o.crossLink) {
     const x = o.crossLink;

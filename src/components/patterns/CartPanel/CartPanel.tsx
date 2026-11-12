@@ -1,11 +1,14 @@
 'use client';
 
+import Image from 'next/image';
 import { useId } from 'react';
 import { Button } from '@/components/primitives/Button';
 import { Icon } from '@/components/primitives/Icon';
 import { Modal } from '../Modal';
+import { CartPanelFooter } from './CartPanelFooter';
 import { CartPanelRow } from './CartPanelRow';
 import styles from './CartPanel.module.css';
+import bodyStyles from './CartPanelBody.module.css';
 
 export type CartPanelItem = {
   id: string;
@@ -78,66 +81,59 @@ export function CartPanel({
   return (
     <Modal open={open} onClose={onClose} labelledBy={titleId} placement="side" theme={theme} className={styles.box} rootClassName={styles.backdrop}>
       <div className={styles.header}>
-        <h2 id={titleId} className={styles.title}>
-          {labels.title}
-        </h2>
-        <button type="button" className={styles.close} aria-label={labels.close} onClick={onClose}>
-          <Icon name="close" size="md" />
-        </button>
+        <div className={styles.headerTop}>
+          <Image className={styles.logo} src="/brand/logo-nuva-gris.png" alt="NUVA" width={800} height={244} sizes="112px" />
+          <button type="button" className={styles.close} aria-label={labels.close} onClick={onClose}>
+            <Icon name="close" size="md" />
+          </button>
+        </div>
+        <div className={styles.headerTitle}>
+          <h2 id={titleId} className={styles.title}>
+            {labels.title}
+          </h2>
+          {!empty && (
+            <span className={styles.count} aria-hidden="true">
+              {items.length}
+            </span>
+          )}
+        </div>
       </div>
 
-      {notices.length > 0 && (
-        <div className={styles.notices} role="status">
-          <p className={styles.noticesTitle}>{labels.noticesTitle}</p>
-          <ul className={styles.noticeList}>
-            {notices.map((n, i) => (
-              // Two notices can share the same text (two products with the same name): key by index.
-              <li key={`${i}-${n}`}>{n}</li>
+      <div className={bodyStyles.body}>
+        {notices.length > 0 && (
+          <div className={bodyStyles.notices} role="status">
+            <p className={bodyStyles.noticesTitle}>{labels.noticesTitle}</p>
+            <ul className={bodyStyles.noticeList}>
+              {notices.map((n, i) => (
+                // Two notices can share the same text (two products with the same name): key by index.
+                <li key={`${i}-${n}`}>{n}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {empty ? (
+          <div className={bodyStyles.empty}>
+            <div className={bodyStyles.emptyArt}>
+              <Image src="/brand/sello-nuva.png" alt="" width={507} height={520} sizes="96px" />
+            </div>
+            <p className={bodyStyles.emptyText}>{labels.empty}</p>
+            {emptyAction && (
+              <Button variant="primary" onClick={emptyAction.onClick}>
+                {emptyAction.label}
+              </Button>
+            )}
+          </div>
+        ) : (
+          <ul className={bodyStyles.list}>
+            {items.map((item) => (
+              <CartPanelRow key={item.id} item={item} labels={labels} onSetQty={onSetQty} onRemove={onRemove} />
             ))}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
 
-      {empty ? (
-        <div className={styles.empty}>
-          <p className={styles.emptyText}>{labels.empty}</p>
-          {emptyAction && (
-            <Button variant="secondary" onClick={emptyAction.onClick}>
-              {emptyAction.label}
-            </Button>
-          )}
-        </div>
-      ) : (
-        <ul className={styles.list}>
-          {items.map((item) => (
-            <CartPanelRow key={item.id} item={item} labels={labels} onSetQty={onSetQty} onRemove={onRemove} />
-          ))}
-        </ul>
-      )}
-
-      {!empty && (
-        <div className={styles.footer}>
-          {totalLabel !== undefined && (
-            <div className={styles.total}>
-              <span>
-                {labels.total}
-                {totalNote && <span className={styles.totalNote}>{totalNote}</span>}
-              </span>
-              <span className={styles.totalValue}>{totalLabel}</span>
-            </div>
-          )}
-          {sendState === 'pending' ? (
-            <Button icon="whatsapp" size="lg" block disabled className={styles.send}>
-              {labels.verifying}
-            </Button>
-          ) : (
-            <Button href={sendHref} external icon="whatsapp" size="lg" block className={styles.send}>
-              {labels.send}
-            </Button>
-          )}
-          <p className={styles.note}>{sendNote ?? labels.note}</p>
-        </div>
-      )}
+      {!empty && <CartPanelFooter totalLabel={totalLabel} totalNote={totalNote} sendHref={sendHref} sendState={sendState} sendNote={sendNote} labels={labels} />}
     </Modal>
   );
 }

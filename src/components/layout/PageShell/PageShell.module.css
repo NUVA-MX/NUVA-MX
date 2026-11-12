@@ -13,6 +13,11 @@
   outline: none;
 }
 
+/* Promocionales: sections own their backgrounds; no grey page color may show between the last section and the footer. */
+:global([data-side='existencia']) .main {
+  background: var(--white);
+}
+
 .skip {
   position: absolute;
   top: var(--space-2);

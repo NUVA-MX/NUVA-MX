@@ -1,8 +1,8 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { refresh } from './encargo-refresh';
 import { adminEncargo as copy } from '@/content/admin-encargo';
 import { encargo as defaults } from '@/content/encargo';
 import { requireAdmin } from '@/lib/auth/admin';
@@ -69,12 +69,6 @@ function record(admin: Admin, ctx: Ctx, action: string, target: string | null, m
     requestId: ctx.requestId,
     metadata,
   });
-}
-
-function refresh() {
-  revalidatePath('/encargo');
-  revalidatePath('/admin/encargo');
-  revalidatePath('/admin/proyectos');
 }
 
 function imageHost() {

@@ -5,7 +5,7 @@ import { Icon } from '@/components/primitives/Icon';
 import { MAX_QTY } from '@/lib/cart/reducer';
 import { fillTemplate } from '@/lib/format';
 import type { CartPanelItem, CartPanelLabels } from './CartPanel';
-import styles from './CartPanel.module.css';
+import styles from './CartPanelRow.module.css';
 
 type Props = {
   item: CartPanelItem;
@@ -20,6 +20,9 @@ export function CartPanelRow({ item, labels, onSetQty, onRemove }: Props) {
   const max = item.max === null ? MAX_QTY : Math.min(item.max, MAX_QTY);
   return (
     <li className={styles.item}>
+      <span className={styles.thumb} aria-hidden="true">
+        {item.name.charAt(0).toLocaleUpperCase()}
+      </span>
       <div className={styles.itemMain}>
         <p className={styles.name}>{item.name}</p>
         <p className={styles.price}>{item.priceLabel}</p>

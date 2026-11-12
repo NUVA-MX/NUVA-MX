@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { isValidDay } from './mx-date';
 import { TEXT_LIMITS } from './limits';
 import { plainText } from './text';
+import { promoCarouselSchema, PROMO_CAROUSEL_RESTORE_PATHS } from './encargo-promo-carousel';
+import { nameTemplate, plainTemplate, text } from './encargo-schema-text';
 import { isAllowedImageUrl } from '@/lib/products/validation';
 
 /** Closed allowlist of editable sections. */
@@ -15,6 +17,7 @@ export const SECTION_KEYS = [
   'equipos',
   'taller',
   'proceso',
+  'promoCarousel',
   'crossLink',
   'whatsapp',
 ] as const;
@@ -42,8 +45,6 @@ export function isEncargoImageUrl(value: string, host?: string | null): boolean 
   }
 }
 
-const text = (max: number, opts?: { multiline?: boolean }) => plainText(1, max, opts);
-
 export function imageSchema(host?: string | null) {
   return z.strictObject({
     url: z.string().max(2048).refine((v) => isEncargoImageUrl(v, host), { message: 'image_url' }),
@@ -52,27 +53,6 @@ export function imageSchema(host?: string | null) {
 }
 
 const dayString = z.string().refine(isValidDay, { message: 'date' });
-
-/** Placeholders other than {name}: rejected so a template cannot smuggle tokens we do not fill. */
-function placeholderCount(template: string): { name: number; other: number } {
-  let name = 0;
-  let other = 0;
-  for (const m of template.matchAll(/\{([^{}]*)\}/g)) {
-    if (m[1] === 'name') name += 1;
-    else other += 1;
-  }
-  return { name, other };
-}
-
-/** Template must contain `{name}` exactly once and no other `{...}` placeholder. */
-const nameTemplate = text(TEXT_LIMITS.template).refine(
-  (v) => {
-    const c = placeholderCount(v);
-    return c.name === 1 && c.other === 0 && !/[{}]/.test(v.replace(/\{name\}/, ''));
-  },
-  { message: 'template' },
-);
-const plainTemplate = text(TEXT_LIMITS.template).refine((v) => !/[{}]/.test(v), { message: 'template' });
 
 /** Arrays merge by index: a `null` entry means "use the default for this slot". */
 const slots = <T extends z.ZodType>(item: T, max: number) => z.array(item.nullable()).max(max);
@@ -141,6 +121,7 @@ export function sectionSchemas(host?: string | null) {
     }),
     // Decorative background of the closing panel: url only, no alt text.
     proceso: z.strictObject({ ctaImage: z.strictObject({ url: image.shape.url }).optional() }),
+    promoCarousel: promoCarouselSchema(image),
     crossLink: z.strictObject({
       eyebrow: text(TEXT_LIMITS.eyebrow).optional(),
       title: text(TEXT_LIMITS.title).optional(),
@@ -174,6 +155,7 @@ export function encargoOverridesSchema(host?: string | null) {
     equipos: s.equipos.optional(),
     taller: s.taller.optional(),
     proceso: s.proceso.optional(),
+    promoCarousel: s.promoCarousel.optional(),
     crossLink: s.crossLink.optional(),
     whatsapp: s.whatsapp.optional(),
   });
@@ -242,6 +224,7 @@ export const RESTORE_PATHS: Record<SectionKey, readonly string[]> = {
     ...[0, 1, 2].flatMap((i) => [`stats.${i}`, `stats.${i}.value`, `stats.${i}.label`]),
   ],
   proceso: ['ctaImage'],
+  promoCarousel: PROMO_CAROUSEL_RESTORE_PATHS,
   crossLink: ['eyebrow', 'title', 'body', 'image'],
   whatsapp: ['projectOrder', 'bulkQuote', 'teamQuote'],
 };

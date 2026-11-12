@@ -146,13 +146,3 @@
     padding-block-end: var(--space-2);
   }
 }
-
-/* Promocionales: the hero text, the outline button and the highlighted button use the blue-grey of that side. */
-:global([data-side='existencia']) .root {
-  --color-text-inverse: #a4bbcb;
-  --color-button-light-bg: #a4bbcb;
-  /* Richer wine than the brand color, as in the client's reference gradient. */
-  --hero-start: #701c40;
-  /* Fades into the blue-grey page below, so there is no seam. */
-  --hero-fade-end: #a4bbcb;
-}

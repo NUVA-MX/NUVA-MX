@@ -148,6 +148,7 @@ describe('saving a section', () => {
     expect(opts.adminId).toBe(ADMIN.id);
     expect(opts.update(undefined)).toEqual({ text: 'Promo de otoño' });
     expect(m.revalidatePath).toHaveBeenCalledWith('/encargo');
+    expect(m.revalidatePath).toHaveBeenCalledWith('/existencia');
     expect(m.revalidatePath).toHaveBeenCalledWith('/admin/encargo');
   });
   it('audits encargo.content.update with section and field keys only', async () => {

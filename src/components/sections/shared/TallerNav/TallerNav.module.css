@@ -126,6 +126,17 @@
   justify-self: start;
 }
 
+/* The list button is small by default: 44px touch target on phone/tablet (it sits in the top-left cell). */
+.actionMobile > * {
+  min-height: var(--target-min);
+}
+
+/* Promocionales: the switch pill and the light text on it follow the wine brand; no lemon on this side. */
+:global([data-side='existencia']) .root {
+  --color-text-inverse: var(--white);
+  --color-link: var(--white);
+}
+
 .menuButton {
   grid-area: menu;
   justify-self: end;
@@ -243,10 +254,8 @@
     display: inline-flex;
   }
 
-  /* Shares the links cell, pushed to its inner edge (mirrors the switch on the other side). */
+  /* Right side, between the switch and WhatsApp. */
   .actionDesktop {
-    grid-area: links;
-    justify-self: end;
     display: inline-flex;
   }
 

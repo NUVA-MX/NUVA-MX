@@ -37,7 +37,7 @@ type Props = {
 };
 
 /**
- * Catalog card: white square photo (opens the detail), category and code pills, name, and a bottom row with the price
+ * Catalog card: square photo flush with the card (opens the detail), category and monospace code, name, and a bottom row with the price
  * (only when the API sends one) and the action: "+ Agregar", a quantity pill, or "En mi lista · n" for several colors.
  */
 export function CatalogCard({ card, labels, qty, onAdd, onSetQty, onOpen, prefetch }: Props) {
@@ -67,7 +67,7 @@ export function CatalogCard({ card, labels, qty, onAdd, onSetQty, onOpen, prefet
               <span className={styles.amount}>{formatMXN(card.price)}</span>
             </p>
           )}
-          <div className={styles.action}>
+          <div>
             {qty === 0 && (
               <button type="button" className={styles.add} aria-label={fillTemplate(labels.addAria, vars)} onClick={() => onAdd(card)}>
                 {labels.add}
