@@ -15,6 +15,8 @@ type Props = {
   tone?: 'default' | 'inverse';
   sizes?: ImageSizeKey;
   priority?: boolean;
+  /** Scroll-linked drift of the photo inside its frame (CSS only; static where unsupported or reduced motion). */
+  parallax?: boolean;
   className?: string;
   /** Empty slot only: tint of a brand color instead of the theme's placeholder fill. */
   tint?: 'olive' | 'wine';
@@ -37,6 +39,7 @@ export function Media({
   tone = 'default',
   sizes = 'half',
   priority = false,
+  parallax = false,
   className,
   tint,
   children,
@@ -65,7 +68,7 @@ export function Media({
         sizes={imageSizes[sizes]}
         priority={priority}
         {...(isStatic(src) ? {} : { placeholder: 'blur' as const, blurDataURL: BLUR_DATA_URL })}
-        className={styles.img}
+        className={cx(styles.img, parallax && styles.parallax)}
       />
     </div>
   );

@@ -23,7 +23,7 @@ export function Taller({ content: t }: { content: EncargoContent['taller'] }) {
     <section id="taller" className={styles.root} aria-labelledby="taller-title">
       <Container>
         <div className={styles.grid}>
-          <Reveal className={styles.visual}>
+          <Reveal className={styles.visual} variant="left">
             <div className={styles.main}>
               {t.image ? (
                 <Media src={t.image} alt={t.imageAlt} ratio="fill" sizes="half" />
@@ -50,7 +50,7 @@ export function Taller({ content: t }: { content: EncargoContent['taller'] }) {
             />
             <Image src="/brand/sello-nuva.png" alt="" width={507} height={520} className={styles.seal} aria-hidden="true" />
           </Reveal>
-          <Reveal className={styles.copy}>
+          <Reveal className={styles.copy} variant="right" delay={150}>
             <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
               {t.eyebrow}
             </Eyebrow>
