@@ -60,7 +60,8 @@
   gap: var(--space-3);
 }
 
-.title {
+.root .title {
+  font-weight: 800; /* bold (client's design) */
   line-height: var(--leading-title);
   text-wrap: balance;
 }
@@ -82,4 +83,9 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
   }
+}
+
+/* Project orange (large-text orange), per the client's design. */
+.root .eyebrow {
+  color: var(--orange-600);
 }

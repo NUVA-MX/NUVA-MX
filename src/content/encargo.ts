@@ -26,8 +26,8 @@ export const encargo = {
   },
   hero: {
     title: 'Merch con identidad.',
-    // TODO(confirm): says up front that there is no cart here.
-    note: 'Aquí no hay carrito: cuéntanos tu idea por WhatsApp y te mandamos mockup y precio.',
+    // No note under the title on /encargo (removed per the client's design, 2026-11-14).
+    note: '',
     primary: { label: 'Hagámoslo realidad', href: '#contactar' },
     // The story is now "how we make it": the secondary action scrolls to the walkthrough.
     secondary: { label: 'Descubre el Proceso', href: '#proceso' },
@@ -77,7 +77,7 @@ export const encargo = {
       },
       {
         id: 'estampado',
-        name: 'Estampado',
+        name: 'DTF',
         fact: 'Diseños a todo color con gran definición',
         image: null as string | null,
         imageAlt: 'Prenda con estampado DTF a todo color',

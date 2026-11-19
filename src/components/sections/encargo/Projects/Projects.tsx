@@ -25,7 +25,7 @@ export function Projects({ content: p, projects }: Props) {
       <Container>
         <Reveal className={styles.head}>
           <div className={styles.main}>
-            <Eyebrow size="sm" tracking="label">
+            <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
               {p.eyebrow}
             </Eyebrow>
             <Heading level={2} size="2xl" id="proyectos-title" className={styles.title}>

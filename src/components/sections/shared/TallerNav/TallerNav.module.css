@@ -247,7 +247,7 @@
   .end .switch > button {
     flex: none;
     min-height: 0;
-    padding-block: var(--space-2);
+    padding-block: var(--space-3);
   }
 
   .end .whatsapp {

@@ -18,6 +18,7 @@
 /* Scoped under .main so they beat the primitives' own rules whatever the CSS chunk order. */
 .main .title {
   margin-top: var(--space-3);
+  font-weight: 800; /* bold (client's design) */
   line-height: var(--leading-title);
 }
 
@@ -33,4 +34,9 @@
 
 .root .rail {
   margin-top: var(--space-6);
+}
+
+/* Project orange (large-text orange), per the client's design. */
+.main .eyebrow {
+  color: var(--orange-600);
 }

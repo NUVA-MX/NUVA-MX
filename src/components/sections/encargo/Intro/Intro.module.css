@@ -6,7 +6,7 @@
   max-width: var(--container-manifesto);
   margin-inline: auto;
   font-family: var(--font-display);
-  font-weight: var(--weight-display);
+  font-weight: 800; /* bold paragraph per the client's design */
   font-size: var(--display-md);
   line-height: var(--leading-quote);
   text-align: center;

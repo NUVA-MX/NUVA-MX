@@ -12,7 +12,7 @@ export function Tecnicas({ content: t }: { content: EncargoContent['tecnicas'] }
     <section className={styles.root} aria-labelledby="tecnicas-title">
       <Container>
         <Reveal className={styles.head}>
-          <Eyebrow size="sm" tracking="label">
+          <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
             {t.eyebrow}
           </Eyebrow>
           <Heading level={2} size="2xl" id="tecnicas-title" className={styles.title}>

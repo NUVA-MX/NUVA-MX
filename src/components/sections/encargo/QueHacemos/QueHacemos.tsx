@@ -33,7 +33,7 @@ export function QueHacemos({ content: q }: { content: EncargoContent['queHacemos
           />
         </Reveal>
         <Reveal className={styles.copy}>
-          <Eyebrow size="sm" tracking="label">
+          <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
             {q.eyebrow}
           </Eyebrow>
           <Heading level={2} size="2xl" id="que-hacemos-title" className={styles.title}>

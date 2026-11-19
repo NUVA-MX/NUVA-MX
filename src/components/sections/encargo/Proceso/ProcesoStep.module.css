@@ -145,7 +145,7 @@
 
 .stepTitle {
   font-family: var(--font-display);
-  font-weight: var(--weight-display);
+  font-weight: 800; /* bold, all step titles (client's design) */
   font-size: var(--display-md);
   line-height: var(--leading-title);
   color: var(--color-text);
@@ -167,7 +167,7 @@
   min-height: var(--target-min);
   margin-top: var(--space-2);
   font-weight: var(--weight-medium);
-  color: var(--color-link);
+  color: var(--orange-600); /* project orange, per the client's design */
   text-decoration: underline;
   text-underline-offset: var(--space-1);
 }

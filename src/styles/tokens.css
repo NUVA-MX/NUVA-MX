@@ -406,6 +406,16 @@
   --wine-700: #5d2638; /* accent: labels, links, numbers, chips (8.1:1 on #d6d7d3) */
   --orange-500: #c56742; /* background only, with black text (5.4:1); never orange text */
   --orange-600: #b85a38; /* the orange allowed for large text on the page background: 3.2:1 on #d6d7d3 */
+  /* /encargo hero: green dominant, near-black at the top, near-white at the bottom. */
+  /* Stops sampled (row-averaged) from degradado_verde.png, pre-compensated for the grain layer's slight lift, at 0/15/30/45/60/75/90/100% of its height. */
+  --hero-merch-top: #353e1e;
+  --hero-merch-s15: #474f2f;
+  --hero-merch-s30: #5d6448;
+  --hero-merch-mid: #656c4e;
+  --hero-merch-s60: #727959;
+  --hero-merch-s75: #7f8665;
+  --hero-merch-s90: #8b9371;
+  --hero-merch-bottom: #969e7c;
   --lemon-200: #e2e5ad; /* primary text on green */
   --sky-300: #a4bbcc; /* secondary text on green */
   --wine-600: #6a3748; /* image fill on a wine panel (wine-700 lightened, derived); lemon 7.4:1 */

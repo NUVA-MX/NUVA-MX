@@ -30,3 +30,10 @@
   border-color: var(--white);
   color: var(--white);
 }
+
+/* /existencia fades to blue at the bottom, so its text keeps sitting higher, over the wine part. */
+@media (min-width: 1024px) {
+  :global([data-side='existencia']) .inner {
+    padding-block-end: calc(var(--hero-taller-height) * 0.3);
+  }
+}
