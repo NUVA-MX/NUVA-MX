@@ -34,7 +34,7 @@ export const proceso = {
       // TODO(client): photo of a conversation, sketch or reference board.
       label: 'Foto: bocetos o referencias sobre la mesa',
       icon: 'notebook',
-      image: null,
+      image: '/photos/proceso-idea.webp',
       imageAlt: 'Bocetos y referencias sobre la mesa',
     },
     {
@@ -45,7 +45,7 @@ export const proceso = {
       // TODO(client): photo of the base pieces laid out.
       label: 'Foto: piezas base en el taller',
       icon: 'cap',
-      image: null,
+      image: '/photos/proceso-pieza.webp',
       imageAlt: 'Piezas base listas para personalizar',
       // TODO(confirm)
       link: { label: 'Preguntar por los productos →', message: whatsappMessages.pieza },
@@ -58,7 +58,7 @@ export const proceso = {
       // TODO(client): photo of the art being prepared on screen.
       label: 'Foto: el arte en pantalla',
       icon: 'line',
-      image: null,
+      image: '/photos/proceso-arte.webp',
       imageAlt: 'El arte en pantalla',
     },
     {
@@ -69,7 +69,7 @@ export const proceso = {
       // TODO(client): example mockup sent to a client.
       label: 'Foto: ejemplo de mockup',
       icon: 'tee',
-      image: null,
+      image: '/photos/proceso-mockup.webp',
       imageAlt: 'Ejemplo de mockup enviado a un cliente',
       // TODO(confirm)
       link: { label: '¿Listo? Escríbenos →', message: whatsappMessages.general },
@@ -82,7 +82,7 @@ export const proceso = {
       // TODO(client): photo of the machines or the hands at work.
       label: 'Foto: bordado o estampado en proceso',
       icon: 'hoodie',
-      image: null,
+      image: '/photos/proceso-taller.webp',
       imageAlt: 'Bordado o estampado en proceso',
       // TODO(confirm)
       link: { label: 'Preguntar por una técnica →', message: whatsappMessages.tecnica },
@@ -95,7 +95,7 @@ export const proceso = {
       // TODO(client): photo of the finished, packed order.
       label: 'Foto: pedido terminado y empacado',
       icon: 'mug',
-      image: null,
+      image: '/photos/proceso-entrega.webp',
       imageAlt: 'Pedido terminado y empacado',
     },
   ] satisfies readonly ProcesoStep[],
