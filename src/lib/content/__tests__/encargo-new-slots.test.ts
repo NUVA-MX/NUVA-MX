@@ -11,8 +11,8 @@ const CTA = `https://${HOST}/encargo/proceso-fondo.webp`;
 const schemas = sectionSchemas(HOST);
 
 describe('taller.image2', () => {
-  it('defaults to no image with its own alt', () => {
-    expect(encargo.taller.image2).toBeNull();
+  it('has its own default image and alt', () => {
+    expect(encargo.taller.image2).toMatch(/^\/photos\//);
     expect(encargo.taller.image2Alt.length).toBeGreaterThan(2);
   });
   it('schema requires a safe url and alt', () => {
@@ -25,7 +25,7 @@ describe('taller.image2', () => {
     const c = resolveEncargo(encargo, { taller: { image2: { url: GOOD, alt: 'Detalle del taller' } } });
     expect(c.taller.image2).toBe(GOOD);
     expect(c.taller.image2Alt).toBe('Detalle del taller');
-    expect(c.taller.image).toBeNull();
+    expect(c.taller.image).toBe(encargo.taller.image);
   });
   it('is read, built, listed for cleanup and restorable', () => {
     const fd = new FormData();

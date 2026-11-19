@@ -150,10 +150,10 @@ export const encargo = {
     paragraph:
       'Nuva nació de nuestra pasión por crear y personalizar. Lo que comenzó con una idea se convirtió en un espacio donde ayudamos a otras marcas a dar vida a las suyas. Nos encanta ser parte de cada proyecto, transformar diseños en productos reales y ver la emoción de nuestros clientes al recibir algo que antes solo imaginaban. Cada proyecto es diferente, y eso es lo que más nos gusta de lo que hacemos.',
     // TODO(client): portrait photo of the workshop or the team.
-    image: null as string | null,
+    image: '/photos/sobre-nosotros-grande.webp' as string | null,
     imageAlt: 'El taller de NUVA',
     // Small second frame of the collage; the placeholder art shows while it is null.
-    image2: null as string | null,
+    image2: '/photos/sobre-nosotros-pequena.webp' as string | null,
     image2Alt: 'Detalle del taller de NUVA',
     label: 'Foto: el taller o el equipo',
     stats: [
