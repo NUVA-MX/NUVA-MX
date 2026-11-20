@@ -459,18 +459,10 @@
   --color-marquee-text: var(--color-text-inverse);
 }
 
-/* Merch (/encargo) and Promocionales (/existencia), plus their portaled modals and drawer: DM Serif Display for all text
-   (Promocionales overrides it with Acumin below). One weight only, so no synthetic bold. --soft-font-* are the Promocionales catalog fonts (defined on :root below). */
+/* Merch (/encargo) and Promocionales (/existencia), plus their portaled modals and drawer: Acumin for all text.
+   --soft-font-* are the Promocionales catalog fonts (defined on :root below); --font-display is set too, so
+   components that read it directly (info section, product detail) follow. */
 [data-theme='taller'] {
-  --font-title: var(--font-dm-serif), 'DM Serif Display', Georgia, serif;
-  --font-body: var(--font-title);
-  --soft-font-heading: var(--font-title);
-  --soft-font-body: var(--font-title);
-  font-synthesis: none;
-}
-
-/* Promocionales only: components that read --font-display directly (info section, product detail) follow too. Merch keeps its display font. */
-[data-theme='taller'][data-side='existencia'] {
   --font-title: var(--font-acumin), 'Acumin Variable Concept', system-ui, sans-serif;
   --font-body: var(--font-title);
   --font-display: var(--font-title);

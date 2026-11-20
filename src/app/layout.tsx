@@ -2,7 +2,7 @@ import '@/styles/tokens.css';
 import '@/styles/base.css';
 import '@/styles/mode-transition.css';
 import type { Metadata, Viewport } from 'next';
-import { DM_Serif_Display, Instrument_Sans, Urbanist } from 'next/font/google';
+import { Instrument_Sans, Urbanist } from 'next/font/google';
 import localFont from 'next/font/local';
 import { site } from '@/content/site';
 import { siteUrl } from '@/server/env';
@@ -25,9 +25,6 @@ const acumin = localFont({
 const urbanist = Urbanist({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-urbanist', display: 'swap' });
 const instrument = Instrument_Sans({ subsets: ['latin'],variable: '--font-instrument', display: 'swap' });
 
-// Titles of the Merch page (/encargo) only, via --font-title.
-const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400', style: ['normal', 'italic'], variable: '--font-dm-serif', display: 'swap' });
-
 export const metadata: Metadata = {
   metadataBase: siteUrl() ? new URL(siteUrl() as string) : undefined,
   title: site.brand,
@@ -41,7 +38,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-MX" data-scroll-behavior="smooth" className={`${darkerGrotesque.variable} ${acumin.variable} ${urbanist.variable} ${instrument.variable} ${dmSerif.variable}`}>
+    <html lang="es-MX" data-scroll-behavior="smooth" className={`${darkerGrotesque.variable} ${acumin.variable} ${urbanist.variable} ${instrument.variable}`}>
       <body>{children}</body>
     </html>
   );
