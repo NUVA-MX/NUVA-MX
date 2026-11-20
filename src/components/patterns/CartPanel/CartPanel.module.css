@@ -78,21 +78,6 @@
   color: var(--soft-on-wine);
 }
 
-.count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--soft-badge);
-  height: calc(var(--soft-badge) + var(--space-1-5));
-  padding: 0 var(--space-2);
-  border: var(--border-width) solid var(--soft-tint-on-wine);
-  border-radius: var(--radius-pill);
-  background: var(--soft-tint-on-wine);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  font-variant-numeric: tabular-nums;
-}
-
 .close {
   display: inline-flex;
   align-items: center;

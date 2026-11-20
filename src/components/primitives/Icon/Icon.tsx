@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { cx } from '@/lib/cx';
 import styles from './Icon.module.css';
 
-export type IconName = 'whatsapp' | 'arrow' | 'plus' | 'minus' | 'close' | 'cart' | 'menu' | 'search';
+export type IconName = 'whatsapp' | 'arrow' | 'plus' | 'minus' | 'close' | 'cart' | 'menu' | 'search' | 'truck' | 'brush' | 'shield' | 'filter';
 
 const paths: Record<IconName, ReactNode> = {
   whatsapp: (
@@ -18,6 +18,10 @@ const paths: Record<IconName, ReactNode> = {
   close: <path d="M6 6l12 12M18 6 6 18" />,
   cart: <path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2M9 20.5h.01M17 20.5h.01" />,
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  truck: <path d="M3 6h11v10H3zM14 9h4l3 3v4h-7M7 19.5h.01M17 19.5h.01" />,
+  brush: <path d="M14.5 4.5l5 5-8 8-5-5zM6.5 12.5 4 20l7.5-2.5" />,
+  shield: <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6zM9 12l2 2 4-4" />,
+  filter: <path d="M4 6h16M7 12h10M10 18h4" />,
   search: <path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM15.5 15.5 20 20" />,
 };
 

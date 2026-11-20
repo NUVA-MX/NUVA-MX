@@ -1,0 +1,99 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  min-height: var(--promo-hero-height);
+  background: var(--promo-hero-gradient);
+  color: var(--white);
+  overflow: hidden;
+  --color-text-inverse: var(--white);
+  --color-button-light-bg: var(--promo-blue);
+  --color-button-light-text: var(--promo-wine-dark);
+  --color-button-light-hover: var(--white);
+}
+
+/* Light grain, decorative; masked so it fades out before the white end of the gradient. */
+.root::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.6 -0.2'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+  background-size: var(--promo-grain-size);
+  opacity: var(--promo-grain-opacity);
+  mask-image: linear-gradient(to bottom, var(--black) 0%, var(--black) 55%, transparent 90%);
+  pointer-events: none;
+}
+
+/* Text sits on the wine part of the gradient (top ~55%); the lower part is only the fade to white. */
+.inner {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding-block: var(--space-12) calc(var(--promo-hero-height) * 0.3);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--soft-font-heading);
+  font-weight: var(--weight-display);
+  font-size: var(--display-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--white);
+  text-wrap: balance;
+  animation: hero-rise 320ms var(--ease-out) var(--hero-enter-base, 0ms) both;
+}
+
+.note {
+  margin: 0;
+  color: var(--promo-on-wine-soft);
+  animation: hero-rise 320ms var(--ease-out) calc(var(--hero-enter-base, 0ms) + 60ms) both;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  animation: hero-rise 320ms var(--ease-out) calc(var(--hero-enter-base, 0ms) + 120ms) both;
+}
+
+.outline {
+  border-width: var(--promo-border-width);
+  border-color: var(--white);
+  color: var(--white);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-3));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .note,
+  .actions {
+    animation: none;
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .inner {
+    align-items: stretch;
+    padding-block-end: var(--space-24);
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -17,10 +17,10 @@ export function QueHacemos({ content: q }: { content: EncargoContent['queHacemos
   return (
     <section className={styles.root} aria-labelledby="que-hacemos-title">
       <Container className={styles.inner}>
-        <Reveal className={styles.collage}>
+        <Reveal className={styles.collage} variant="plain">
           {q.images.map((img, i) => (
             <div key={i} className={styles[`tile${i}`]}>
-              <Media src={img.image} alt={img.imageAlt} ratio="fill" sizes="half" />
+              <Media src={img.image} alt={img.imageAlt} ratio="fill" sizes="half" parallax />
             </div>
           ))}
           <Image
@@ -32,8 +32,8 @@ export function QueHacemos({ content: q }: { content: EncargoContent['queHacemos
             aria-hidden="true"
           />
         </Reveal>
-        <Reveal className={styles.copy}>
-          <Eyebrow size="sm" tracking="label">
+        <Reveal className={styles.copy} variant="right" delay={200}>
+          <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
             {q.eyebrow}
           </Eyebrow>
           <Heading level={2} size="2xl" id="que-hacemos-title" className={styles.title}>

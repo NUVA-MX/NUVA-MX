@@ -52,13 +52,13 @@ export function ProcesoStep({ step, index, isLast, stepLabel, phone }: Props) {
             <Ribbon className={styles.zigzag} d="M0 0 C 0 50, 100 50, 100 100" />
           </svg>
         )}
-        <Reveal className={styles.badge}>
+        <Reveal className={styles.badge} variant="scale">
           <span className={styles.numberLabel}>{stepLabel} </span>
           {String(index + 1).padStart(2, '0')}
         </Reveal>
       </div>
-      <Reveal className={styles.photo}>
-        <Media src={step.image} alt={step.imageAlt} ratio="4/3" radius="card" tint={index % 2 ? 'wine' : 'olive'} />
+      <Reveal className={styles.photo} variant="scale">
+        <Media src={step.image} alt={step.imageAlt} ratio="4/3" radius="card" tint={index % 2 ? 'wine' : 'olive'} parallax />
         {/* A sticker on a corner of the card (a different corner per step), so a real photo can fill the card. */}
         <Image
           src={ICONS[step.icon]}
@@ -68,7 +68,7 @@ export function ProcesoStep({ step, index, isLast, stepLabel, phone }: Props) {
           className={cx(styles.icon, styles[CORNERS[index % CORNERS.length]!])}
         />
       </Reveal>
-      <Reveal className={styles.copy}>
+      <Reveal className={styles.copy} delay={120}>
         <h3 className={styles.stepTitle}>{step.title}</h3>
         <p className={styles.body}>{step.body}</p>
         {step.link && (

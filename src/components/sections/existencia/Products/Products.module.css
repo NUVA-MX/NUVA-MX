@@ -1,5 +1,5 @@
 .root {
-  background: var(--promo-blue); /* no white gap between the carousel and the catalog */
+  background: var(--white);
   padding: var(--space-16) 0 var(--space-6);
   scroll-margin-top: var(--nav-offset);
 }

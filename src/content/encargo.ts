@@ -26,8 +26,8 @@ export const encargo = {
   },
   hero: {
     title: 'Merch con identidad.',
-    // TODO(confirm): says up front that there is no cart here.
-    note: 'Aquí no hay carrito: cuéntanos tu idea por WhatsApp y te mandamos mockup y precio.',
+    // No note under the title on /encargo (removed per the client's design, 2026-11-14).
+    note: '',
     primary: { label: 'Hagámoslo realidad', href: '#contactar' },
     // The story is now "how we make it": the secondary action scrolls to the walkthrough.
     secondary: { label: 'Descubre el Proceso', href: '#proceso' },
@@ -56,9 +56,9 @@ export const encargo = {
     cta: { label: 'Get inspired', href: '#proyectos' },
     // TODO(client): three photos for the composition (one square, two portrait).
     images: [
-      { image: null as string | null, imageAlt: 'Composición de gorras NUVA', label: 'Composición: gorras' },
-      { image: null as string | null, imageAlt: 'Detalle de un bordado', label: 'Detalle de bordado' },
-      { image: null as string | null, imageAlt: 'Playera doblada con estampado', label: 'Playera doblada' },
+      { image: '/photos/marca-centro.webp' as string | null, imageAlt: 'Composición de gorras NUVA', label: 'Composición: gorras' },
+      { image: '/photos/marca-abajo.webp' as string | null, imageAlt: 'Detalle de un bordado', label: 'Detalle de bordado' },
+      { image: '/photos/marca-arriba.webp' as string | null, imageAlt: 'Playera doblada con estampado', label: 'Playera doblada' },
     ],
   },
   tecnicas: {
@@ -71,15 +71,15 @@ export const encargo = {
         id: 'bordado',
         name: 'Bordado',
         fact: 'Textura y acabados de calidad que destacan cada detalle',
-        image: null as string | null,
+        image: '/photos/tecnica-bordado.webp' as string | null,
         imageAlt: 'Detalle de un bordado',
         label: 'Foto: bordado de cerca',
       },
       {
         id: 'estampado',
-        name: 'Estampado',
+        name: 'DTF',
         fact: 'Diseños a todo color con gran definición',
-        image: null as string | null,
+        image: '/photos/tecnica-dtf.webp' as string | null,
         imageAlt: 'Prenda con estampado DTF a todo color',
         label: 'Foto: estampado DTF terminado',
       },
@@ -87,7 +87,7 @@ export const encargo = {
         id: 'serigrafia',
         name: 'Serigrafía',
         fact: 'Ideal para personalizar grandes cantidades',
-        image: null as string | null,
+        image: '/photos/tecnica-serigrafia.webp' as string | null,
         imageAlt: 'Lote de piezas con serigrafía',
         label: 'Foto: lote en serigrafía',
       },
@@ -95,7 +95,7 @@ export const encargo = {
         id: 'vinil',
         name: 'Vinil textil',
         fact: 'Ideal para diseños sencillos y colores sólidos',
-        image: null as string | null,
+        image: '/photos/tecnica-vinil.webp' as string | null,
         imageAlt: 'Prenda con diseño en vinil textil',
         label: 'Foto: prenda con vinil textil',
       },
@@ -110,12 +110,14 @@ export const encargo = {
     modal: {
       labels: {
         technique: 'Técnica',
-        minimum: 'Piezas mínimas',
+        minimum: 'Piezas realizadas',
         colors: 'Colores',
-        delivery: 'Entrega',
+        delivery: 'Productos',
       },
       order: 'Hagámoslo realidad',
       quote: 'Cotizar por lote',
+      prevPhoto: 'Foto anterior',
+      nextPhoto: 'Foto siguiente',
     },
     // TODO(confirm)
     cardCta: 'Ver y pedir',
@@ -150,10 +152,10 @@ export const encargo = {
     paragraph:
       'Nuva nació de nuestra pasión por crear y personalizar. Lo que comenzó con una idea se convirtió en un espacio donde ayudamos a otras marcas a dar vida a las suyas. Nos encanta ser parte de cada proyecto, transformar diseños en productos reales y ver la emoción de nuestros clientes al recibir algo que antes solo imaginaban. Cada proyecto es diferente, y eso es lo que más nos gusta de lo que hacemos.',
     // TODO(client): portrait photo of the workshop or the team.
-    image: null as string | null,
+    image: '/photos/sobre-nosotros-grande.webp' as string | null,
     imageAlt: 'El taller de NUVA',
     // Small second frame of the collage; the placeholder art shows while it is null.
-    image2: null as string | null,
+    image2: '/photos/sobre-nosotros-pequena.webp' as string | null,
     image2Alt: 'Detalle del taller de NUVA',
     label: 'Foto: el taller o el equipo',
     stats: [

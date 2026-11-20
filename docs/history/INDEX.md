@@ -6,6 +6,7 @@ later change that reverses a decision is a new record that supersedes it.
 
 | Record | Type | Status | Summary | Links |
 |---|---|---|---|---|
+| [0005-promo-catalog](0005-promo-catalog.md) | feat | accepted | Turn Promocionales into a store catalog with sidebar filters, new cards, drawer and modal |  |
 | [0004-cart-redesign](0004-cart-redesign.md) | feat | accepted | Redesign the Promocionales "Mi lista" drawer with logo, cards and sticky summary |  |
 | [0003-promo-carousel](0003-promo-carousel.md) | feat | accepted | Add an admin-fillable photo carousel at the bottom of Promocionales |  |
 | [0002-promo-restyle](0002-promo-restyle.md) | feat | accepted | Restyle Promocionales with a wine-to-blue gradient system and promo tokens |  |

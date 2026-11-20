@@ -33,7 +33,7 @@
   padding: 0 var(--target-min) 0 var(--space-11);
   border: 0;
   border-radius: var(--promo-radius-button);
-  background: var(--soft-surface);
+  background: var(--promo-surface);
   color: var(--soft-body);
   font-family: var(--soft-font-body);
   font-size: var(--text-md);

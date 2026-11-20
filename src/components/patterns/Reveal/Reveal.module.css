@@ -6,6 +6,28 @@
     transform var(--duration-slow) var(--ease-out);
 }
 
+.scale {
+  transform: translateY(var(--reveal-distance)) scale(0.94);
+}
+
+/* Sideways only where there is room; on phones a sideways offset could widen the page, so they lift instead. */
+@media (min-width: 1024px) {
+  .left {
+    transform: translateX(calc(var(--reveal-distance) * -2));
+  }
+
+  .right {
+    transform: translateX(calc(var(--reveal-distance) * 2));
+  }
+}
+
+/* The box stays put; its children animate from [data-visible='true']. */
+.plain {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .visible {
   opacity: 1;
   transform: none;

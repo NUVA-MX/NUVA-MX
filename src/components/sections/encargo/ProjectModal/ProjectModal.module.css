@@ -60,7 +60,7 @@
 }
 
 .title {
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: var(--weight-display);
   font-size: var(--display-xl);
   line-height: var(--leading-title);
@@ -119,4 +119,50 @@
   .actions {
     flex-direction: column;
   }
+}
+
+/* Photo arrows: 44px targets over the photo; prev flips the arrow icon. */
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  transform: translateY(-50%);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.arrow:hover {
+  background: var(--color-bg);
+}
+
+.prev {
+  left: var(--space-3);
+}
+
+.prev svg {
+  transform: scaleX(-1);
+}
+
+.next {
+  right: var(--space-3);
+}
+
+.counter {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
 }

@@ -12,7 +12,7 @@ export function Tecnicas({ content: t }: { content: EncargoContent['tecnicas'] }
     <section className={styles.root} aria-labelledby="tecnicas-title">
       <Container>
         <Reveal className={styles.head}>
-          <Eyebrow size="sm" tracking="label">
+          <Eyebrow size="sm" tracking="label" className={styles.eyebrow}>
             {t.eyebrow}
           </Eyebrow>
           <Heading level={2} size="2xl" id="tecnicas-title" className={styles.title}>
@@ -20,10 +20,10 @@ export function Tecnicas({ content: t }: { content: EncargoContent['tecnicas'] }
           </Heading>
         </Reveal>
         <ul className={styles.list}>
-          {t.items.map((item) => (
+          {t.items.map((item, i) => (
             <li key={item.id}>
-              <Reveal className={styles.card}>
-                <Media src={item.image} alt={item.imageAlt} ratio="4/5" radius="card" sizes="tecnica" />
+              <Reveal className={styles.card} variant="scale" delay={i * 120}>
+                <Media src={item.image} alt={item.imageAlt} ratio="4/5" radius="card" sizes="tecnica" parallax />
                 <h3 className={styles.name}>{item.name}</h3>
                 <p className={styles.fact}>{item.fact}</p>
               </Reveal>

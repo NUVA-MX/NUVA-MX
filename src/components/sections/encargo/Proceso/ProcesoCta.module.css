@@ -17,21 +17,27 @@
   z-index: -1;
   object-fit: cover;
   pointer-events: none;
+  /* Zoomed in and with more contrast so the "n" of the pattern reads clearly (client's design). */
+  transform: scale(1.35);
+  filter: brightness(0.89) contrast(1.15) saturate(1);
 }
 
 .ctaTitle {
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
+  font-family: var(--font-title);
+  font-weight: 800; /* bold title (client's design) */
   font-size: var(--display-xl);
   line-height: var(--leading-title);
   color: var(--color-text);
 }
 
 .ctaBody {
-  max-width: var(--measure-lead);
-  margin-top: var(--space-3);
-  font-size: var(--text-lg);
-  line-height: var(--leading-body);
+  /* Narrower, evenly balanced lines under the title so it reads as one calm block. */
+  max-width: 46ch;
+  margin-top: var(--space-4);
+  font-size: var(--text-xl);
+  line-height: var(--leading-lead);
+  font-weight: var(--weight-medium);
+  text-wrap: balance;
   color: var(--color-text);
 }
 

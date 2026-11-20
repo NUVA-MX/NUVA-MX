@@ -8,13 +8,15 @@ type Props = {
   totalLabel?: string;
   totalNote?: string;
   sendHref: string;
+  onBuy?: () => void;
+  hasUnpriced?: boolean;
   sendState: 'ready' | 'pending';
   sendNote?: string;
-  labels: Pick<CartPanelLabels, 'total' | 'send' | 'note' | 'verifying'>;
+  labels: Pick<CartPanelLabels, 'total' | 'send' | 'note' | 'verifying' | 'buy' | 'unpricedNote'>;
 };
 
 /** Sticky summary of "Mi lista": subtotal, the send-to-WhatsApp button and a note. */
-export function CartPanelFooter({ totalLabel, totalNote, sendHref, sendState, sendNote, labels }: Props) {
+export function CartPanelFooter({ totalLabel, totalNote, sendHref, onBuy, hasUnpriced, sendState, sendNote, labels }: Props) {
   return (
     <div className={styles.footer}>
       {totalLabel !== undefined && (
@@ -26,12 +28,18 @@ export function CartPanelFooter({ totalLabel, totalNote, sendHref, sendState, se
           <span className={styles.totalValue}>{totalLabel}</span>
         </div>
       )}
+      {totalLabel !== undefined && hasUnpriced && labels.unpricedNote && <p className={styles.unpriced}>{labels.unpricedNote}</p>}
+      {onBuy && labels.buy && (
+        <Button size="lg" block disabled={sendState === 'pending'} onClick={onBuy} className={styles.send}>
+          {labels.buy}
+        </Button>
+      )}
       {sendState === 'pending' ? (
-        <Button icon="whatsapp" size="lg" block disabled className={styles.send}>
+        <Button variant="secondary" icon="whatsapp" size="lg" block disabled className={styles.quote}>
           {labels.verifying}
         </Button>
       ) : (
-        <Button href={sendHref} external icon="whatsapp" size="lg" block className={styles.send}>
+        <Button variant="secondary" href={sendHref} external icon="whatsapp" size="lg" block className={styles.quote}>
           {labels.send}
         </Button>
       )}

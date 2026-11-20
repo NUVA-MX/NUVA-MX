@@ -21,7 +21,7 @@
 
 .title {
   margin: var(--space-2-5) 0 var(--space-2);
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: var(--weight-display);
   font-size: var(--display-step);
   line-height: var(--leading-title);

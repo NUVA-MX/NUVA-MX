@@ -1,6 +1,6 @@
 /* Re-points the theme tokens to the "soft" palette, so shared patterns (skeleton, status, buttons) follow it. */
 .root {
-  --color-bg: var(--promo-blue);
+  --color-bg: var(--white);
   --color-surface: var(--soft-surface);
   --color-placeholder: var(--soft-tint);
   --color-text: var(--soft-body);
@@ -14,92 +14,45 @@
   --color-link: var(--soft-wine);
   --shadow-card: none;
   padding: var(--promo-pad-top) 0 var(--promo-pad-bottom);
-  background: var(--promo-blue);
+  background: var(--white);
   color: var(--soft-body);
   font-family: var(--soft-font-body);
   scroll-margin-top: var(--nav-offset);
 }
 
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-5) var(--space-6);
-  margin-bottom: var(--space-6);
+.layout {
+  display: block;
 }
 
-.heading {
-  min-width: 0;
+.sidebar {
+  display: none;
 }
 
-.title {
-  margin: 0;
-  font-family: var(--soft-font-heading);
-  font-weight: var(--weight-light);
-  font-size: var(--soft-title);
-  letter-spacing: -0.03em;
-  line-height: var(--leading-none);
-  color: var(--soft-heading);
-}
-
-.intro {
-  margin: var(--space-2-5) 0 0;
-  max-width: var(--measure-body);
-  font-size: var(--text-xl);
-  color: var(--soft-muted);
-}
-
-/* Mobile: search and sort stack at full width under the intro. */
-.tools {
-  display: flex;
-  flex: 1 1 100%;
-  flex-direction: column;
-  gap: var(--space-3);
-  min-width: 0;
-}
-
-.search,
-.sort {
-  width: 100%;
+.results {
   min-width: 0;
 }
 
 /* see src/styles/breakpoints.ts */
-@media (min-width: 640px) {
-  .tools {
-    flex: 1 1 auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+@media (min-width: 900px) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--promo-sidebar-width) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
   }
 
-  .search {
-    flex: 1 1 var(--soft-search-width);
-    width: auto;
-    max-width: var(--soft-search-width);
-  }
-
-  .sort {
-    flex: 1 1 var(--soft-sort-width);
-    width: auto;
-    max-width: var(--soft-sort-width);
+  .sidebar {
+    display: block;
+    position: sticky;
+    top: calc(var(--nav-offset) + var(--space-4));
   }
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--soft-card-min), 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--promo-card-min), 100%), 1fr));
   gap: var(--soft-grid-gap);
   align-items: stretch;
-}
-
-/* see src/styles/breakpoints.ts (sm = 640): two columns from 360px instead of one very wide card */
-@media (max-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--soft-card-min-phone), 100%), 1fr));
-    gap: var(--soft-grid-gap-phone);
-  }
 }
 
 .empty {

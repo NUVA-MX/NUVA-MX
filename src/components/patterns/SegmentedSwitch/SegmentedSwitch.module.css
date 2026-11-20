@@ -9,12 +9,15 @@
 }
 
 .option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-1-5) var(--space-3);
   border-radius: var(--radius-pill);
   font-size: var(--text-2xs);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-button);
-  line-height: var(--leading-body);
+  line-height: 1; /* a whole-pixel line box: the label and the dot center the same way on every screen */
   white-space: nowrap;
   color: var(--color-text-muted);
   transition:

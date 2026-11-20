@@ -35,7 +35,7 @@ describe('resolveEncargo', () => {
     expect(c.hero.imageAlt).toBe('Hero alt');
     expect(c.queHacemos.title).toBe('Nuevo');
     expect(c.queHacemos.eyebrow).toBe(encargo.queHacemos.eyebrow);
-    expect(c.queHacemos.images[0].image).toBe(null);
+    expect(c.queHacemos.images[0].image).toBe(encargo.queHacemos.images[0].image);
     expect(c.queHacemos.images[1]).toMatchObject({ image: url('q1'), imageAlt: 'Detalle', label: encargo.queHacemos.images[1].label });
     expect(c.tecnicas.items[1]).toMatchObject({ id: 'estampado', name: 'DTF', fact: encargo.tecnicas.items[1].fact });
     expect(c.tecnicas.items[2].image).toBe(url('t2'));
@@ -126,9 +126,9 @@ describe('marquee', () => {
 });
 
 describe('default projects', () => {
-  it('maps the 6 hard-coded projects to valid rows and back', () => {
+  it('maps the hard-coded projects to valid rows and back', () => {
     const rows = defaultProjectRows();
-    expect(rows).toHaveLength(6);
+    expect(rows).toHaveLength(projects.length);
     rows.forEach((r, i) => {
       const back = rowToProject({ ...r, id: projects[i].id }, HOST);
       expect(back).toEqual(projects[i]);

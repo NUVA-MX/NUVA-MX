@@ -1,11 +1,9 @@
 'use client';
 
-import { HoldStepButton, Quantity } from '@/components/patterns/HoldStepButton';
-import { Icon } from '@/components/primitives/Icon';
 import { Media } from '@/components/primitives/Media';
-import { MAX_QTY } from '@/lib/cart/reducer';
 import type { CatalogCard as CatalogCardData } from '@/lib/catalog/types';
 import { fillTemplate, formatMXN } from '@/lib/format';
+import { CardAction } from './CardAction';
 import styles from './CatalogCard.module.css';
 
 export type CatalogPrefetch = { prefetch: (code: string) => void; prefetchSoon: (code: string) => void; cancelSoon: () => void };
@@ -14,7 +12,13 @@ export type CatalogCardLabels = {
   add: string;
   /** "En mi lista · {n}" */
   inList: string;
-  from: string;
+  /** Next to the piece count in the stepper. */
+  inListCount: string;
+  perPiece: string;
+  /** Shown instead of a price while the API sends none. */
+  quote: string;
+  /** Tag next to a published price: it is the price before personalizing. */
+  priceTag: string;
   addAria: string;
   /** "{name}: {n} en mi lista, ver detalle" */
   inListAria: string;
@@ -37,21 +41,21 @@ type Props = {
 };
 
 /**
- * Catalog card: square photo flush with the card (opens the detail), category and monospace code, name, and a bottom row with the price
- * (only when the API sends one) and the action: "+ Agregar", a quantity pill, or "En mi lista · n" for several colors.
+ * Catalog card: square photo tile, category and monospace code, name, the price per piece (or the quote line while the API
+ * sends none) and one action. Clicking the card opens the detail; the photo is also a real button for keyboard and screen readers.
+ * Colors, stock and badges live in the detail, not here.
  */
 export function CatalogCard({ card, labels, qty, onAdd, onSetQty, onOpen, prefetch }: Props) {
-  const vars = { name: card.name, n: qty };
-  const several = card.variantCount > 1;
   return (
     <article
       className={styles.root}
+      onClick={() => onOpen(card.code)}
       onPointerEnter={(e) => e.pointerType === 'mouse' && prefetch?.prefetchSoon(card.code)}
       onPointerLeave={() => prefetch?.cancelSoon()}
       onFocus={() => prefetch?.prefetch(card.code)}
       onTouchStart={() => prefetch?.prefetch(card.code)}
     >
-      <button type="button" className={styles.photo} aria-label={fillTemplate(labels.viewDetailAria, vars)} onClick={() => onOpen(card.code)}>
+      <button type="button" className={styles.photo} aria-label={fillTemplate(labels.viewDetailAria, { name: card.name })}>
         <Media src={card.image} alt="" ratio="1/1" sizes="grid" />
       </button>
       <div className={styles.body}>
@@ -61,50 +65,25 @@ export function CatalogCard({ card, labels, qty, onAdd, onSetQty, onOpen, prefet
         </div>
         <h3 className={styles.name}>{card.name}</h3>
         <div className={styles.bottom}>
-          {card.price !== null && (
+          {card.price !== null ? (
             <p className={styles.price}>
-              <span className={styles.from}>{labels.from}</span>
               <span className={styles.amount}>{formatMXN(card.price)}</span>
+              <span className={styles.unit}>{labels.perPiece}</span>
+              <span className={styles.tag}>{labels.priceTag}</span>
             </p>
+          ) : (
+            <p className={styles.quote}>{labels.quote}</p>
           )}
-          <div>
-            {qty === 0 && (
-              <button type="button" className={styles.add} aria-label={fillTemplate(labels.addAria, vars)} onClick={() => onAdd(card)}>
-                {labels.add}
-              </button>
-            )}
-            {qty > 0 && several && (
-              <button type="button" className={styles.inList} aria-label={fillTemplate(labels.inListAria, vars)} onClick={() => onOpen(card.code)}>
-                {fillTemplate(labels.inList, vars)}
-              </button>
-            )}
-            {qty > 0 && !several && (
-              <div className={styles.stepper} role="group" aria-label={fillTemplate(labels.qtyAria, vars)}>
-                <HoldStepButton
-                  value={qty}
-                  direction={-1}
-                  max={MAX_QTY}
-                  onChange={(n) => onSetQty(card.code, n)}
-                  className={styles.step}
-                  ariaLabel={fillTemplate(labels.decreaseAria, vars)}
-                >
-                  <Icon name="minus" />
-                </HoldStepButton>
-                <Quantity value={qty} className={styles.qty} />
-                <HoldStepButton
-                  value={qty}
-                  direction={1}
-                  max={MAX_QTY}
-                  disabled={qty >= MAX_QTY}
-                  onChange={(n) => onSetQty(card.code, n)}
-                  className={styles.step}
-                  ariaLabel={fillTemplate(labels.increaseAria, vars)}
-                >
-                  <Icon name="plus" />
-                </HoldStepButton>
-              </div>
-            )}
-          </div>
+          <CardAction
+            code={card.code}
+            name={card.name}
+            qty={qty}
+            several={card.variantCount > 1}
+            labels={labels}
+            onAdd={() => onAdd(card)}
+            onSetQty={onSetQty}
+            onOpen={onOpen}
+          />
         </div>
       </div>
     </article>

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Catalog } from '@/components/sections/existencia/Catalog';
 import { Envios } from '@/components/sections/existencia/Envios';
+import { Marquee } from '@/components/patterns/Marquee';
+import { ReassuranceStrip } from '@/components/sections/existencia/ReassuranceStrip';
 import { Hero } from '@/components/sections/existencia/Hero';
 import { PromoCarousel } from '@/components/sections/existencia/PromoCarousel';
 import { Products } from '@/components/sections/existencia/Products';
@@ -22,6 +24,8 @@ export default async function ExistenciaPage() {
   return (
     <>
       <Hero />
+      <Marquee text={existencia.marquee} image={{ src: '/brand/cinta-from-brand-negro.png', width: 1406, height: 144 }} />
+      <ReassuranceStrip />
       <Products />
       <Catalog />
       <PromoCarousel content={content.promoCarousel} />

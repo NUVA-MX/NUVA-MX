@@ -32,6 +32,7 @@ export function useCatalogToggle(openDetail: (code: string) => void): CatalogTog
           price: product.price,
           stock: null,
         });
+        cart.openCart();
       })
       .catch(() => openDetail(card.code));
   }

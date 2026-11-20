@@ -9,7 +9,12 @@ export const existenciaCatalog = {
     searchLabel: 'Buscar producto o código',
     searchPlaceholder: 'Buscar producto o código',
     searchClear: 'Borrar búsqueda',
-    categoriesLabel: 'Categorías',
+    categoryHeading: 'Categoría',
+    filtersButton: 'Filtros',
+    filtersTitle: 'Filtros',
+    closeFilters: 'Cerrar filtros',
+    apply: 'Aplicar',
+    sidebarLabel: 'Filtros del catálogo',
     allCategories: 'Todas',
     sortLabel: 'Ordenar',
     sort: { name: 'Nombre A–Z', name_desc: 'Nombre Z–A', price_asc: 'Precio menor a mayor', price_desc: 'Precio mayor a menor' },
@@ -38,10 +43,15 @@ export const existenciaCatalog = {
     unknown: 'Por confirmar',
   },
   card: {
-    add: '+ Agregar',
+    add: '+ Agregar a mi lista',
     // TODO(client): shown in the burgundy pill when a several-color product is in the list ({n} pieces).
     inList: 'En mi lista · {n}',
-    from: 'desde',
+    // Next to the piece count in the stepper of a one-color product in the list.
+    inListCount: 'en tu lista',
+    perPiece: '/ pieza',
+    quote: 'Precio por cotización',
+    // Small tag next to a published price: it is the price before personalization and shipping.
+    priceTag: 'Antes de personalizar',
     addAria: 'Agregar {name} a mi lista',
     inListAria: '{name}: {n} en mi lista, ver detalle',
     qtyAria: 'Cantidad de {name}',
@@ -51,13 +61,25 @@ export const existenciaCatalog = {
   },
   // TODO(client): list drawer additions.
   drawer: {
+    titleCount: 'Mi lista · {n}',
     subtotal: 'Subtotal estimado',
-    priceNote: 'Precio sin personalización',
-    skuLine: '{sku} · {total}',
+    priceTag: 'Antes de personalizar',
+    // Shown under the subtotal when some pieces have no published price and are left out of it.
+    unpricedNote: 'No incluye piezas con precio por cotización.',
+    shippingNote: 'Envío y personalización se calculan después.',
+    buy: 'Comprar al precio publicado',
+    quote: 'Cotizar con mi logo por WhatsApp',
+    skuLine: '{sku} · {price}',
   },
   envios: {
     designTitle: '¿Algo con tu diseño?',
     designBody: 'Descubre nuestra línea de playeras, sudaderas, gorras, tote bags y más, hechas para llevar tu estilo o el de tu marca.',
+  },
+  // WhatsApp quote message: every line shows the code, the name and the quantity.
+  quoteMessage: {
+    header: 'Hola Nuva, quiero cotizar con mi logo estos productos:',
+    line: '• {code} · {name} · {qty} pzs',
+    lineNoCode: '• {name} · {qty} pzs',
   },
   fab: { label: 'Pedir mi lista por WhatsApp' },
   detail: {
@@ -83,17 +105,14 @@ export const existenciaCatalog = {
     colorsSelected: 'Color: {tone}',
     colorsNone: 'Elige un color',
     colorOut: '{tone} (agotado)',
+    quantity: 'Cantidad',
     add: 'Añadir a mi lista',
     added: 'En tu lista · {n}',
     addAria: 'Añadir {name} en {tone} a mi lista',
     outNotice: 'Este color está agotado. Pregúntanos por otras opciones.',
     noVariants: 'Consulta los colores disponibles por WhatsApp.',
-    ask: 'Preguntar por WhatsApp',
-    // TODO(client): WhatsApp question about a catalog product.
-    askTemplate: 'Hola Nuva, quiero información de "{name}" (código {code}).',
     notice: 'Precio y tiempo de entrega por confirmar',
-    // TODO(client): note under the price.
-    priceNote: 'No incluye personalización',
+    priceTag: 'Antes de personalizar',
     // TODO(client): shown instead of `notice` when the price is visible.
     noticeWithPrice: 'Tiempo de entrega por confirmar',
   },

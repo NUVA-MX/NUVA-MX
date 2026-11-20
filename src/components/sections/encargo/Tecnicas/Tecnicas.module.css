@@ -8,6 +8,7 @@
 
 .head .title {
   margin-top: var(--space-3);
+  font-weight: 800; /* bold (client's design) */
   line-height: var(--leading-title);
 }
 
@@ -26,7 +27,7 @@
 
 .name {
   margin-top: var(--space-4);
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: var(--weight-display);
   font-size: var(--display-sm);
   line-height: var(--leading-title);
@@ -53,4 +54,9 @@
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-6);
   }
+}
+
+/* Project orange (large-text orange), per the client's design. */
+.head .eyebrow {
+  color: var(--orange-600);
 }

@@ -3,7 +3,6 @@
 import { Button } from '@/components/primitives/Button';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Icon } from '@/components/primitives/Icon';
-import { Media } from '@/components/primitives/Media';
 import { InfoGrid } from '@/components/patterns/InfoGrid';
 import { Modal } from '@/components/patterns/Modal';
 import type { Project } from '@/content/projects';
@@ -12,6 +11,7 @@ import { ui } from '@/content/ui';
 import type { EncargoContent } from '@/lib/content/encargo-merge';
 import { fillTemplate } from '@/lib/format';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
+import { ProjectGallery } from './ProjectGallery';
 import styles from './ProjectModal.module.css';
 
 type Props = { project: Project | null; content: EncargoContent['projects']; onClose: () => void };
@@ -25,6 +25,7 @@ const TITLE_ID = 'project-modal-title';
  */
 export function ProjectModal({ project, content: t, onClose }: Props) {
   const m = t.modal;
+  const photos = project ? (project.gallery?.length ? project.gallery : project.image ? [project.image] : []) : [];
   return (
     <Modal
       open={project !== null}
@@ -43,7 +44,13 @@ export function ProjectModal({ project, content: t, onClose }: Props) {
           </div>
           <div className={styles.root}>
             <div className={styles.media}>
-              <Media src={project.image} alt={project.imageAlt} ratio="fill" sizes="modal" />
+              <ProjectGallery
+                key={project.id}
+                photos={photos}
+                alt={project.imageAlt}
+                prevLabel={m.prevPhoto}
+                nextLabel={m.nextPhoto}
+              />
             </div>
             <div className={styles.content}>
               <Eyebrow size="sm" tracking="label">

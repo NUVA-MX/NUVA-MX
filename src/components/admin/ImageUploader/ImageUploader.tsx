@@ -25,6 +25,7 @@ type Props = {
 };
 
 const MAX_BYTES = 5 * 1024 * 1024;
+const MAX_INPUT_BYTES = 30 * 1024 * 1024;
 const ACCEPT = 'image/jpeg,image/png,image/webp,image/avif';
 
 export function ImageUploader({ name, defaultUrl, enabled, prefix = UPLOAD_PREFIX, label, previewAlt, section }: Props) {
@@ -37,7 +38,8 @@ export function ImageUploader({ name, defaultUrl, enabled, prefix = UPLOAD_PREFI
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
-    if (!ACCEPT.split(',').includes(file.type) || file.size > MAX_BYTES) {
+    // Raw photos can be large (phones); they are shrunk below. The real cap applies to what is uploaded.
+    if (!ACCEPT.split(',').includes(file.type) || file.size > MAX_INPUT_BYTES) {
       setStatus('error');
       return;
     }
@@ -45,6 +47,10 @@ export function ImageUploader({ name, defaultUrl, enabled, prefix = UPLOAD_PREFI
     try {
       const webp = await reencodeToWebp(file, MAX_BYTES);
       const body = webp ?? file;
+      if (body.size > MAX_BYTES) {
+        setStatus('error');
+        return;
+      }
       const pathname = buildUploadName(prefix, file.name, section, webp !== null);
       const blob = await upload(pathname, body, { access: 'public', handleUploadUrl: '/api/admin/upload' });
       setUrl(blob.url);

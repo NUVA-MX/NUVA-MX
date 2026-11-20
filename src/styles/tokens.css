@@ -168,6 +168,7 @@
 /* 1.4 Typography */
 :root {
   --font-display: var(--font-darker-grotesque), 'Darker Grotesque', system-ui, sans-serif;
+  --font-title: var(--font-display); /* headings; Merch page overrides it, see [data-theme='taller'] below */
   --font-body: var(--font-acumin), 'Acumin Variable Concept', system-ui, sans-serif;
   --weight-regular: 400;
   --weight-medium: 500;
@@ -406,7 +407,18 @@
   --wine-700: #5d2638; /* accent: labels, links, numbers, chips (8.1:1 on #d6d7d3) */
   --orange-500: #c56742; /* background only, with black text (5.4:1); never orange text */
   --orange-600: #b85a38; /* the orange allowed for large text on the page background: 3.2:1 on #d6d7d3 */
+  /* /encargo hero: green dominant, near-black at the top, near-white at the bottom. */
+  /* Stops sampled (row-averaged) from degradado_verde.png, pre-compensated for the grain layer's slight lift, at 0/15/30/45/60/75/90/100% of its height. */
+  --hero-merch-top: #353e1e;
+  --hero-merch-s15: #474f2f;
+  --hero-merch-s30: #5d6448;
+  --hero-merch-mid: #656c4e;
+  --hero-merch-s60: #727959;
+  --hero-merch-s75: #7f8665;
+  --hero-merch-s90: #8b9371;
+  --hero-merch-bottom: #969e7c;
   --lemon-200: #e2e5ad; /* primary text on green */
+  --footer-text: #d5d8d2; /* all footer text on the olive band (Merch and Promocionales), client's color */
   --sky-300: #a4bbcc; /* secondary text on green */
   --wine-600: #6a3748; /* image fill on a wine panel (wine-700 lightened, derived); lemon 7.4:1 */
 }
@@ -444,6 +456,13 @@
   --color-button-light-hover: var(--color-bg);
   --color-marquee-bg: var(--color-surface-inverse);
   --color-marquee-text: var(--color-text-inverse);
+}
+
+/* Merch page (/encargo, and its portaled modal): DM Serif Display for all text. One weight only, so no synthetic bold. */
+[data-theme='taller']:not([data-side='existencia']) {
+  --font-title: var(--font-dm-serif), 'DM Serif Display', Georgia, serif;
+  --font-body: var(--font-title);
+  font-synthesis: none;
 }
 
 [data-theme='taller'] {
@@ -577,6 +596,16 @@
   --promo-fab-height: 54px;
   --promo-counter: 24px;
   --promo-chevron: 8px;
+  --promo-tile-radius: 12px;
+  --promo-card-radius: 18px;
+  --promo-card-lift: -4px;
+  --promo-card-min: 220px;
+  --promo-sidebar-width: 220px;
+  --promo-card-shadow: 0 1px 2px rgba(42, 21, 32, 0.05), 0 6px 16px rgba(42, 21, 32, 0.06);
+  --promo-card-shadow-hover: 0 2px 4px rgba(42, 21, 32, 0.06), 0 16px 32px rgba(42, 21, 32, 0.12);
+  --promo-action-height: 44px;
+  --promo-price-size: 20px;
+  --promo-sheet-height: 85vh;
 
   /* Promocionales palette (2026-11 restyle spec): the only colors of that side. --promo-blue is the hero gradient's end. */
   --promo-wine: #67243b; /* actions, active chip, active switch pill, footer */
@@ -585,6 +614,9 @@
   --promo-blue-soft: #e4e9ed; /* product photo bg */
   --promo-ink: #2a1520; /* body text */
   --promo-ink-muted: #4a3f44; /* secondary text: >= 4.5:1 on white and on --promo-blue */
+  --promo-surface: #f2f5f7; /* tiles, search field, hover rows */
+  --promo-line: #e3e7eb; /* 1px rules and card borders */
+  --promo-photo-hover: #e3e9ee; /* card photo tile while the card is hovered */
   --promo-on-wine-soft: #f3e8ec; /* subtitle over the wine part of the hero (>= 7:1) */
 
   /* Promocionales hero */
@@ -594,11 +626,12 @@
     var(--promo-wine) 0%,
     #6e3046 30%,
     #7b4a59 48%,
-    #8c6a80 62%,
-    #9f8ea2 74%,
-    #b0aebe 86%,
-    var(--promo-blue) 100%
+    #93747c 62%,
+    #aa9c9d 76%,
+    var(--promo-blue) 88%,
+    #ffffff 100%
   );
+  --promo-hero-height: 460px;
   --promo-grain-opacity: 0.07;
   --promo-grain-size: 240px; /* tile of the grain; matches the SVG */
 }

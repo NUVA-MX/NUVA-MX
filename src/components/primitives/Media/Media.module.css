@@ -74,3 +74,25 @@
 .img {
   object-fit: cover;
 }
+
+/* Scroll-linked drift: the photo is slightly oversized and slides inside its frame as the frame crosses the viewport. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax {
+      scale: 1.14;
+      animation: media-drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    @keyframes media-drift {
+      from {
+        translate: 0 -5%;
+      }
+
+      to {
+        translate: 0 5%;
+      }
+    }
+  }
+}

@@ -28,9 +28,11 @@ export function Hero({ content: h, primaryIcon = 'whatsapp' }: HeroProps) {
           <h1 id="hero-title" className={cx(styles.title, promo.title)}>
             {h.title}
           </h1>
-          <Text size="lg" tone="inverse" measure="body" className={cx(styles.note, promo.note)}>
-            {h.note}
-          </Text>
+          {h.note && (
+            <Text size="lg" tone="inverse" measure="body" className={cx(styles.note, promo.note)}>
+              {h.note}
+            </Text>
+          )}
         </div>
         <div className={cx(styles.actions, promo.actions)}>
           <Button

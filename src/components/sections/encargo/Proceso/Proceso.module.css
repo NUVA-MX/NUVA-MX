@@ -9,6 +9,8 @@
 
 .head .title {
   margin-top: var(--space-3);
+  font-weight: 800; /* bold, project dark green (client's design) */
+  color: var(--olive-900);
   line-height: var(--leading-title);
 }
 

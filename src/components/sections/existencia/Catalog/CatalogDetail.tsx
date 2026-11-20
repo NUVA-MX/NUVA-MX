@@ -1,23 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/primitives/Button';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Media } from '@/components/primitives/Media';
 import { InfoGrid, type InfoItem } from '@/components/patterns/InfoGrid';
 import { Pill } from '@/components/primitives/Pill';
 import { SwatchPicker } from '@/components/patterns/SwatchPicker';
 import { existenciaCatalog as copy } from '@/content/existencia-catalog';
-import { site } from '@/content/site';
-import { catalogCartId, catalogLineName } from '@/lib/catalog/cart-line';
 import type { CatalogDetail as Detail } from '@/lib/catalog/types';
-import { useCart } from '@/lib/cart/CartContext';
-import { isAtMaxQty } from '@/lib/cart/reducer';
 import { fillTemplate, formatMXN } from '@/lib/format';
-import { buildWhatsAppLink } from '@/lib/whatsapp';
+import { DetailActions } from './DetailActions';
 import styles from './CatalogDetail.module.css';
 
-type Props = { product: Detail; titleId: string };
+type Props = { product: Detail; titleId: string; onAdded: () => void };
 
 const AVAILABILITY_TONE = { available: 'status-ok', low: 'status-low', out: 'status-out', unknown: 'neutral' } as const;
 
@@ -30,9 +25,8 @@ function specItems(specs: Detail['specs']): InfoItem[] {
 }
 
 /** Product detail inside the modal: photos, description, specs, color choice and the "add to my list" action. */
-export function CatalogDetail({ product, titleId }: Props) {
+export function CatalogDetail({ product, titleId, onAdded }: Props) {
   const d = copy.detail;
-  const cart = useCart();
   const firstOpen = product.variants.find((v) => v.availability !== 'out');
   const [variantCode, setVariantCode] = useState<string | null>((firstOpen ?? product.variants[0])?.code ?? null);
   const [shown, setShown] = useState<string | null>(null);
@@ -40,25 +34,11 @@ export function CatalogDetail({ product, titleId }: Props) {
   const variant = product.variants.find((v) => v.code === variantCode) ?? null;
   const gallery = [...new Set([product.image, ...product.images].flatMap((u) => u ?? []))];
   const main = shown ?? variant?.image ?? gallery[0] ?? null;
-  const cartId = variant ? catalogCartId(product.code, variant.code) : '';
-  const qty = variant ? cart.qtyOf(cartId) : 0;
-  const unavailable = !variant || variant.availability === 'out' || isAtMaxQty(qty, null);
   const specs = specItems(product.specs);
-  const vars = { name: product.name, tone: variant?.tone ?? '', n: qty };
 
   function pick(code: string) {
     setVariantCode(code);
     setShown(null);
-  }
-
-  function add() {
-    if (!variant) return;
-    cart.add({
-      id: cartId,
-      name: catalogLineName(copy.listItemName, { name: product.name, tone: variant.tone, code: variant.code }),
-      price: product.price,
-      stock: null,
-    });
   }
 
   return (
@@ -96,7 +76,7 @@ export function CatalogDetail({ product, titleId }: Props) {
         {product.price !== null && (
           <p className={styles.price}>
             <span className={styles.amount}>{formatMXN(product.price)}</span>
-            <span className={styles.priceNote}>{d.priceNote}</span>
+            <span className={styles.priceTag}>{d.priceTag}</span>
           </p>
         )}
         <div className={styles.status}>
@@ -128,33 +108,7 @@ export function CatalogDetail({ product, titleId }: Props) {
         )}
         {variant?.availability === 'out' && <p className={styles.notice}>{d.outNotice}</p>}
 
-        <div className={styles.actions}>
-          {product.variants.length > 0 && (
-            <Button
-              size="xl"
-              block
-              variant={qty > 0 ? 'secondary' : 'primary'}
-              disabled={unavailable}
-              ariaLabel={fillTemplate(d.addAria, vars)}
-              onClick={add}
-            >
-              {qty > 0 ? fillTemplate(d.added, vars) : d.add}
-            </Button>
-          )}
-          <Button
-            href={buildWhatsAppLink({
-              phone: site.whatsapp.phone,
-              message: fillTemplate(d.askTemplate, { name: product.name, code: product.code }),
-            })}
-            external
-            size="xl"
-            block
-            variant="secondary"
-            icon="whatsapp"
-          >
-            {d.ask}
-          </Button>
-        </div>
+        <DetailActions product={product} variant={variant} onAdded={onAdded} />
       </div>
     </div>
   );

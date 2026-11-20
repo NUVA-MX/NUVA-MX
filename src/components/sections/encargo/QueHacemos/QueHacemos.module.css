@@ -60,7 +60,8 @@
   gap: var(--space-3);
 }
 
-.title {
+.root .title {
+  font-weight: 800; /* bold (client's design) */
   line-height: var(--leading-title);
   text-wrap: balance;
 }
@@ -81,5 +82,44 @@
   .inner {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-20);
+  }
+}
+
+/* Project orange (large-text orange), per the client's design. */
+.root .eyebrow {
+  color: var(--orange-600);
+}
+
+/* Entrance: the base photo grows in, then the two corner photos settle from above and below, one after the other.
+   Only when motion is allowed and scripts run; otherwise the photos are simply there. */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .tile0,
+  .tile1,
+  .tile2 {
+    opacity: 0;
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  .tile0 {
+    transform: scale(0.92);
+  }
+
+  .tile1 {
+    transform: translateY(-14%) scale(0.94);
+    transition-delay: 200ms;
+  }
+
+  .tile2 {
+    transform: translateY(14%) scale(0.94);
+    transition-delay: 380ms;
+  }
+
+  .collage[data-visible='true'] .tile0,
+  .collage[data-visible='true'] .tile1,
+  .collage[data-visible='true'] .tile2 {
+    opacity: 1;
+    transform: none;
   }
 }

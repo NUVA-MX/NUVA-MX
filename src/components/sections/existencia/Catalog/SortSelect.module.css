@@ -14,11 +14,11 @@
 
 .select {
   width: 100%;
-  height: var(--soft-search-height);
+  height: var(--promo-action-height);
   padding: 0 var(--space-10) 0 var(--space-5);
   border: 0;
   border-radius: var(--promo-radius-button);
-  background: var(--soft-surface);
+  background: var(--promo-surface);
   color: var(--soft-body);
   font-family: var(--soft-font-body);
   font-size: var(--text-md);
