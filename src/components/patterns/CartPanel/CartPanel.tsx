@@ -69,6 +69,8 @@ type Props = {
   emptyAction?: { label: string; onClick: () => void };
   /** data-theme for the portaled panel (it renders outside the PageShell). */
   theme?: string;
+  /** data-side for the portaled panel, same reason as theme. */
+  side?: string;
 };
 
 /** Side dialog with the cart summary and the send-order link. */
@@ -89,11 +91,12 @@ export function CartPanel({
   sendNote,
   emptyAction,
   theme,
+  side,
 }: Props) {
   const titleId = useId();
   const empty = items.length === 0;
   return (
-    <Modal open={open} onClose={onClose} labelledBy={titleId} placement="side" theme={theme} className={styles.box} rootClassName={styles.backdrop}>
+    <Modal open={open} onClose={onClose} labelledBy={titleId} placement="side" theme={theme} side={side} className={styles.box} rootClassName={styles.backdrop}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
           <Image className={styles.logo} src="/brand/logo-nuva-gris.png" alt="NUVA" width={800} height={244} sizes="112px" />

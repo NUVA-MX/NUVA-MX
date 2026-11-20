@@ -61,6 +61,7 @@ export function Cart() {
   return (
     <CartPanel
       theme="taller"
+      side="existencia"
       open={cart.isOpen}
       onClose={cart.closeCart}
       items={cart.items.map((i) => ({

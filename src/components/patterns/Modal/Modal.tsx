@@ -16,6 +16,8 @@ type Props = {
   className?: string;
   /** data-theme for the portaled backdrop (the portal renders outside the PageShell). */
   theme?: string;
+  /** data-side for the portaled backdrop, so the side's own fonts apply inside it (e.g. 'existencia'). */
+  side?: string;
   /** Extra classes on the backdrop (e.g. font variables of the theme). */
   rootClassName?: string;
   children: ReactNode;
@@ -34,6 +36,7 @@ export function Modal({
   placement = 'center',
   className,
   theme,
+  side,
   rootClassName,
   children,
 }: Props) {
@@ -51,6 +54,7 @@ export function Modal({
   return createPortal(
     <div
       data-theme={theme}
+      data-side={side}
       className={cx(styles.backdrop, styles[placement], rootClassName)}
       onMouseDown={(e) => {
         if (e.target !== e.currentTarget) return;

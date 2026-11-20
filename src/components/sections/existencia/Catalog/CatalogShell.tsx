@@ -27,7 +27,9 @@ export function CatalogShell({ card, titleId, failed, onRetry }: Props) {
   return (
     <div ref={root} tabIndex={-1} className={`${detail.root} ${styles.root}`} aria-busy={!failed}>
       <div className={detail.gallery}>
-        <Media src={card.image} alt={card.name} ratio="1/1" sizes="modal" tint="wine" />
+        <div className={detail.main}>
+          <Media src={card.image} alt={card.name} ratio="fill" sizes="modal" tint="wine" />
+        </div>
       </div>
       <div className={detail.content}>
         {eyebrow && (

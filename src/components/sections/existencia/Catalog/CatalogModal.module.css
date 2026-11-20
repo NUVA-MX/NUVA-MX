@@ -57,6 +57,14 @@
   }
 }
 
+/* Tablet and desktop: fixed-height window so both columns can fill it. */
+/* see src/styles/breakpoints.ts */
+@media (min-width: 641px) {
+  .backdrop[data-theme] .sheet {
+    height: var(--modal-max-height);
+  }
+}
+
 /* Phones: the detail is a full-height sheet (no margin, no rounded corners). */
 /* see src/styles/breakpoints.ts */
 @media (max-width: 640px) {

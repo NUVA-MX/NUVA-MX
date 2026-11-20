@@ -20,7 +20,7 @@ export const projects: Project[] = [
     name: 'Hotel Colli',
     technique: 'Bordado',
     tag: '2026',
-    meta: '12 GORRAS',
+    meta: '20 · Gorras y playeras polo',
     detail: { technique: 'Bordado', minimum: '20', colors: 'Blando, Azul, Verde y Gris', delivery: 'Gorras y playeras polo' },
     description:
       'Personalizamos 10 gorras y 10 playeras tipo polo en diferentes colores para el equipo del Hotel Coli, Cada pieza lleva el logotipo bordado en hilo blanco. Creando una linea de merch y uniformes con identidad propia',
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     name: 'Soleil Bags',
     technique: 'Bordado',
     tag: 'gira',
-    meta: '80 PLAYERAS',
+    meta: '25 · Gorras',
     detail: { technique: 'Bordado', minimum: '25', colors: '8 colores con hilos a juego', delivery: 'Gorras' },
     description:
       'Arte a todo color al frente y fechas de gira en la espalda. DTF para no perder detalle en el degradado del cartel.',
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     name: 'Mupreg',
     technique: 'Estampado',
     tag: '2025',
-    meta: '40 SUDADERAS',
+    meta: '150 · Playeras y batas',
     detail: { technique: 'Vinil Textil', minimum: '150', colors: 'Dorado, gris reflejante y negro', delivery: 'Playeras y batas' },
     description:
       'Escudo bordado en pecho y número de jugador en la manga. Producción en dos semanas para la fecha del torneo.',
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     name: 'Vessa & Humo',
     technique: 'Estampado',
     tag: 'evento',
-    meta: '60 TOTES',
+    meta: '20 · Playeras y gorras',
     detail: { technique: 'Bordado y Serigrafía', minimum: '20', colors: 'Hueso, Vino y negro', delivery: 'Playeras y gorras' },
     description:
       'Iniciales y fecha impresas a una tinta sobre lona cruda. Entregado en bolsa individual para la mesa de regalos.',
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     name: 'Virtrade',
     technique: 'Estampado',
     tag: '2026',
-    meta: '200 PARCHES',
+    meta: '60 · Playeras polo',
     detail: { technique: 'Serigrafía', minimum: '60', colors: 'Azul, Verde, Gris, Blanco y Negro', delivery: 'Playeras polo' },
     description:
       'Parche bordado en relieve con respaldo termoadhesivo, pensado para coser en chamarra de mezclilla.',
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     name: 'Ovum',
     technique: 'Estampado',
     tag: 'cápsula',
-    meta: '25 GORROS',
+    meta: '50 · Playeras',
     detail: { technique: 'Serigrafía y vinil textil', minimum: '50', colors: 'Blanco, Negro y Verde', delivery: 'Playeras' },
     description:
       'Cápsula de veinticinco gorros con etiqueta tejida. Cada color en tiraje de cinco para probar demanda antes de escalar.',
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     name: 'Sommusa',
     technique: 'Estampado',
     tag: '2026',
-    meta: 'CAMISOLAS',
+    meta: '500 · Batas de mezclilla y gabardina',
     detail: { technique: 'Serigrafía', minimum: '500', colors: 'Blanco', delivery: 'Batas de mezclilla y gabardina' },
     description: 'Proyecto de estampado para Sommusa.',
     image: null,
