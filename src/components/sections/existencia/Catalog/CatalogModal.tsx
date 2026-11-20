@@ -4,6 +4,7 @@ import { Modal } from '@/components/patterns/Modal';
 import { Icon } from '@/components/primitives/Icon';
 import { existenciaCatalog as copy } from '@/content/existencia-catalog';
 import { ui } from '@/content/ui';
+import { useCart } from '@/lib/cart/CartContext';
 import type { CatalogCard } from '@/lib/catalog/types';
 import type { CatalogItemState } from '@/lib/useCatalogItem';
 import { CatalogDetail } from './CatalogDetail';
@@ -22,15 +23,21 @@ type Props = {
 
 /** Detail window: opens at once with the card data, then swaps in the full product (or a short error with retry). */
 export function CatalogModal({ open, item, preview, onClose }: Props) {
+  const { openCart } = useCart();
+  /** After adding: close the detail and open the list drawer. */
+  function added() {
+    onClose();
+    openCart();
+  }
   return (
-    <Modal open={open} onClose={onClose} labelledBy={TITLE_ID} theme="taller" rootClassName={styles.backdrop}>
+    <Modal open={open} onClose={onClose} labelledBy={TITLE_ID} theme="taller" className={styles.sheet} rootClassName={styles.backdrop}>
       <div className={styles.closeBar}>
         <button type="button" className={styles.close} aria-label={ui.close} onClick={onClose}>
           <Icon name="close" size="md" />
         </button>
       </div>
       {item.status === 'success' && item.product ? (
-        <CatalogDetail key={item.product.code} product={item.product} titleId={TITLE_ID} />
+        <CatalogDetail key={item.product.code} product={item.product} titleId={TITLE_ID} onAdded={added} />
       ) : preview ? (
         <CatalogShell card={preview} titleId={TITLE_ID} failed={item.status === 'error'} onRetry={item.retry} />
       ) : (

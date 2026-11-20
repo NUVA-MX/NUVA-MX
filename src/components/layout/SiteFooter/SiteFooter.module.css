@@ -64,14 +64,14 @@
   height: calc(var(--space-10) - 15px); /* 25px */
 }
 
-/* Promocionales: wine band (via --brand) with white text, no lemon/cream. */
+/* Promocionales: same footer as Merch. Only the band color needs pinning, because --brand is wine on this side; text colors come from the shared theme. */
 :global([data-side='existencia']) .root {
-  --color-text-inverse: var(--white);
-  --color-text-inverse-muted: var(--white);
-  --color-eyebrow-inverse: var(--white);
+  --color-surface-inverse: var(--olive-900);
 }
 
-:global([data-side='existencia']) .link:hover {
-  text-decoration: underline;
-  text-underline-offset: var(--space-1);
+/* Merch and Promocionales footer: every text in one color. */
+:global([data-theme='taller']) .root {
+  --color-text-inverse: var(--footer-text);
+  --color-text-inverse-muted: var(--footer-text);
+  --color-eyebrow-inverse: var(--footer-text);
 }

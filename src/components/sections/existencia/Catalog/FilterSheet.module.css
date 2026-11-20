@@ -1,0 +1,109 @@
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--promo-radius-button);
+  background: var(--promo-surface);
+  color: var(--promo-ink);
+  font-family: var(--soft-font-body);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.trigger:focus-visible,
+.close:focus-visible,
+.apply:focus-visible {
+  outline: var(--focus-width) solid var(--promo-wine);
+  outline-offset: var(--focus-offset);
+}
+
+/* Bottom sheet: pinned to the bottom edge, full width. */
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: var(--promo-sheet-height);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--promo-card-radius) var(--promo-card-radius) 0 0;
+  background: var(--white);
+  color: var(--promo-ink);
+  overflow: hidden;
+}
+
+.sheet::backdrop {
+  background: var(--soft-overlay);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  max-height: var(--promo-sheet-height);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--soft-font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-display);
+  color: var(--promo-wine-dark);
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--promo-ink);
+  cursor: pointer;
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.apply {
+  flex-shrink: 0;
+  min-height: var(--promo-action-height);
+  margin-top: var(--space-4);
+  border: 0;
+  border-radius: var(--promo-radius-button);
+  background: var(--promo-wine);
+  color: var(--white);
+  font-family: var(--soft-font-body);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.apply:hover {
+  background: var(--promo-wine-dark);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 900px) {
+  .trigger {
+    display: none;
+  }
+}

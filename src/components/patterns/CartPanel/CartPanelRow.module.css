@@ -144,3 +144,16 @@
   outline: var(--focus-width) solid var(--soft-wine);
   outline-offset: var(--focus-offset);
 }
+
+/* Small tag after a published price: it is the price before personalizing. */
+.tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--promo-surface);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--promo-ink-muted);
+  white-space: nowrap;
+}

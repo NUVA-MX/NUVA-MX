@@ -8,24 +8,37 @@ export const existencia = {
   },
   // TODO(confirm): announcement copy (facts already on this page).
   announcement: 'Envío en 24 h. Pedido y pago por WhatsApp.',
+  // Strip under the hero: same brand ribbon as the Merch page (text is what screen readers read).
+  marquee: 'From brand to product',
   nav: {
     links: [
       { label: 'Productos', href: '#productos' },
       { label: 'Envíos', href: '#envios' },
     ],
     cart: 'Mi lista ({count})',
+    cartLabel: 'Mi lista',
     cartAria: 'Abrir mi lista, {count} piezas',
   },
   hero: {
     // Same full-bleed photo hero as /encargo (shared component), with this side's copy.
     title: 'Tu marca en todo',
     note: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.',
-    primary: { label: 'Ver productos', href: '#productos' },
+    primary: { label: 'Ver productos', href: '#catalogo' },
     // TODO(client): confirm the secondary action (quote by WhatsApp).
     secondary: { label: 'Cotiza por WhatsApp', href: '#envios' },
     // TODO(client): full-width photo of an in-stock product (same treatment as the Merch hero).
     image: null as string | null,
     imageAlt: 'Foto de producto en stock',
+  },
+  // Four claims under the hero; the last one links to the WhatsApp CTA used on the page.
+  reassurance: {
+    label: 'Por qué comprar con NUVA',
+    items: [
+      { icon: 'truck', title: 'Envíos a todo México', body: 'Tiempo según destino' },
+      { icon: 'brush', title: 'Personaliza con tu logo', body: 'Te mandamos mockup' },
+      { icon: 'shield', title: 'Garantía', body: 'Defectos de fabricación' },
+      { icon: 'whatsapp', title: '¿Dudas? WhatsApp', body: 'Te ayudamos a elegir' },
+    ],
   },
   carousel: promoCarousel,
   products: {

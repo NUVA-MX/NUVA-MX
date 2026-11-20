@@ -418,6 +418,7 @@
   --hero-merch-s90: #8b9371;
   --hero-merch-bottom: #969e7c;
   --lemon-200: #e2e5ad; /* primary text on green */
+  --footer-text: #d5d8d2; /* all footer text on the olive band (Merch and Promocionales), client's color */
   --sky-300: #a4bbcc; /* secondary text on green */
   --wine-600: #6a3748; /* image fill on a wine panel (wine-700 lightened, derived); lemon 7.4:1 */
 }
@@ -595,6 +596,16 @@
   --promo-fab-height: 54px;
   --promo-counter: 24px;
   --promo-chevron: 8px;
+  --promo-tile-radius: 12px;
+  --promo-card-radius: 18px;
+  --promo-card-lift: -4px;
+  --promo-card-min: 220px;
+  --promo-sidebar-width: 220px;
+  --promo-card-shadow: 0 1px 2px rgba(42, 21, 32, 0.05), 0 6px 16px rgba(42, 21, 32, 0.06);
+  --promo-card-shadow-hover: 0 2px 4px rgba(42, 21, 32, 0.06), 0 16px 32px rgba(42, 21, 32, 0.12);
+  --promo-action-height: 44px;
+  --promo-price-size: 20px;
+  --promo-sheet-height: 85vh;
 
   /* Promocionales palette (2026-11 restyle spec): the only colors of that side. --promo-blue is the hero gradient's end. */
   --promo-wine: #67243b; /* actions, active chip, active switch pill, footer */
@@ -603,6 +614,9 @@
   --promo-blue-soft: #e4e9ed; /* product photo bg */
   --promo-ink: #2a1520; /* body text */
   --promo-ink-muted: #4a3f44; /* secondary text: >= 4.5:1 on white and on --promo-blue */
+  --promo-surface: #f2f5f7; /* tiles, search field, hover rows */
+  --promo-line: #e3e7eb; /* 1px rules and card borders */
+  --promo-photo-hover: #e3e9ee; /* card photo tile while the card is hovered */
   --promo-on-wine-soft: #f3e8ec; /* subtitle over the wine part of the hero (>= 7:1) */
 
   /* Promocionales hero */
@@ -612,11 +626,12 @@
     var(--promo-wine) 0%,
     #6e3046 30%,
     #7b4a59 48%,
-    #8c6a80 62%,
-    #9f8ea2 74%,
-    #b0aebe 86%,
-    var(--promo-blue) 100%
+    #93747c 62%,
+    #aa9c9d 76%,
+    var(--promo-blue) 88%,
+    #ffffff 100%
   );
+  --promo-hero-height: 460px;
   --promo-grain-opacity: 0.07;
   --promo-grain-size: 240px; /* tile of the grain; matches the SVG */
 }

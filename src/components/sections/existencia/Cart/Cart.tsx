@@ -10,14 +10,15 @@ import { useCart } from '@/lib/cart/CartContext';
 import type { CartItem } from '@/lib/cart/reducer';
 import type { CartChange } from '@/lib/cart/reconcile';
 import { fillTemplate, formatMXN } from '@/lib/format';
-import { buildOrderMessage } from '@/lib/order';
+import { startCheckout } from '@/lib/catalog/checkout';
+import { buildQuoteMessage } from '@/lib/catalog/quote-message';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 
-/** "SKU · $total" for catalog lines (SKU = variant code from the cart id), the plain price text for the rest. */
+/** "SKU · $price / pieza" for catalog lines (SKU = variant code from the cart id), the plain price text for the rest. */
 function lineLabel(item: CartItem, noPrice: string): string {
-  const total = item.price === null ? noPrice : formatMXN(item.price * item.qty);
-  if (!isCatalogCartId(item.id)) return total;
-  return fillTemplate(catalogCopy.drawer.skuLine, { sku: item.id.split(':')[2] ?? '', total });
+  const price = item.price === null ? noPrice : `${formatMXN(item.price)} ${catalogCopy.card.perPiece}`;
+  if (!isCatalogCartId(item.id)) return price;
+  return fillTemplate(catalogCopy.drawer.skuLine, { sku: item.id.split(':')[2] ?? '', price });
 }
 
 function describe(change: CartChange): string {
@@ -53,8 +54,10 @@ function goToProducts(close: () => void): void {
 export function Cart() {
   const cart = useCart();
   const c = existencia.cart;
-  const message = buildOrderMessage(cart.items, existencia.orderTemplate, formatMXN);
+  const d = catalogCopy.drawer;
+  const message = buildQuoteMessage(cart.items, catalogCopy.quoteMessage);
   const priced = cart.items.some((i) => i.price !== null);
+  const unpriced = cart.items.some((i) => i.price === null);
   return (
     <CartPanel
       theme="taller"
@@ -65,10 +68,13 @@ export function Cart() {
         name: i.name,
         qty: i.qty,
         priceLabel: lineLabel(i, c.noPrice),
+        priced: i.price !== null,
         max: i.stock,
       }))}
       totalLabel={priced ? formatMXN(cart.total) : undefined}
-      totalNote={catalogCopy.drawer.priceNote}
+      totalNote={d.priceTag}
+      hasUnpriced={unpriced}
+      onBuy={priced ? startCheckout : undefined}
       sendHref={buildWhatsAppLink({ phone: site.whatsapp.phone, message })}
       onSetQty={cart.setQty}
       onRemove={cart.remove}
@@ -77,11 +83,14 @@ export function Cart() {
       sendNote={cart.verification === 'unavailable' ? c.unverified : undefined}
       emptyAction={{ label: c.emptyCta, onClick: () => goToProducts(cart.closeCart) }}
       labels={{
-        title: c.title,
+        title: cart.count > 0 ? fillTemplate(d.titleCount, { n: cart.count }) : c.title,
         empty: c.empty,
-        total: catalogCopy.drawer.subtotal,
-        send: c.send,
-        note: c.note,
+        total: d.subtotal,
+        send: d.quote,
+        note: d.shippingNote,
+        priceTag: d.priceTag,
+        unpricedNote: d.unpricedNote,
+        buy: d.buy,
         close: ui.close,
         remove: c.remove,
         removeAria: c.removeAria,

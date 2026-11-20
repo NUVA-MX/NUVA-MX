@@ -70,3 +70,27 @@
     padding-inline: var(--space-5);
   }
 }
+
+.unpriced {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--soft-muted);
+}
+
+/* Secondary action (WhatsApp quote) when the primary buy button is also shown: wine outline. */
+.quote {
+  min-height: var(--soft-send-height);
+  font-size: var(--text-md);
+  white-space: nowrap;
+  border-color: var(--soft-wine);
+  color: var(--soft-wine);
+}
+
+.quote:hover {
+  color: var(--soft-wine);
+}
+
+.quote[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}

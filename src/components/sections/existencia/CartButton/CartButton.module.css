@@ -1,0 +1,41 @@
+.label {
+  white-space: nowrap;
+}
+
+/* Empty list: dark badge. With pieces: --promo-blue with --promo-wine-dark text (>= 4.5:1). */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--promo-counter);
+  height: var(--promo-counter);
+  margin-left: var(--space-2);
+  padding: 0 var(--space-1-5);
+  border-radius: var(--radius-pill);
+  background: var(--promo-wine-dark);
+  color: var(--promo-surface);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge[data-filled='true'] {
+  background: var(--promo-blue);
+  color: var(--promo-wine-dark);
+}
+
+.badge[data-bump='true'] {
+  animation: bump var(--duration-base) var(--ease-out);
+}
+
+@keyframes bump {
+  40% {
+    transform: scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge[data-bump='true'] {
+    animation: none;
+  }
+}

@@ -1,0 +1,99 @@
+.add,
+.inList,
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--promo-action-height);
+  border-radius: var(--promo-radius-button);
+  font-family: var(--soft-font-body);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+}
+
+.add {
+  padding: 0 var(--space-4);
+  border: var(--promo-border-width) solid var(--promo-wine);
+  background: transparent;
+  color: var(--promo-wine);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.add:hover {
+  background: var(--promo-wine);
+  color: var(--white);
+}
+
+.inList,
+.stepper {
+  border: 0;
+  background: var(--promo-wine);
+  color: var(--white);
+}
+
+.inList {
+  padding: 0 var(--space-4);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.inList:hover {
+  background: var(--promo-wine-dark);
+}
+
+.add:focus-visible,
+.inList:focus-visible,
+.step:focus-visible {
+  outline: var(--focus-width) solid var(--promo-wine);
+  outline-offset: var(--focus-offset);
+}
+
+.stepper {
+  justify-content: space-between;
+  padding: var(--space-1);
+}
+
+.step {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.step:hover:not(:disabled) {
+  background: var(--soft-tint-on-wine);
+}
+
+.step:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stepper .step:focus-visible {
+  outline-color: var(--white);
+  outline-offset: calc(var(--focus-offset) * -1);
+}
+
+.count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-1-5);
+  font-variant-numeric: tabular-nums;
+}
+
+.qty {
+  font-weight: var(--weight-strong);
+}

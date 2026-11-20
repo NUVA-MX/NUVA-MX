@@ -18,10 +18,11 @@ import { catalogItems } from '@/lib/catalogItemCache';
 import { useCatalogUrl } from '@/lib/useCatalogUrl';
 import styles from './Catalog.module.css';
 import { CatalogModal } from './CatalogModal';
-import { CategoryChips } from './CategoryChips';
+import { CatalogHead } from './CatalogHead';
+import { CategoryList } from './CategoryList';
+import { FilterSheet } from './FilterSheet';
 import { Pagination } from './Pagination';
 import { ResultsRow } from './ResultsRow';
-import { SearchField } from './SearchField';
 import { SortSelect } from './SortSelect';
 import { useCatalogToggle } from './useCatalogToggle';
 
@@ -54,92 +55,84 @@ export function Catalog() {
     toTop();
     list.retry();
   };
+  const onCategory = (category: string) => url.update({ category, subcategory: '' });
   const from = (url.page - 1) * CATALOG_PAGE_SIZE + 1;
 
   return (
     <section ref={sectionRef} tabIndex={-1} id="catalogo" className={styles.root} aria-labelledby={TITLE_ID} aria-busy={list.status === 'loading'}>
       <Container>
-        <div className={styles.head}>
-          <div className={styles.heading}>
-            <h2 id={TITLE_ID} className={styles.title}>
-              {copy.title}
-            </h2>
-            <p className={styles.intro}>{copy.intro}</p>
-          </div>
-          <div className={styles.tools}>
-            <div className={styles.search}>
-              <SearchField
-                id="catalogo-q"
-                value={filters.q}
-                label={copy.filters.searchLabel}
-                placeholder={copy.filters.searchPlaceholder}
-                clearLabel={copy.filters.searchClear}
-                onCommit={(q) => url.update({ q }, 'replace')}
-              />
-            </div>
-            <div className={styles.sort}>
+        <CatalogHead titleId={TITLE_ID} q={filters.q} onSearch={(q) => url.update({ q }, 'replace')} />
+        <div className={styles.layout}>
+          <aside className={styles.sidebar} aria-label={copy.filters.sidebarLabel}>
+            <CategoryList rows={rows} total={allTotal} value={filters.category} onSelect={onCategory} headingId="catalogo-cat" />
+          </aside>
+          <div className={styles.results}>
+            <ResultsRow
+              total={list.status === 'success' ? list.total : null}
+              filters={filters}
+              priceVisible={priceVisible}
+              leading={<FilterSheet rows={rows} total={allTotal} category={filters.category} onApply={onCategory} />}
+            >
               <SortSelect id="catalogo-orden" value={filters.sort} priceSort={priceVisible} onChange={(sort) => url.update({ sort })} />
-            </div>
-          </div>
-        </div>
-        <CategoryChips rows={rows} total={allTotal} value={filters.category} onSelect={(category) => url.update({ category, subcategory: '' })} />
-        <ResultsRow total={list.status === 'success' ? list.total : null} filters={filters} priceVisible={priceVisible} />
+            </ResultsRow>
 
-        {list.status === 'loading' && (
-          <>
-            <VisuallyHidden>{copy.loading}</VisuallyHidden>
-            <div className={styles.grid}>
-              {Array.from({ length: SKELETONS }, (_, i) => (
-                <ProductSkeleton key={i} />
-              ))}
-            </div>
-          </>
-        )}
+            {list.status === 'loading' && (
+              <>
+                <VisuallyHidden>{copy.loading}</VisuallyHidden>
+                <div className={styles.grid}>
+                  {Array.from({ length: SKELETONS }, (_, i) => (
+                    <ProductSkeleton key={i} />
+                  ))}
+                </div>
+              </>
+            )}
 
-        {list.status === 'empty' && (
-          <div className={styles.empty} role="status">
-            <p>{filtered ? copy.empty : copy.emptyCatalog}</p>
-            {filtered && (
-              <button type="button" className={styles.clear} onClick={url.clearAll}>
-                {copy.filters.clear}
-              </button>
+            {list.status === 'empty' && (
+              <div className={styles.empty} role="status">
+                <p>{filtered ? copy.empty : copy.emptyCatalog}</p>
+                {filtered && (
+                  <button type="button" className={styles.clear} onClick={url.clearAll}>
+                    {copy.filters.clear}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {list.status === 'error' && (
+              <StatusMessage
+                tone="error"
+                title={copy.error.title}
+                body={copy.error.body}
+                action={
+                  <Button variant="secondary" onClick={onRetry}>
+                    {copy.error.retry}
+                  </Button>
+                }
+              />
+            )}
+
+            {list.status === 'success' && (
+              <>
+                <div className={cx(styles.grid, list.pending && styles.pending)} aria-busy={list.pending}>
+                  {list.items.map((card) => (
+                    <CatalogCard
+                      key={card.code}
+                      card={card}
+                      labels={copy.card}
+                      qty={qtyOf(card.code)}
+                      onAdd={add}
+                      onSetQty={setQty}
+                      onOpen={setOpenCode}
+                      prefetch={catalogItems}
+                    />
+                  ))}
+                </div>
+                <Pagination page={url.page} totalPages={list.totalPages} onPage={onPage} />
+                <p className={styles.showing}>{fillTemplate(copy.count.showing, { from, to: from + list.items.length - 1, total: list.total })}</p>
+              </>
             )}
           </div>
-        )}
-
-        {list.status === 'error' && (
-          <StatusMessage
-            tone="error"
-            title={copy.error.title}
-            body={copy.error.body}
-            action={
-              <Button variant="secondary" onClick={onRetry}>
-                {copy.error.retry}
-              </Button>
-            }
-          />
-        )}
-
-        {list.status === 'success' && (
-          <>
-            <div className={cx(styles.grid, list.pending && styles.pending)} aria-busy={list.pending}>
-              {list.items.map((card) => (
-                <CatalogCard
-                  key={card.code}
-                  card={card}
-                  labels={copy.card}
-                  qty={qtyOf(card.code)}
-                  onAdd={add}
-                  onSetQty={setQty}
-                  onOpen={setOpenCode}
-                  prefetch={catalogItems}
-                />
-              ))}
-            </div>
-            <Pagination page={url.page} totalPages={list.totalPages} onPage={onPage} />
-            <p className={styles.showing}>{fillTemplate(copy.count.showing, { from, to: from + list.items.length - 1, total: list.total })}</p>
-          </>
-        )}
+        </div>
       </Container>
       <CatalogModal
         open={openCode !== null}

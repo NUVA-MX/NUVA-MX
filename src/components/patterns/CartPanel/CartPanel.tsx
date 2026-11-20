@@ -16,6 +16,8 @@ export type CartPanelItem = {
   qty: number;
   /** Already formatted line price, or the "no price" text. */
   priceLabel: string;
+  /** True when priceLabel is a published price (it then carries the price tag). */
+  priced?: boolean;
   max: number | null;
 };
 
@@ -33,6 +35,12 @@ export type CartPanelLabels = {
   decrease: string;
   noticesTitle: string;
   verifying: string;
+  /** Tag next to every published price ("before personalizing"). */
+  priceTag?: string;
+  /** Note under the subtotal when unpriced pieces are left out of it. */
+  unpricedNote?: string;
+  /** Primary action label; the button only renders when `onBuy` is also given. */
+  buy?: string;
 };
 
 type Props = {
@@ -44,6 +52,10 @@ type Props = {
   /** Short note next to the subtotal (e.g. that the price is before customization). */
   totalNote?: string;
   sendHref: string;
+  /** Buy at the published price: passed only when at least one item has a price. */
+  onBuy?: () => void;
+  /** Some items have no price and are not in the subtotal. */
+  hasUnpriced?: boolean;
   onSetQty: (id: string, qty: number) => void;
   onRemove: (id: string) => void;
   labels: CartPanelLabels;
@@ -67,6 +79,8 @@ export function CartPanel({
   totalLabel,
   totalNote,
   sendHref,
+  onBuy,
+  hasUnpriced,
   onSetQty,
   onRemove,
   labels,
@@ -91,11 +105,6 @@ export function CartPanel({
           <h2 id={titleId} className={styles.title}>
             {labels.title}
           </h2>
-          {!empty && (
-            <span className={styles.count} aria-hidden="true">
-              {items.length}
-            </span>
-          )}
         </div>
       </div>
 
@@ -133,7 +142,7 @@ export function CartPanel({
         )}
       </div>
 
-      {!empty && <CartPanelFooter totalLabel={totalLabel} totalNote={totalNote} sendHref={sendHref} sendState={sendState} sendNote={sendNote} labels={labels} />}
+      {!empty && <CartPanelFooter totalLabel={totalLabel} totalNote={totalNote} sendHref={sendHref} onBuy={onBuy} hasUnpriced={hasUnpriced} sendState={sendState} sendNote={sendNote} labels={labels} />}
     </Modal>
   );
 }

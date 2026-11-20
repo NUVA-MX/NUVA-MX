@@ -1,0 +1,69 @@
+/* Phones: the selector and actions stay at the bottom of the sheet while the details scroll. */
+.root {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0 calc(var(--space-5) * -1);
+  padding: var(--space-3) var(--space-5) calc(var(--space-3) + env(safe-area-inset-bottom));
+  border-top: var(--border-width) solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: var(--space-half);
+  border-radius: var(--radius-pill);
+  background: var(--promo-wine);
+  color: var(--soft-on-wine);
+}
+
+.step {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.step:hover:not(:disabled) {
+  background: var(--soft-tint-on-wine);
+}
+
+.step:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.value {
+  min-width: var(--space-8);
+  text-align: center;
+  font-weight: var(--weight-medium);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+
+/* see src/styles/breakpoints.ts */
+@media (min-width: 640px) {
+  .root {
+    position: static;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    border-top: 0;
+    background: transparent;
+  }
+}

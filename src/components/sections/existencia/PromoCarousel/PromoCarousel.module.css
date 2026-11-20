@@ -6,7 +6,7 @@
   margin-bottom: calc(-1 * var(--promo-carousel-overlap));
   background: linear-gradient(
     to bottom,
-    var(--promo-blue) calc(100% - var(--promo-carousel-overlap)),
+    var(--white) calc(100% - var(--promo-carousel-overlap)),
     transparent calc(100% - var(--promo-carousel-overlap))
   );
   padding-top: var(--space-8);

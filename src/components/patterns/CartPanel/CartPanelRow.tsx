@@ -25,7 +25,10 @@ export function CartPanelRow({ item, labels, onSetQty, onRemove }: Props) {
       </span>
       <div className={styles.itemMain}>
         <p className={styles.name}>{item.name}</p>
-        <p className={styles.price}>{item.priceLabel}</p>
+        <p className={styles.price}>
+          {item.priceLabel}
+          {item.priced && labels.priceTag && <span className={styles.tag}>{labels.priceTag}</span>}
+        </p>
       </div>
       <div className={styles.controls}>
         <div className={styles.qty} role="group" aria-label={`${labels.qty}: ${item.name}`}>
