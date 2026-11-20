@@ -1,5 +1,25 @@
 .backdrop[data-theme] {
   font-family: var(--font-body);
+  background: var(--promo-backdrop);
+  /* The shared pieces inside (swatches, steppers, placeholders) read these: white, blue and wine only. */
+  --color-bg: var(--white);
+  --color-surface: var(--white);
+  --color-text: var(--promo-ink);
+  --color-text-muted: var(--promo-ink-muted);
+  --color-text-subtle: var(--promo-ink-muted);
+  --color-border: var(--promo-line);
+  --color-border-strong: var(--promo-blue);
+  --color-placeholder: var(--promo-modal-surface);
+  --color-tint-wine: var(--promo-modal-surface);
+  --color-action: var(--promo-wine);
+  --color-action-hover: var(--promo-wine-hover);
+  --color-eyebrow: var(--promo-wine);
+  --swatch-size: var(--space-8);
+}
+
+.backdrop[data-theme] .sheet {
+  background: var(--white);
+  border-radius: var(--radius-md);
 }
 
 /* Height 0 and sticky: the close button stays at the top-right while the box scrolls. */
@@ -21,14 +41,14 @@
   height: var(--target-min);
   margin: var(--space-3);
   padding: 0;
-  border: var(--border-width) solid var(--color-border-strong);
+  border: var(--promo-border-width) solid var(--promo-blue);
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--white);
+  color: var(--promo-wine-dark);
 }
 
 .close:hover {
-  background: var(--color-bg);
+  background: var(--promo-surface);
 }
 
 .state {
@@ -59,7 +79,7 @@
 
 /* Tablet and desktop: fixed-height window so both columns can fill it. */
 /* see src/styles/breakpoints.ts */
-@media (min-width: 641px) {
+@media (min-width: 640px) {
   .backdrop[data-theme] .sheet {
     height: var(--modal-max-height);
   }

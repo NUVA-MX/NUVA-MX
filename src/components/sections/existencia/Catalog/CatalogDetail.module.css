@@ -1,19 +1,23 @@
+/* Product window (Promocionales): white, blue and wine only. */
 .root {
   display: grid;
   grid-template-columns: 1fr;
+  color: var(--promo-ink);
 }
 
 .gallery {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: 0;
-  background: var(--color-placeholder);
+  padding: var(--space-3) var(--space-5) 0;
+  background: var(--white);
 }
 
 .main {
   position: relative;
   aspect-ratio: 1 / 1;
+  border-radius: var(--radius-control);
+  background: var(--promo-modal-surface);
   overflow: hidden;
 }
 
@@ -24,77 +28,84 @@
 
 .thumbs {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-2);
   margin: 0;
-  padding: 0 var(--space-4) var(--space-4);
+  padding: 0 0 var(--space-3);
   list-style: none;
+  overflow-x: auto;
+}
+
+.thumbs > li {
+  flex-shrink: 0;
 }
 
 .thumb {
   display: block;
-  width: var(--admin-thumb);
-  min-height: var(--target-min);
+  width: var(--promo-thumb);
+  min-height: var(--promo-thumb);
   padding: 0;
-  border: var(--border-width-strong) solid transparent;
-  border-radius: var(--radius-xs);
-  background: transparent;
+  border: var(--promo-border-width) solid transparent;
+  border-radius: var(--promo-tile-radius);
+  background: var(--promo-modal-surface);
   overflow: hidden;
   cursor: pointer;
 }
 
-.thumb:focus-visible {
-  outline: var(--focus-width) solid var(--color-action);
-  outline-offset: var(--focus-offset);
+.thumb:hover {
+  border-color: var(--promo-blue);
 }
 
 .thumb[aria-pressed='true'] {
-  border-color: var(--color-action);
+  border-color: var(--promo-wine);
+  border-width: var(--border-width-strong);
+}
+
+.thumb:focus-visible {
+  outline: var(--focus-width) solid var(--promo-wine);
+  outline-offset: var(--focus-offset);
 }
 
 .content {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding: var(--space-12) var(--space-5) var(--space-8);
+  padding: var(--space-5) var(--space-5) var(--space-8);
 }
 
 .title {
   margin: 0;
   font-family: var(--font-title);
-  font-weight: var(--weight-display);
-  font-size: var(--display-lg);
+  font-weight: var(--weight-strong);
+  font-size: var(--promo-title-size);
   line-height: var(--leading-title);
+  color: var(--promo-ink);
   overflow-wrap: anywhere;
 }
 
 .code {
   margin: 0;
+  font-family: var(--font-mono);
   font-size: var(--text-sm);
-  letter-spacing: var(--tracking-meta);
-  color: var(--color-text-subtle);
+  color: var(--promo-ink-muted);
 }
 
 .price {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-half);
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
   margin: 0;
 }
 
 .amount {
-  font-size: var(--display-sm);
-  font-weight: var(--weight-display);
-  color: var(--promo-wine-dark);
+  font-size: var(--promo-price-size-xl);
+  font-weight: var(--weight-strong);
+  line-height: var(--leading-title);
+  color: var(--promo-wine);
 }
 
-.priceTag {
-  align-self: flex-start;
-  padding: 0 var(--space-2);
-  border-radius: var(--radius-pill);
-  background: var(--promo-surface);
+.unit {
   font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
   color: var(--promo-ink-muted);
 }
 
@@ -105,25 +116,60 @@
   gap: var(--space-2) var(--space-3);
 }
 
+.stock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--promo-blue-tag);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--promo-wine-dark);
+}
+
+.stockDot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--promo-wine);
+}
+
 .notice {
   margin: 0;
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-meta);
-  color: var(--color-text-subtle);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-none);
+  color: var(--promo-ink-muted);
 }
 
 .description {
   margin: 0;
-  font-size: var(--text-lg);
-  line-height: var(--leading-lead);
-  color: var(--color-text-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  color: var(--promo-ink);
   overflow-wrap: anywhere;
+}
+
+.content .specs {
+  padding: var(--space-4-5) var(--space-5);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--promo-specs);
 }
 
 .specs dt {
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-none);
   text-transform: none;
+  color: var(--promo-ink-muted);
+}
+
+.specs dd {
+  font-size: var(--text-md);
+  font-weight: var(--weight-display);
+  color: var(--promo-ink);
 }
 
 .colors {
@@ -134,22 +180,24 @@
 
 .colorsLabel {
   margin: 0;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: var(--weight-medium);
-  color: var(--color-text-muted);
+  color: var(--promo-ink);
 }
 
-/* Desktop: the window has a fixed height; the photo column and the text column each fit inside it (the text scrolls only on very short screens). */
+/* Desktop: the window has a fixed height; the photo column and the text column each fit inside it (the text scrolls only when it is long). */
 /* see src/styles/breakpoints.ts */
 @media (min-width: 640px) {
   .root {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 53%) minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     height: 100%;
   }
 
   .gallery {
     min-height: 0;
+    padding: var(--space-6) var(--space-6) var(--space-6);
+    border-right: var(--border-width) solid var(--promo-line);
   }
 
   .main {
@@ -158,25 +206,15 @@
     aspect-ratio: auto;
   }
 
-  /* One row that scrolls sideways, so a product with many photos never eats the height of the main photo. */
   .thumbs {
     flex-shrink: 0;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-
-  .thumbs > li {
-    flex-shrink: 0;
+    padding: 0;
   }
 
   .content {
     min-height: 0;
-    gap: var(--space-3);
-    padding: var(--space-11) var(--space-8) var(--space-6);
+    gap: var(--space-3-5);
+    padding: var(--space-12) var(--space-8) var(--space-6);
     overflow-y: auto;
-  }
-
-  .title {
-    font-size: var(--display-md);
   }
 }
