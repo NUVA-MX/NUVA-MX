@@ -44,7 +44,7 @@ export function CatalogShell({ card, titleId, failed, onRetry }: Props) {
         {card.price !== null && (
           <p className={detail.price}>
             <span className={detail.amount}>{formatMXN(card.price)}</span>
-            <span className={detail.priceTag}>{d.priceTag}</span>
+            <span className={detail.unit}>{d.priceUnit}</span>
           </p>
         )}
         {card.colors.length > 0 && (

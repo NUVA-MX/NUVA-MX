@@ -54,47 +54,45 @@ export function DetailActions({ product, variant, onAdded }: Props) {
   return (
     <div className={styles.root}>
       {product.variants.length > 0 && (
-        <div className={styles.qty} role="group" aria-label={`${d.quantity}: ${product.name}`}>
-          <HoldStepButton
-            value={pieces}
-            direction={-1}
-            max={room}
-            disabled={pieces <= 1 || unavailable}
-            onChange={(n) => setWant(Math.max(1, n))}
-            className={styles.step}
-            ariaLabel={fillTemplate(copy.card.decreaseAria, { name: product.name })}
-          >
-            <Icon name="minus" />
-          </HoldStepButton>
-          <Quantity value={pieces} className={styles.value} />
-          <HoldStepButton
-            value={pieces}
-            direction={1}
-            max={room}
-            disabled={pieces >= room || unavailable}
-            onChange={(n) => setWant(Math.max(1, n))}
-            className={styles.step}
-            ariaLabel={fillTemplate(copy.card.increaseAria, { name: product.name })}
-          >
-            <Icon name="plus" />
-          </HoldStepButton>
-        </div>
-      )}
-      <div className={styles.buttons}>
-        {product.variants.length > 0 && (
-          <Button size="xl" block variant={inList > 0 ? 'secondary' : 'primary'} disabled={unavailable} ariaLabel={fillTemplate(d.addAria, vars)} onClick={add}>
+        <div className={styles.row}>
+          <div className={styles.qty} role="group" aria-label={`${d.quantity}: ${product.name}`}>
+            <HoldStepButton
+              value={pieces}
+              direction={-1}
+              max={room}
+              disabled={pieces <= 1 || unavailable}
+              onChange={(n) => setWant(Math.max(1, n))}
+              className={styles.step}
+              ariaLabel={fillTemplate(copy.card.decreaseAria, { name: product.name })}
+            >
+              <Icon name="minus" />
+            </HoldStepButton>
+            <Quantity value={pieces} className={styles.value} />
+            <HoldStepButton
+              value={pieces}
+              direction={1}
+              max={room}
+              disabled={pieces >= room || unavailable}
+              onChange={(n) => setWant(Math.max(1, n))}
+              className={styles.step}
+              ariaLabel={fillTemplate(copy.card.increaseAria, { name: product.name })}
+            >
+              <Icon name="plus" />
+            </HoldStepButton>
+          </div>
+          <Button size="xl" block className={styles.add} disabled={unavailable} ariaLabel={fillTemplate(d.addAria, vars)} onClick={add}>
             {inList > 0 ? fillTemplate(d.added, vars) : d.add}
           </Button>
-        )}
-        {product.price !== null && (
-          <Button size="xl" block onClick={startCheckout}>
-            {copy.drawer.buy}
-          </Button>
-        )}
-        <Button href={quoteHref} external size="xl" block variant="secondary" icon="whatsapp">
-          {copy.drawer.quote}
+        </div>
+      )}
+      {product.price !== null && (
+        <Button size="xl" block className={styles.buy} onClick={startCheckout}>
+          {copy.drawer.buy}
         </Button>
-      </div>
+      )}
+      <Button href={quoteHref} external size="xl" block variant="secondary" icon="whatsapp" className={styles.quote}>
+        {copy.drawer.quote}
+      </Button>
     </div>
   );
 }

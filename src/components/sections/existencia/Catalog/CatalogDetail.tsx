@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Media } from '@/components/primitives/Media';
 import { InfoGrid, type InfoItem } from '@/components/patterns/InfoGrid';
-import { Pill } from '@/components/primitives/Pill';
 import { SwatchPicker } from '@/components/patterns/SwatchPicker';
 import { existenciaCatalog as copy } from '@/content/existencia-catalog';
 import type { CatalogDetail as Detail } from '@/lib/catalog/types';
@@ -13,8 +12,6 @@ import { DetailActions } from './DetailActions';
 import styles from './CatalogDetail.module.css';
 
 type Props = { product: Detail; titleId: string; onAdded: () => void };
-
-const AVAILABILITY_TONE = { available: 'status-ok', low: 'status-low', out: 'status-out', unknown: 'neutral' } as const;
 
 function specItems(specs: Detail['specs']): InfoItem[] {
   const labels = copy.detail.specs;
@@ -78,11 +75,14 @@ export function CatalogDetail({ product, titleId, onAdded }: Props) {
         {product.price !== null && (
           <p className={styles.price}>
             <span className={styles.amount}>{formatMXN(product.price)}</span>
-            <span className={styles.priceTag}>{d.priceTag}</span>
+            <span className={styles.unit}>{d.priceUnit}</span>
           </p>
         )}
         <div className={styles.status}>
-          <Pill tone={AVAILABILITY_TONE[product.availability]}>{copy.availability[product.availability]}</Pill>
+          <span className={styles.stock}>
+            <span className={styles.stockDot} aria-hidden="true" />
+            {copy.availability[product.availability]}
+          </span>
           <span className={styles.notice}>{product.price === null ? d.notice : d.noticeWithPrice}</span>
         </div>
         {product.description && <p className={styles.description}>{product.description}</p>}

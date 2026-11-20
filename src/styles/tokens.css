@@ -631,6 +631,16 @@
   --promo-surface: #f2f5f7; /* tiles, search field, hover rows */
   --promo-line: #e3e7eb; /* 1px rules and card borders */
   --promo-photo-hover: #e3e9ee; /* card photo tile while the card is hovered */
+  /* Product window (modal) */
+  --promo-modal-surface: #f4f7f9; /* photo tile */
+  --promo-specs: #eef2f6; /* specs box */
+  --promo-blue-tag: #e6ecf1; /* stock pill */
+  --promo-wine-hover: #4f1a2d;
+  --promo-backdrop: rgba(42, 21, 32, 0.55);
+  --promo-thumb: 66px;
+  --promo-action-xl: 52px;
+  --promo-title-size: 30px;
+  --promo-price-size-xl: 34px;
   --promo-on-wine-soft: #f3e8ec; /* subtitle over the wine part of the hero (>= 7:1) */
 
   /* Promocionales hero */

@@ -107,12 +107,14 @@ export const existenciaCatalog = {
     colorOut: '{tone} (agotado)',
     quantity: 'Cantidad',
     add: 'Añadir a mi lista',
-    added: 'En tu lista · {n}',
+    added: '✓ {n} en tu lista',
     addAria: 'Añadir {name} en {tone} a mi lista',
     outNotice: 'Este color está agotado. Pregúntanos por otras opciones.',
     noVariants: 'Consulta los colores disponibles por WhatsApp.',
     notice: 'Precio y tiempo de entrega por confirmar',
     priceTag: 'Antes de personalizar',
+    // Next to the price in the product window.
+    priceUnit: 'por pieza · antes de personalizar',
     // TODO(client): shown instead of `notice` when the price is visible.
     noticeWithPrice: 'Tiempo de entrega por confirmar',
   },
