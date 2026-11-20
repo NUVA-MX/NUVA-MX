@@ -6,7 +6,6 @@
   max-width: var(--container-manifesto);
   margin-inline: auto;
   font-family: var(--font-title);
-  font-synthesis: none; /* DM Serif Display has one weight: no fake bold */
   font-weight: 800; /* bold paragraph per the client's design */
   font-size: var(--display-md);
   line-height: var(--leading-quote);
