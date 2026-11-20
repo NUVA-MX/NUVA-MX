@@ -45,7 +45,7 @@
 }
 
 .name {
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: var(--weight-display);
   font-size: var(--display-sm);
   line-height: var(--leading-title);

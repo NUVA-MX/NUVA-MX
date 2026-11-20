@@ -168,6 +168,7 @@
 /* 1.4 Typography */
 :root {
   --font-display: var(--font-darker-grotesque), 'Darker Grotesque', system-ui, sans-serif;
+  --font-title: var(--font-display); /* headings; Merch page overrides it, see [data-theme='taller'] below */
   --font-body: var(--font-acumin), 'Acumin Variable Concept', system-ui, sans-serif;
   --weight-regular: 400;
   --weight-medium: 500;
@@ -454,6 +455,13 @@
   --color-button-light-hover: var(--color-bg);
   --color-marquee-bg: var(--color-surface-inverse);
   --color-marquee-text: var(--color-text-inverse);
+}
+
+/* Merch page (/encargo, and its portaled modal): DM Serif Display for all text. One weight only, so no synthetic bold. */
+[data-theme='taller']:not([data-side='existencia']) {
+  --font-title: var(--font-dm-serif), 'DM Serif Display', Georgia, serif;
+  --font-body: var(--font-title);
+  font-synthesis: none;
 }
 
 [data-theme='taller'] {

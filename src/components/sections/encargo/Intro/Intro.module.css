@@ -5,7 +5,8 @@
 .text {
   max-width: var(--container-manifesto);
   margin-inline: auto;
-  font-family: var(--font-display);
+  font-family: var(--font-title);
+  font-synthesis: none; /* DM Serif Display has one weight: no fake bold */
   font-weight: 800; /* bold paragraph per the client's design */
   font-size: var(--display-md);
   line-height: var(--leading-quote);
@@ -14,10 +15,10 @@
   color: var(--color-text);
 }
 
-/* Bold sans inside the serif: distinguishable by typeface and weight, not by color alone. */
+/* Key phrase: same serif, set apart by the orange color. */
 .strong {
-  font-family: var(--font-body);
-  font-weight: var(--weight-strong);
+  font-family: var(--font-title);
+  font-weight: inherit;
   color: var(--orange-600);
 }
 

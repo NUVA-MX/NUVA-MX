@@ -26,7 +26,7 @@
 
 .title {
   margin-bottom: var(--space-4);
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: var(--weight-display);
   font-size: var(--display-2xl);
   line-height: var(--leading-title);
@@ -37,10 +37,25 @@
 .line {
   font-size: var(--text-xl);
   line-height: var(--leading-lead);
-  /* Project orange, as the client asked. Low contrast on the olive band (about 2.3:1); --orange-500 is meant for backgrounds. */
-  color: var(--orange-500);
+  color: var(--white); /* pure white, different from the lemon title above */
 }
 
 .block .cta {
   margin-top: var(--space-8);
+}
+
+/* Orange button (client's request); black text keeps 5.4:1 on --orange-500. */
+.block .cta,
+.block .cta:hover {
+  color: var(--black);
+}
+
+.block .cta {
+  background: var(--orange-500);
+  border-color: var(--orange-500);
+}
+
+.block .cta:hover {
+  background: var(--orange-600);
+  border-color: var(--orange-600);
 }
