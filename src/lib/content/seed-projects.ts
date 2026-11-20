@@ -20,7 +20,7 @@ export type ProjectInsert = {
   sortOrder: number;
 };
 
-/** The 6 hard-coded projects as insertable rows, in display order. */
+/** The hard-coded projects as insertable rows, in display order. */
 export function defaultProjectRows(): ProjectInsert[] {
   return defaultProjects.map((p, i) => ({
     name: p.name,

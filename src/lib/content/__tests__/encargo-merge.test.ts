@@ -126,9 +126,9 @@ describe('marquee', () => {
 });
 
 describe('default projects', () => {
-  it('maps the 6 hard-coded projects to valid rows and back', () => {
+  it('maps the hard-coded projects to valid rows and back', () => {
     const rows = defaultProjectRows();
-    expect(rows).toHaveLength(6);
+    expect(rows).toHaveLength(projects.length);
     rows.forEach((r, i) => {
       const back = rowToProject({ ...r, id: projects[i].id }, HOST);
       expect(back).toEqual(projects[i]);

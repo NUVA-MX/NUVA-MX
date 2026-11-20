@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Container } from '@/components/primitives/Container';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Heading } from '@/components/primitives/Heading';
@@ -8,7 +8,7 @@ import { Text } from '@/components/primitives/Text';
 import { ProjectCard } from '@/components/patterns/ProjectCard';
 import { Rail } from '@/components/patterns/Rail';
 import { Reveal } from '@/components/patterns/Reveal';
-import type { Project } from '@/content/projects';
+import { withPlaceholderImage, type Project } from '@/content/projects';
 import { ui } from '@/content/ui';
 import type { EncargoContent } from '@/lib/content/encargo-merge';
 import { fillTemplate } from '@/lib/format';
@@ -17,7 +17,8 @@ import styles from './Projects.module.css';
 
 type Props = { content: EncargoContent['projects']; projects: Project[] };
 
-export function Projects({ content: p, projects }: Props) {
+export function Projects({ content: p, projects: rawProjects }: Props) {
+  const projects = useMemo(() => rawProjects.map(withPlaceholderImage), [rawProjects]);
   const [openId, setOpenId] = useState<string | null>(null);
   const open = projects.find((x) => x.id === openId) ?? null;
   return (

@@ -110,12 +110,14 @@ export const encargo = {
     modal: {
       labels: {
         technique: 'Técnica',
-        minimum: 'Piezas mínimas',
+        minimum: 'Piezas realizadas',
         colors: 'Colores',
-        delivery: 'Entrega',
+        delivery: 'Productos',
       },
       order: 'Hagámoslo realidad',
       quote: 'Cotizar por lote',
+      prevPhoto: 'Foto anterior',
+      nextPhoto: 'Foto siguiente',
     },
     // TODO(confirm)
     cardCta: 'Ver y pedir',

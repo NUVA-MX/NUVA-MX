@@ -28,7 +28,7 @@ describe('buildEncargoPage', () => {
   const build = (rawData: unknown, projectRows: ReturnType<typeof rows> | null, extra = {}) =>
     buildEncargoPage({ rawData, rows: projectRows, now: NOW, host: HOST, ...extra });
 
-  it('empty DB: exactly the hard-coded content and the 6 default projects', () => {
+  it('empty DB: exactly the hard-coded content and the default projects', () => {
     const p = build(null, []);
     expect(p.content).toEqual(encargo);
     expect(p.projects).toEqual(defaultProjects);
