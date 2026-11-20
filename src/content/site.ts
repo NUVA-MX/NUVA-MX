@@ -11,6 +11,8 @@ export const site = {
   email: 'TODO(cliente)',
   // TODO(client): real social links, e.g. { label: 'Instagram', href: 'https://instagram.com/…' }.
   social: [] as { label: string; href: string }[],
+  // Footer link to the privacy notice (/privacidad).
+  legal: { label: 'Aviso de privacidad', href: '/privacidad' },
   switch: [
     { key: 'encargo', label: 'Merch', href: '/encargo' },
     { key: 'existencia', label: 'Promocionales', href: '/existencia' },

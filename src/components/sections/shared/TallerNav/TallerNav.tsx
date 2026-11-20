@@ -1,24 +1,31 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { type ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
-import { Button } from '@/components/primitives/Button';
-import { Icon } from '@/components/primitives/Icon';
-import type { NavLink } from '@/components/layout/SiteNav';
-import { ModeSwitch } from '@/components/sections/shared/ModeSwitch';
-import { encargo } from '@/content/encargo';
-import { site, type SwitchKey } from '@/content/site';
-import { ui } from '@/content/ui';
-import { useFocusTrap } from '@/lib/useFocusTrap';
-import { useLockBodyScroll } from '@/lib/useLockBodyScroll';
-import { buildWhatsAppLink } from '@/lib/whatsapp';
-import { breakpoints } from '@/styles/breakpoints';
-import styles from './TallerNav.module.css';
+import Image from "next/image";
+import Link from "next/link";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
+import { Button } from "@/components/primitives/Button";
+import { Icon } from "@/components/primitives/Icon";
+import type { NavLink } from "@/components/layout/SiteNav";
+import { ModeSwitch } from "@/components/sections/shared/ModeSwitch";
+import { encargo } from "@/content/encargo";
+import { site, type SwitchKey } from "@/content/site";
+import { ui } from "@/content/ui";
+import { useFocusTrap } from "@/lib/useFocusTrap";
+import { useLockBodyScroll } from "@/lib/useLockBodyScroll";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { breakpoints } from "@/styles/breakpoints";
+import styles from "./TallerNav.module.css";
 
 /** Brand logotype with its descriptor, light for the black bar; the full-screen menu is light, so it gets the black one. */
-const LOGO = '/brand/logo-nuva-gris-descriptivo.png';
-const LOGO_MENU = '/brand/logo-nuva-negro.png';
+const LOGO = "/brand/logo-nuva-gris-descriptivo.png";
+const LOGO_MENU = "/brand/logo-nuva-negro.png";
 
 const DESKTOP_QUERY = `(min-width: ${breakpoints.tablet}px)`;
 
@@ -38,12 +45,21 @@ type Props = {
  * Desktop: links | wordmark | switch + action + WhatsApp. Phone/tablet: wordmark + menu button, the switch
  * on its own full-width row, and a full-screen menu dialog (focus trap, Escape, scroll lock).
  */
-export function TallerNav({ current, links, action, whatsappMessage = site.whatsapp.defaultMessage, onSwitch }: Props) {
+export function TallerNav({
+  current,
+  links,
+  action,
+  whatsappMessage = site.whatsapp.defaultMessage,
+  onSwitch,
+}: Props) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
-  const whatsapp = buildWhatsAppLink({ phone: site.whatsapp.phone, message: whatsappMessage });
+  const whatsapp = buildWhatsAppLink({
+    phone: site.whatsapp.phone,
+    message: whatsappMessage,
+  });
 
   useLockBodyScroll(open);
   useFocusTrap(menuRef, open, close);
@@ -55,27 +71,37 @@ export function TallerNav({ current, links, action, whatsappMessage = site.whats
     const onChange = () => {
       if (mq.matches) setOpen(false);
     };
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, [open]);
 
   return (
     <>
       <header className={styles.root}>
         <div className={styles.bar}>
-          <nav aria-label={ui.mainNav} className={styles.links}>
-            <ul className={styles.linkList}>
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className={styles.link}>
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <div className={styles.start}>
+            <nav aria-label={ui.mainNav} className={styles.links}>
+              <ul className={styles.linkList}>
+                {links.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href} className={styles.link}>
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            {action && <div className={styles.actionDesktop}>{action}</div>}
+          </div>
           <Link href="/" className={styles.brand} aria-label={site.homeLabel}>
-            <Image src={LOGO} alt="" width={800} height={277} priority className={styles.logo} />
+            <Image
+              src={LOGO}
+              alt=""
+              width={800}
+              height={277}
+              priority
+              className={styles.logo}
+            />
           </Link>
           {action && <div className={styles.actionMobile}>{action}</div>}
           <div className={styles.end}>
@@ -86,8 +112,13 @@ export function TallerNav({ current, links, action, whatsappMessage = site.whats
               ariaLabel={site.switchLabel}
               className={styles.switch}
             />
-            {action && <div className={styles.actionDesktop}>{action}</div>}
-            <Button href={whatsapp} external size="md" icon="whatsapp" className={styles.whatsapp}>
+            <Button
+              href={whatsapp}
+              external
+              size="md"
+              icon="whatsapp"
+              className={styles.whatsapp}
+            >
               {encargo.nav.whatsapp}
             </Button>
           </div>
@@ -115,9 +146,20 @@ export function TallerNav({ current, links, action, whatsappMessage = site.whats
       >
         <div className={styles.menuTop}>
           <span className={styles.menuBrand} aria-hidden="true">
-            <Image src={LOGO_MENU} alt="" width={800} height={211} className={styles.menuLogo} />
+            <Image
+              src={LOGO_MENU}
+              alt=""
+              width={800}
+              height={211}
+              className={styles.menuLogo}
+            />
           </span>
-          <button type="button" className={styles.menuClose} aria-label={ui.closeMenu} onClick={close}>
+          <button
+            type="button"
+            className={styles.menuClose}
+            aria-label={ui.closeMenu}
+            onClick={close}
+          >
             <Icon name="close" size="md" />
           </button>
         </div>

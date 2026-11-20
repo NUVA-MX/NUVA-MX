@@ -15,6 +15,30 @@
   overflow-x: clip;
 }
 
+/* Heading above the photos, all in wine tones. */
+.head {
+  max-width: var(--container-max);
+  margin: 0 auto var(--space-6);
+  padding-inline: var(--container-pad);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--soft-font-heading);
+  font-weight: var(--weight-light);
+  font-size: var(--soft-title);
+  letter-spacing: -0.03em;
+  line-height: var(--leading-none);
+  color: var(--promo-wine-dark);
+}
+
+.lead {
+  margin: var(--space-2-5) 0 0;
+  max-width: var(--measure-body);
+  font-size: var(--text-xl);
+  color: var(--promo-wine);
+}
+
 .rail.rail {
   --rail-item-width: var(--promo-carousel-card-width);
   --rail-gap: var(--space-4);

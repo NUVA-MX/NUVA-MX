@@ -13,7 +13,7 @@ export type PromoCarouselContent = {
   slides: { image: string | null; imageAlt: string }[];
 };
 
-type Props = { content: PromoCarouselContent };
+type Props = { content: PromoCarouselContent; title: string; lead: string };
 
 function Chevron({ flip }: { flip?: boolean }) {
   return (
@@ -24,7 +24,7 @@ function Chevron({ flip }: { flip?: boolean }) {
 }
 
 /** Promocionales photo rail: Rail (snap, arrow keys, drag) plus prev/next buttons. No autoplay. */
-export function PromoCarousel({ content }: Props) {
+export function PromoCarousel({ content, title, lead }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const [edge, setEdge] = useState({ start: true, end: false });
 
@@ -59,7 +59,13 @@ export function PromoCarousel({ content }: Props) {
   }
 
   return (
-    <section className={styles.root} ref={wrap}>
+    <section className={styles.root} ref={wrap} aria-labelledby="promo-projects-title">
+      <div className={styles.head}>
+        <h2 id="promo-projects-title" className={styles.title}>
+          {title}
+        </h2>
+        <p className={styles.lead}>{lead}</p>
+      </div>
       <Rail ariaLabel={content.ariaLabel} className={styles.rail}>
         {content.slides.map((slide, i) => (
           <div key={i} className={styles.card}>

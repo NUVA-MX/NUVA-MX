@@ -458,11 +458,19 @@
   --color-marquee-text: var(--color-text-inverse);
 }
 
-/* Merch page (/encargo, and its portaled modal): DM Serif Display for all text. One weight only, so no synthetic bold. */
-[data-theme='taller']:not([data-side='existencia']) {
+/* Merch (/encargo) and Promocionales (/existencia), plus their portaled modals and drawer: DM Serif Display for all text.
+   One weight only, so no synthetic bold. --soft-font-* are the Promocionales catalog fonts (defined on :root below). */
+[data-theme='taller'] {
   --font-title: var(--font-dm-serif), 'DM Serif Display', Georgia, serif;
   --font-body: var(--font-title);
+  --soft-font-heading: var(--font-title);
+  --soft-font-body: var(--font-title);
   font-synthesis: none;
+}
+
+/* Promocionales only: components that read --font-display directly (info section, product detail) follow too. Merch keeps its display font. */
+[data-theme='taller'][data-side='existencia'] {
+  --font-display: var(--font-title);
 }
 
 [data-theme='taller'] {
@@ -621,15 +629,16 @@
 
   /* Promocionales hero */
   /* Wine -> mauve -> blue-grey: after the wine the stops lean cool (blue >= red), so no warm beige band appears. */
+  /* Same hero layout as Merch: the text sits over the bottom of the hero, so the wine only lightens (white text stays >= 4.5:1)
+     and the lemon strip below closes the hero. The old fade to blue/white would sit behind the title and buttons. */
   --promo-hero-gradient: linear-gradient(
     to bottom,
     var(--promo-wine) 0%,
-    #6e3046 30%,
-    #7b4a59 48%,
-    #93747c 62%,
-    #aa9c9d 76%,
-    var(--promo-blue) 88%,
-    #ffffff 100%
+    #6e3046 25%,
+    #773a50 45%,
+    #804658 65%,
+    #8a5364 85%,
+    #925e6d 100%
   );
   --promo-hero-height: 460px;
   --promo-grain-opacity: 0.07;

@@ -11,9 +11,11 @@ type Props = {
   tagline: string;
   copyright: string;
   links?: readonly { label: string; href: string }[];
+  /** Legal link (privacy notice), shown on the right next to the copyright. */
+  legal?: { label: string; href: string };
 };
 
-export function SiteFooter({ brand, logo, brandHref, brandLabel, tagline, copyright, links = [] }: Props) {
+export function SiteFooter({ brand, logo, brandHref, brandLabel, tagline, copyright, links = [], legal }: Props) {
   return (
     <footer className={styles.root}>
       <div className={styles.inner}>
@@ -36,7 +38,14 @@ export function SiteFooter({ brand, logo, brandHref, brandLabel, tagline, copyri
             ))}
           </ul>
         )}
-        <span className={styles.copy}>{copyright}</span>
+        <div className={styles.end}>
+          {legal && (
+            <Link href={legal.href} className={styles.link}>
+              {legal.label}
+            </Link>
+          )}
+          <span className={styles.copy}>{copyright}</span>
+        </div>
       </div>
     </footer>
   );

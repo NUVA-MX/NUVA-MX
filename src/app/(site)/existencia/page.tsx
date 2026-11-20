@@ -28,7 +28,7 @@ export default async function ExistenciaPage() {
       <ReassuranceStrip />
       <Products />
       <Catalog />
-      <PromoCarousel content={content.promoCarousel} />
+      <PromoCarousel content={content.promoCarousel} title={existencia.projects.title} lead={existencia.projects.lead} />
       <Envios />
     </>
   );
