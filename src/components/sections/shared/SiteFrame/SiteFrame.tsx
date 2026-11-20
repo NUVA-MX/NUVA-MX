@@ -70,6 +70,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
             tagline={isStore ? site.storeTagline : site.tagline}
             copyright={site.copyright}
             links={site.social}
+            legal={site.legal}
           />
         }
       >

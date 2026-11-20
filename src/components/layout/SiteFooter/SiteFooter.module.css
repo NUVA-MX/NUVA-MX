@@ -49,8 +49,23 @@
   color: var(--color-eyebrow-inverse);
 }
 
-.copy {
+.end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-6);
   margin-left: auto;
+}
+
+/* 44px-tall hit area for the legal link without moving the layout. */
+.end .link {
+  padding-block: var(--space-3);
+  margin-block: calc(var(--space-3) * -1);
+}
+
+.end .link:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
 }
 
 /* The footer is a dark band: the focus ring uses the inverse text color, not --color-action. */

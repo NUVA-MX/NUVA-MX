@@ -10,6 +10,11 @@ export const existencia = {
   announcement: 'Envío en 24 h. Pedido y pago por WhatsApp.',
   // Strip under the hero: same brand ribbon as the Merch page (text is what screen readers read).
   marquee: 'From brand to product',
+  // Heading above the photo carousel at the bottom of the page.
+  projects: {
+    title: 'Ideas hechas realidad',
+    lead: 'Descubre algunos de los proyectos que hemos creado y personalizado para nuestros clientes',
+  },
   nav: {
     links: [
       { label: 'Productos', href: '#productos' },
@@ -22,7 +27,8 @@ export const existencia = {
   hero: {
     // Same full-bleed photo hero as /encargo (shared component), with this side's copy.
     title: 'Tu marca en todo',
-    note: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.',
+    // Empty like Merch's hero (same layout). Previous copy: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.'
+    note: '',
     primary: { label: 'Ver productos', href: '#catalogo' },
     // TODO(client): confirm the secondary action (quote by WhatsApp).
     secondary: { label: 'Cotiza por WhatsApp', href: '#envios' },

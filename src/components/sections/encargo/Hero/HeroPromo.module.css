@@ -2,7 +2,7 @@
  * Promocionales (/existencia) overrides of the shared hero. Every rule is scoped with
  * :global([data-side='existencia']), so /encargo (Merch) keeps Hero.module.css untouched.
  * Wine -> blue gradient (ends exactly on --promo-blue) and a light grain, plus this side's colors. The layout
- * (height, title and note bottom-left, buttons on the right) is the same as Merch, from Hero.module.css.
+ * (height, title bottom-left, buttons on the right) is the same as Merch, from Hero.module.css.
  */
 :global([data-side='existencia']) .root {
   background: var(--promo-hero-gradient);
@@ -31,9 +31,7 @@
   color: var(--white);
 }
 
-/* /existencia fades to blue at the bottom, so its text keeps sitting higher, over the wine part. */
-@media (min-width: 1024px) {
-  :global([data-side='existencia']) .inner {
-    padding-block-end: calc(var(--hero-taller-height) * 0.3);
-  }
+/* Title in the same blue as the primary button ("Ver productos"). */
+:global([data-side='existencia']) .title {
+  color: var(--promo-blue);
 }

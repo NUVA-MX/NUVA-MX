@@ -31,7 +31,7 @@
   padding-inline: var(--container-pad);
 }
 
-.links {
+.start {
   grid-area: links;
   display: none;
 }
@@ -230,8 +230,11 @@
     column-gap: var(--space-6);
   }
 
-  .links {
-    display: block;
+  /* Same layout on both sides: links (and the list button on Promocionales) on the left, wordmark centered, switch + WhatsApp on the right. */
+  .start {
+    display: flex;
+    align-items: center;
+    gap: var(--space-7);
   }
 
   .end {
@@ -254,7 +257,7 @@
     display: inline-flex;
   }
 
-  /* Right side, between the switch and WhatsApp. */
+  /* Left group, after the links. */
   .actionDesktop {
     display: inline-flex;
   }
