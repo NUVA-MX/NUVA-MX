@@ -1,8 +1,14 @@
 /* Product window (Promocionales): white, blue and wine only. */
 .root {
   display: grid;
-  grid-template-columns: 1fr;
+  /* minmax(0, ...): a long row of thumbnails must not stretch the column wider than the sheet. */
+  grid-template-columns: minmax(0, 1fr);
   color: var(--promo-ink);
+}
+
+.gallery,
+.content {
+  min-width: 0;
 }
 
 .gallery {
