@@ -55,6 +55,15 @@
   align-items: stretch;
 }
 
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  /* Phones: two cards per row, so the catalog is not one long column. */
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+}
+
 .empty {
   margin: var(--space-12) 0;
   text-align: center;

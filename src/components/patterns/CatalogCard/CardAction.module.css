@@ -97,3 +97,17 @@
 .qty {
   font-weight: var(--weight-strong);
 }
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  /* Narrow card: shorter label padding and size; the stepper shows only the number (the minus/plus say the rest). */
+  .add,
+  .inList {
+    padding: 0 var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  .label {
+    display: none;
+  }
+}

@@ -52,7 +52,9 @@ export function CardAction({ code, name, qty, several, labels, onAdd, onSetQty, 
       </HoldStepButton>
       <span className={styles.count}>
         <Quantity value={qty} className={styles.qty} />
-        <span aria-hidden="true">{labels.inListCount}</span>
+        <span aria-hidden="true" className={styles.label}>
+          {labels.inListCount}
+        </span>
       </span>
       <HoldStepButton
         value={qty}

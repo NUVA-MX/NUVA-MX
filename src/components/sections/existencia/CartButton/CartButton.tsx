@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/primitives/Button';
+import { Icon } from '@/components/primitives/Icon';
 import { existencia } from '@/content/existencia';
 import { useCart } from '@/lib/cart/CartContext';
 import { fillTemplate } from '@/lib/format';
@@ -26,6 +27,7 @@ export function CartButton() {
       ariaExpanded={isOpen}
       ariaLabel={fillTemplate(existencia.nav.cartAria, { count })}
     >
+      <Icon name="cart" className={styles.icon} />
       <span className={styles.label}>{existencia.nav.cartLabel}</span>
       <span key={bumps} className={styles.badge} data-filled={count > 0} data-bump={bumps > 0} aria-hidden="true">
         {count}

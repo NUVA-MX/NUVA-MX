@@ -152,3 +152,32 @@
     transform: none;
   }
 }
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  /* Two cards per row: tighter padding and smaller text so everything fits a ~160px card. */
+  .root {
+    padding: var(--space-2) var(--space-2) var(--space-3);
+  }
+
+  .photo {
+    padding: var(--space-2);
+  }
+
+  .body {
+    gap: var(--space-1-5);
+    padding-inline: 0;
+  }
+
+  .name {
+    font-size: var(--text-md);
+  }
+
+  .amount {
+    font-size: var(--text-lg);
+  }
+
+  .bottom {
+    gap: var(--space-2);
+  }
+}
