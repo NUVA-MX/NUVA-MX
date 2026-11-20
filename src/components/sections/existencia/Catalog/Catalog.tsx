@@ -39,14 +39,20 @@ export function Catalog() {
   const item = useCatalogItem(openCode);
   const { qtyOf, add, setQty } = useCatalogToggle(setOpenCode);
   const sectionRef = useRef<HTMLElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const { rows, total: allTotal } = useMemo(() => prepareCategories(categories), [categories]);
   const priceVisible = list.items.some((i) => i.price !== null);
   const filtered = filters.q !== '' || filters.category !== '' || filters.subcategory !== '';
 
   if (list.status !== 'loading' && !list.enabled) return null;
 
-  // Focusing the section brings its top into view, so a change starts at the title instead of the old scroll position.
-  const toTop = () => sectionRef.current?.focus();
+  // A page change (or retry) goes back to the first product: scroll to the top of the results, so nobody has to scroll up
+  // from the page buttons. Focus stays in the section without moving the scroll again.
+  const toTop = () => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    resultsRef.current?.scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });
+    sectionRef.current?.focus({ preventScroll: true });
+  };
   const onPage = (page: number) => {
     url.goTo(page);
     toTop();
@@ -66,7 +72,7 @@ export function Catalog() {
           <aside className={styles.sidebar} aria-label={copy.filters.sidebarLabel}>
             <CategoryList rows={rows} total={allTotal} value={filters.category} onSelect={onCategory} headingId="catalogo-cat" />
           </aside>
-          <div className={styles.results}>
+          <div ref={resultsRef} className={styles.results}>
             <ResultsRow
               total={list.status === 'success' ? list.total : null}
               filters={filters}

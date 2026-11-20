@@ -26,8 +26,8 @@ export const encargo = {
   },
   hero: {
     title: 'Merch con identidad.',
-    // No note under the title on /encargo (removed per the client's design, 2026-11-14).
-    note: '',
+    // Subtext under the title (re-added 2026-11-20; it had been removed on 2026-11-14).
+    note: 'Diseñamos, personalizamos y damos vida a productos que cuentan tu historia',
     primary: { label: 'Hagámoslo realidad', href: '#contactar' },
     // The story is now "how we make it": the secondary action scrolls to the walkthrough.
     secondary: { label: 'Descubre el Proceso', href: '#proceso' },
