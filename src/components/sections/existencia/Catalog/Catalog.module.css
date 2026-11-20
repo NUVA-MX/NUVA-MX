@@ -30,6 +30,8 @@
 
 .results {
   min-width: 0;
+  /* Page changes scroll here: keep the top of the results clear of the sticky nav. */
+  scroll-margin-top: calc(var(--nav-offset) + var(--space-4));
 }
 
 /* see src/styles/breakpoints.ts */

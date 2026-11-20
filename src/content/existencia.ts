@@ -27,11 +27,8 @@ export const existencia = {
   hero: {
     // Same full-bleed photo hero as /encargo (shared component), with this side's copy.
     title: 'Tu marca en todo',
-    // Empty like Merch's hero (same layout). Previous copy: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.'
-    note: '',
+    note: 'Explora nuestro catálogo, compra al precio publicado o personaliza tus productos.',
     primary: { label: 'Ver productos', href: '#catalogo' },
-    // TODO(client): confirm the secondary action (quote by WhatsApp).
-    secondary: { label: 'Cotiza por WhatsApp', href: '#envios' },
     // TODO(client): full-width photo of an in-stock product (same treatment as the Merch hero).
     image: null as string | null,
     imageAlt: 'Foto de producto en stock',

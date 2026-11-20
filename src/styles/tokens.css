@@ -439,6 +439,7 @@
   --nav-row-taller: 52px;
   --announce-height: 36px;
   --hero-taller-height: clamp(440px, 66vh, 640px);
+  --hero-taller-height-phone: 501px; /* phone hero height (Merch and Promocionales); the content sits at the bottom of it */
   --duration-marquee: 38s;
   --duration-carousel: 700ms;
   --card-taller-width: 360px;

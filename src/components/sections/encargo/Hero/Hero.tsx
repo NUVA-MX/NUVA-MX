@@ -9,7 +9,8 @@ import promo from './HeroPromo.module.css';
 
 /** Full-bleed photo hero (side-colored gradient (olive on /encargo, wine on /existencia) until there is a photo); title and two buttons sit bottom-left. */
 type HeroProps = {
-  content: EncargoContent['hero'];
+  /** The secondary button is optional: /existencia shows only "Ver productos". */
+  content: Omit<EncargoContent['hero'], 'secondary'> & { secondary?: EncargoContent['hero']['secondary'] };
   /** Icon on the primary button. WhatsApp on /encargo; /existencia scrolls to the products, so it uses the arrow. */
   primaryIcon?: 'whatsapp' | 'arrow';
 };
@@ -45,14 +46,16 @@ export function Hero({ content: h, primaryIcon = 'whatsapp' }: HeroProps) {
           >
             {h.primary.label}
           </Button>
-          <Button
-            href={h.secondary.href}
-            variant="ghost-inverse"
-            size="xl"
-            className={cx(styles.button, styles.outline, promo.button, promo.outline)}
-          >
-            {h.secondary.label}
-          </Button>
+          {h.secondary && (
+            <Button
+              href={h.secondary.href}
+              variant="ghost-inverse"
+              size="xl"
+              className={cx(styles.button, styles.outline, promo.button, promo.outline)}
+            >
+              {h.secondary.label}
+            </Button>
+          )}
         </div>
       </Container>
     </section>

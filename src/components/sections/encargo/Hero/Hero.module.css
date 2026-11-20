@@ -110,13 +110,13 @@
   /* Wrap the content instead of a tall empty block: title, note and buttons all fit the first screen. */
   .root {
     height: auto;
-    min-height: 0;
+    min-height: var(--hero-taller-height-phone); /* same height as before; the content now sits at the bottom of it */
     padding-block-start: var(--space-16);
   }
 
   .inner {
     align-items: stretch;
-    padding-block-end: calc(var(--space-24) + 80px); /* keeps the text above the light end of the fade */
+    padding-block-end: var(--space-10);
   }
 
   .actions {
