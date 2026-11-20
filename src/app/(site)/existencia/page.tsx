@@ -24,7 +24,14 @@ export default async function ExistenciaPage() {
   return (
     <>
       <Hero />
-      <Marquee text={existencia.marquee} image={{ src: '/brand/cinta-from-brand-negro.png', width: 1406, height: 144 }} />
+      <Marquee
+        text={existencia.marquee}
+        light
+        images={[
+          { src: '/brand/isotipo-negro.png', width: 400, height: 394 },
+          { src: '/brand/sello-negro.png', width: 390, height: 400 },
+        ]}
+      />
       <ReassuranceStrip />
       <Products />
       <Catalog />

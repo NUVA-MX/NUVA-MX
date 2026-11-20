@@ -5,6 +5,11 @@
   color: var(--color-marquee-text);
 }
 
+.light {
+  background: var(--promo-blue);
+  color: var(--black);
+}
+
 .track {
   display: flex;
   width: max-content;
@@ -38,8 +43,25 @@
   height: var(--space-10);
 }
 
+/* Square logos: sized by height, spaced wider than the ribbon. */
+.logo {
+  display: block;
+  flex-shrink: 0;
+  padding-inline-end: var(--space-11);
+}
+
+.logoImg {
+  display: block;
+  width: auto;
+  height: var(--space-9);
+}
+
 /* see src/styles/breakpoints.ts */
 @media (max-width: 640px) {
+  .logoImg {
+    height: var(--space-8);
+  }
+
   .img {
     height: var(--space-8);
   }
@@ -61,6 +83,10 @@
 
   .img {
     height: var(--space-11);
+  }
+
+  .logoImg {
+    height: var(--space-10);
   }
 }
 

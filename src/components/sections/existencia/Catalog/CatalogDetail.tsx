@@ -44,7 +44,9 @@ export function CatalogDetail({ product, titleId, onAdded }: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.gallery}>
-        <Media src={main} alt={product.name} ratio="1/1" sizes="modal" tint="wine" />
+        <div className={styles.main}>
+          <Media src={main} alt={product.name} ratio="fill" sizes="modal" tint="wine" />
+        </div>
         {gallery.length > 1 && (
           <ul className={styles.thumbs} aria-label={d.gallery}>
             {gallery.map((url, i) => (

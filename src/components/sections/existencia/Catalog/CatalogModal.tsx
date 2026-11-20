@@ -30,7 +30,7 @@ export function CatalogModal({ open, item, preview, onClose }: Props) {
     openCart();
   }
   return (
-    <Modal open={open} onClose={onClose} labelledBy={TITLE_ID} theme="taller" className={styles.sheet} rootClassName={styles.backdrop}>
+    <Modal open={open} onClose={onClose} labelledBy={TITLE_ID} theme="taller" side="existencia" className={styles.sheet} rootClassName={styles.backdrop}>
       <div className={styles.closeBar}>
         <button type="button" className={styles.close} aria-label={ui.close} onClick={onClose}>
           <Icon name="close" size="md" />

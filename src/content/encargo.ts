@@ -171,9 +171,8 @@ export const encargo = {
     body: 'Descubre nuestra variedad de artículos promocionales y regalos corporativos. Personalizamos cada producto para adaptarlo a tu marca, equipo o evento.',
     cue: 'Explora los promocionales →',
     href: '/existencia',
-    // TODO(client): photo of an in-stock product.
-    image: null as string | null,
-    imageAlt: 'Foto de producto promocional',
+    image: '/photos/promocionales-caja.webp' as string | null,
+    imageAlt: 'Cajas NUVA de producto promocional frente a una puerta de madera',
     label: 'Foto: producto promocional',
   },
 } as const;

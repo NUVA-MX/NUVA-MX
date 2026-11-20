@@ -21,3 +21,8 @@
 .root a {
   scroll-margin-top: var(--nav-offset);
 }
+
+/* Photo anchored to the bottom: the boxes stay in view and the leaves at the top are the part that gets cropped. */
+.root .block img {
+  object-position: center 80%;
+}

@@ -11,6 +11,17 @@
   background: var(--color-placeholder);
 }
 
+.main {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+/* Whole product visible, never cropped. */
+.main img {
+  object-fit: contain;
+}
+
 .thumbs {
   display: flex;
   flex-wrap: wrap;
@@ -128,19 +139,44 @@
   color: var(--color-text-muted);
 }
 
+/* Desktop: the window has a fixed height; the photo column and the text column each fit inside it (the text scrolls only on very short screens). */
 /* see src/styles/breakpoints.ts */
 @media (min-width: 640px) {
   .root {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+    height: 100%;
   }
 
   .gallery {
-    position: sticky;
-    top: 0;
-    align-self: start;
+    min-height: 0;
+  }
+
+  .main {
+    flex: 1;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  /* One row that scrolls sideways, so a product with many photos never eats the height of the main photo. */
+  .thumbs {
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .thumbs > li {
+    flex-shrink: 0;
   }
 
   .content {
-    padding: var(--space-12) var(--space-10) var(--space-10);
+    min-height: 0;
+    gap: var(--space-3);
+    padding: var(--space-11) var(--space-8) var(--space-6);
+    overflow-y: auto;
+  }
+
+  .title {
+    font-size: var(--display-md);
   }
 }
