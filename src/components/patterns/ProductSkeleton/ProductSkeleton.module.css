@@ -58,3 +58,10 @@
     animation: none;
   }
 }
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .body {
+    padding: var(--space-3) var(--space-3) var(--space-4);
+  }
+}

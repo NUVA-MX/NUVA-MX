@@ -12,3 +12,12 @@
 .root:focus {
   outline: none;
 }
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  /* Phones: two cards per row instead of one long column. */
+  .grid.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+}

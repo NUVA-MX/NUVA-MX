@@ -50,7 +50,7 @@ export function Products() {
           {status === 'loading' && (
             <>
               <VisuallyHidden>{p.loading}</VisuallyHidden>
-              <Grid min="md" gap="5-5">
+              <Grid min="md" gap="5-5" className={styles.grid}>
                 {Array.from({ length: SKELETONS }, (_, i) => (
                   <ProductSkeleton key={i} />
                 ))}
@@ -72,7 +72,7 @@ export function Products() {
           )}
 
           {status === 'success' && (
-            <Grid min="md" gap="5-5">
+            <Grid min="md" gap="5-5" className={styles.grid}>
               {data.map((product) => (
                 <ProductCard
                   key={product.id}

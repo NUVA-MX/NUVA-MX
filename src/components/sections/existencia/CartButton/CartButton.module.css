@@ -2,6 +2,11 @@
   white-space: nowrap;
 }
 
+/* The cart icon only replaces the text on phones, where the text box would run into the logo. */
+.icon {
+  display: none;
+}
+
 /* Empty list: dark badge. With pieces: --promo-blue with --promo-wine-dark text (>= 4.5:1). */
 .badge {
   display: inline-flex;
@@ -37,5 +42,20 @@
 @media (prefers-reduced-motion: reduce) {
   .badge[data-bump='true'] {
     animation: none;
+  }
+}
+
+/* see src/styles/breakpoints.ts */
+@media (max-width: 640px) {
+  .label {
+    display: none;
+  }
+
+  .icon {
+    display: block;
+  }
+
+  .badge {
+    margin-left: var(--space-1-5);
   }
 }
