@@ -7,6 +7,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 import { Cart } from '@/components/sections/existencia/Cart';
 import { CartButton } from '@/components/sections/existencia/CartButton';
 import { ListFab } from '@/components/sections/existencia/ListFab';
+import { ScrollReset } from '@/components/sections/shared/ScrollReset';
 import { TallerNav } from '@/components/sections/shared/TallerNav';
 import { encargo } from '@/content/encargo';
 import { existencia } from '@/content/existencia';
@@ -48,6 +49,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
 
   return (
     <CartProvider>
+      <ScrollReset />
       <PageShell
         theme="taller"
         side={side}
