@@ -18,7 +18,10 @@
   flex-direction: column;
   gap: var(--space-half);
   margin: 0;
-  padding: 0;
+  padding: var(--space-2);
+  border: var(--border-width) solid var(--promo-line);
+  border-radius: var(--promo-tile-radius);
+  background: var(--promo-surface);
   list-style: none;
 }
 
@@ -44,7 +47,7 @@
 }
 
 .item:hover {
-  background: var(--promo-surface);
+  background: var(--white);
 }
 
 .item:focus-visible {
