@@ -79,9 +79,9 @@
   height: calc(var(--space-10) - 15px); /* 25px */
 }
 
-/* Promocionales: same footer as Merch. Only the band color needs pinning, because --brand is wine on this side; text colors come from the shared theme. */
+/* Promocionales: same footer as Merch, but the band is wine. Text colors come from the shared theme. */
 :global([data-side='existencia']) .root {
-  --color-surface-inverse: var(--olive-900);
+  --color-surface-inverse: var(--promo-wine);
 }
 
 /* Merch and Promocionales footer: every text in one color. */
