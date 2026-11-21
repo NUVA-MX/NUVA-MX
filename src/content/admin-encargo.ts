@@ -92,7 +92,7 @@ export const adminEncargo = {
     promoCarousel: {
       title: 'Carrusel de Promocionales',
       slide: 'Foto {n} del carrusel',
-      hint: 'Ocho espacios fijos en la página Promocionales. Los vacíos se muestran como tarjetas en blanco.',
+      hint: 'Quince espacios fijos en la página Promocionales, con las fotos originales. Sube una imagen para reemplazar una; restaurar vuelve a la foto original.',
     },
     crossLink: {
       title: 'Enlace a la tienda',

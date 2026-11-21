@@ -14,23 +14,23 @@ const schemas = sectionSchemas(HOST);
 const slide = (u: string, alt = 'Taza promocional') => ({ url: u, alt });
 
 describe('promoCarousel defaults', () => {
-  it('exposes the carousel content equal to existencia.carousel with 8 empty slides', () => {
+  it('exposes the carousel content equal to existencia.carousel with 15 default photos', () => {
     const c = resolveEncargo(encargo, {});
     expect(c.promoCarousel).toEqual(existencia.carousel);
-    expect(c.promoCarousel.slides).toHaveLength(8);
-    expect(c.promoCarousel.slides.every((s) => s.image === null)).toBe(true);
+    expect(c.promoCarousel.slides).toHaveLength(15);
+    expect(c.promoCarousel.slides.every((s) => s.image?.startsWith('/photos/promo-'))).toBe(true);
     expect(overrideDefaults(encargo).promoCarousel).toEqual({});
   });
 });
 
 describe('promoCarousel schema', () => {
-  it('accepts up to 8 slots, nulls and a safe url with alt', () => {
+  it('accepts up to 15 slots, nulls and a safe url with alt', () => {
     expect(schemas.promoCarousel.safeParse({ slides: [slide(A), null, slide(B)] }).success).toBe(true);
-    expect(schemas.promoCarousel.safeParse({ slides: Array(8).fill(slide(A)) }).success).toBe(true);
+    expect(schemas.promoCarousel.safeParse({ slides: Array(15).fill(slide(A)) }).success).toBe(true);
     expect(schemas.promoCarousel.safeParse({}).success).toBe(true);
   });
   it('rejects too many slots, foreign host, query, hash, missing alt and extra keys', () => {
-    expect(schemas.promoCarousel.safeParse({ slides: Array(9).fill(slide(A)) }).success).toBe(false);
+    expect(schemas.promoCarousel.safeParse({ slides: Array(16).fill(slide(A)) }).success).toBe(false);
     expect(schemas.promoCarousel.safeParse({ slides: [slide('https://evil.test/encargo/x.webp')] }).success).toBe(false);
     expect(schemas.promoCarousel.safeParse({ slides: [slide(`${A}?x=1`)] }).success).toBe(false);
     expect(schemas.promoCarousel.safeParse({ slides: [slide(`${A}#h`)] }).success).toBe(false);
@@ -53,15 +53,15 @@ describe('promoCarousel merge', () => {
   it('fills only the overridden slots by index and keeps labels', () => {
     const c = resolveEncargo(encargo, { promoCarousel: { slides: [null, slide(A, 'Taza'), null, null, null, null, null, slide(B, 'Gorra')] } });
     const s = c.promoCarousel.slides;
-    expect(s[0]!.image).toBeNull();
+    expect(s[0]!.image).toBe('/photos/promo-01.webp');
     expect(s[1]).toEqual({ image: A, imageAlt: 'Taza' });
     expect(s[7]).toEqual({ image: B, imageAlt: 'Gorra' });
-    expect(s).toHaveLength(8);
+    expect(s).toHaveLength(15);
     expect(c.promoCarousel.prev).toBe(existencia.carousel.prev);
   });
   it('does not mutate the defaults', () => {
     resolveEncargo(encargo, { promoCarousel: { slides: [slide(A)] } });
-    expect(encargo.promoCarousel.slides[0]!.image).toBeNull();
+    expect(encargo.promoCarousel.slides[0]!.image).toBe('/photos/promo-01.webp');
   });
 });
 
@@ -72,10 +72,10 @@ describe('promoCarousel form, cleanup and restore', () => {
     fd.set('slides.0.alt', 'Taza promocional');
     fd.set('slides.2.url', B);
     fd.set('slides.2.alt', 'Gorra');
-    fd.set('slides.8.url', 'ignored');
+    fd.set('slides.15.url', 'ignored');
     fd.set('hack', 'x');
     const raw = readSectionRaw('promoCarousel', fd);
-    expect(Object.keys(raw)).toHaveLength(16);
+    expect(Object.keys(raw)).toHaveLength(30);
     expect(buildSectionCandidate('promoCarousel', raw)).toEqual({
       slides: [slide(A, 'Taza promocional'), null, slide(B, 'Gorra')],
     });
@@ -92,8 +92,8 @@ describe('promoCarousel form, cleanup and restore', () => {
     expect(collectImageUrls(overrides)).toEqual([A, B]);
   });
   it('restores single slots, not nested paths', () => {
-    for (let i = 0; i < 8; i++) expect(isRestorePath('promoCarousel', `slides.${i}`)).toBe(true);
-    expect(isRestorePath('promoCarousel', 'slides.8')).toBe(false);
+    for (let i = 0; i < 15; i++) expect(isRestorePath('promoCarousel', `slides.${i}`)).toBe(true);
+    expect(isRestorePath('promoCarousel', 'slides.15')).toBe(false);
     expect(isRestorePath('promoCarousel', 'slides.0.url')).toBe(false);
     expect(removeOverridePath({ slides: [slide(A), slide(B)] }, 'slides.1')).toEqual({ slides: [slide(A)] });
     expect(removeOverridePath({ slides: [slide(A)] }, 'slides.0')).toBeUndefined();
@@ -104,9 +104,9 @@ describe('promoCarousel form, cleanup and restore', () => {
 });
 
 describe('promoCarousel admin spec', () => {
-  it('lists 8 image slots with alt and reflects overrides', () => {
+  it('lists 15 image slots with alt and reflects overrides', () => {
     const empty = buildSectionSpecs(encargo, {}, new Date()).find((s) => s.key === 'promoCarousel')!;
-    expect(empty.fields).toHaveLength(8);
+    expect(empty.fields).toHaveLength(15);
     expect(empty.overridden).toBe(false);
     expect(empty.fields[0]).toMatchObject({ kind: 'image', name: 'slides.0', restore: 'slides.0', overridden: false });
     expect(empty.fields[0]).not.toHaveProperty('decorative');
