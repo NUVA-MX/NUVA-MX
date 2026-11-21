@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import { Rail } from '@/components/patterns/Rail';
 import { Media } from '@/components/primitives/Media';
 import { cx } from '@/lib/cx';
@@ -23,31 +23,10 @@ function Chevron({ flip }: { flip?: boolean }) {
   );
 }
 
-/** Promocionales photo rail: Rail (snap, arrow keys, drag) plus prev/next buttons. No autoplay. */
+/** Promocionales photo rail: endless Rail (snap, arrow keys, drag) plus prev/next buttons. No autoplay. */
 export function PromoCarousel({ content, title, lead }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
-  const [edge, setEdge] = useState({ start: true, end: false });
-
   const scroller = useCallback(() => wrap.current?.querySelector<HTMLElement>('[role="region"]') ?? null, []);
-
-  const update = useCallback(() => {
-    const el = scroller();
-    if (!el) return;
-    setEdge({ start: el.scrollLeft <= 1, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1 });
-  }, [scroller]);
-
-  useEffect(() => {
-    const el = scroller();
-    if (!el) return;
-    const raf = requestAnimationFrame(update);
-    el.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, [scroller, update]);
 
   function go(dir: 1 | -1) {
     const el = scroller();
@@ -66,7 +45,7 @@ export function PromoCarousel({ content, title, lead }: Props) {
         </h2>
         <p className={styles.lead}>{lead}</p>
       </div>
-      <Rail ariaLabel={content.ariaLabel} className={styles.rail}>
+      <Rail ariaLabel={content.ariaLabel} className={styles.rail} loop>
         {content.slides.map((slide, i) => (
           <div key={i} className={styles.card}>
             <Media src={slide.image} alt={slide.imageAlt} ratio="4/5" radius="card" sizes="promoCarousel" className={styles.media} />
@@ -74,10 +53,10 @@ export function PromoCarousel({ content, title, lead }: Props) {
         ))}
       </Rail>
       <div className={styles.controls}>
-        <button type="button" className={styles.button} aria-label={content.prev} disabled={edge.start} onClick={() => go(-1)}>
+        <button type="button" className={styles.button} aria-label={content.prev} onClick={() => go(-1)}>
           <Chevron flip />
         </button>
-        <button type="button" className={styles.button} aria-label={content.next} disabled={edge.end} onClick={() => go(1)}>
+        <button type="button" className={styles.button} aria-label={content.next} onClick={() => go(1)}>
           <Chevron />
         </button>
       </div>
